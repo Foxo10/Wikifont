@@ -1,8 +1,6 @@
 package com.example.wikifountains;
 
 
-import androidx.room.PrimaryKey;
-
 public class Fuente {
     private int id;
     private String nombre;
