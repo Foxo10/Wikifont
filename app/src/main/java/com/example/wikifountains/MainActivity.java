@@ -22,14 +22,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        // Configurar el RecyclerView
         recyclerView = findViewById(R.id.recyclerViewFuentes);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         List<Fuente> fuentes = new ArrayList<>();
-        fuentes.add(new Fuente(1, "Fuente del Parque", "Bilbao", "Una fuente histórica en el centro de Bilbao."));
-        fuentes.add(new Fuente(2, "Fuente de la Plaza", "Getxo", "Fuente moderna con iluminación nocturna."));
+        fuentes.add(new Fuente("Fuente del Parque", "Bilbao", R.drawable.fuente_bilbo_donacasilda, "Una fuente histórica en el centro de Bilbao."));
+        fuentes.add(new Fuente("Fuente de la Plaza", "Getxo", R.drawable.fuente_getxo_plaza, "Fuente moderna con iluminación nocturna."));
 
+        // Crear el adaptador y asignarlo al RecyclerView
         adapter = new FuenteAdapter(fuentes);
         recyclerView.setAdapter(adapter);
 

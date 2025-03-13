@@ -1,9 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:layout_margin="8dp"
+    android:elevation="8dp"
+    android:background="@android:color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,19 +13,40 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- Imagen de la fuente -->
+        <ImageView
+            android:id="@+id/imageViewFuente"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_water" />
+
+        <!-- Nombre de la fuente -->
         <TextView
             android:id="@+id/textViewNombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nombre de la Fuente"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginTop="8dp" />
 
+        <!-- Ubicación de la fuente -->
         <TextView
             android:id="@+id/textViewUbicacion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ubicación"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:layout_marginTop="4dp" />
+
+        <!-- Descripción de la fuente (opcional) -->
+        <TextView
+            android:id="@+id/textViewDescripcion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descripción"
+            android:textSize="12sp"
+            android:layout_marginTop="4dp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
