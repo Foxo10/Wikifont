@@ -40,7 +40,7 @@
             android:textSize="14sp"
             android:layout_marginTop="4dp" />
 
-        <!-- Descripción de la fuente (opcional) -->
+        <!-- Descripción de la fuente -->
         <TextView
             android:id="@+id/textViewDescripcion"
             android:layout_width="wrap_content"
