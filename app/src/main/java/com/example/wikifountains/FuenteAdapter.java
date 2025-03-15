@@ -30,8 +30,8 @@ public class FuenteAdapter extends RecyclerView.Adapter<FuenteViewHolder> {
 
         // Asignar los datos a las vistas
         holder.textViewNombre.setText(fuente.getNombre());
-        holder.textViewUbicacion.setText(fuente.getUbicacion());
-        holder.textViewDescripcion.setText(fuente.getDescripcion());
+        holder.textViewLocalidad.setText(fuente.getLocalidad());
+        holder.textViewCalle.setText(fuente.getCalle());
     }
 
     @Override

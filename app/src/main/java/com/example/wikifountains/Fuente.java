@@ -7,24 +7,24 @@ import androidx.room.PrimaryKey;
 public class Fuente {
     @PrimaryKey(autoGenerate = true)
     private int id;
-
     private String nombre;
-    private String ubicacion;
+    private String localidad;
+    private String calle;
+    private String coordenadas;
     private String descripcion;
 
     // Constructor
-    public Fuente(String nombre, String ubicacion, String descripcion) {
+    public Fuente(String nombre, String localidad, String calle, String coordenadas, String descripcion) {
         this.nombre = nombre;
-        this.ubicacion = ubicacion;
+        this.localidad = localidad;
+        this.calle = calle;
+        this.coordenadas = coordenadas;
         this.descripcion = descripcion;
-    }
-
-    public Fuente() {
-
     }
 
 
     // Getters y Setters
+
     public int getId() {
         return id;
     }
@@ -41,12 +41,28 @@ public class Fuente {
         this.nombre = nombre;
     }
 
-    public String getUbicacion() {
-        return ubicacion;
+    public String getLocalidad() {
+        return localidad;
     }
 
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+    public String getCalle() {
+        return calle;
+    }
+
+    public void setCalle(String calle) {
+        this.calle = calle;
+    }
+
+    public String getCoordenadas() {
+        return coordenadas;
+    }
+
+    public void setCoordenadas(String coordenadas) {
+        this.coordenadas = coordenadas;
     }
 
     public String getDescripcion() {

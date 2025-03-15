@@ -18,14 +18,34 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextUbicacion"
+        android:id="@+id/editTextLocalidad"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="Ubicación"
+        android:hint="Localidad"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextNombre" />
+
+    <EditText
+        android:id="@+id/editTextCalle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="Calle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextLocalidad" />
+
+    <EditText
+        android:id="@+id/editTextCoordenadas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="Coordenadas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextCalle" />
 
     <EditText
         android:id="@+id/editTextDescripcion"
@@ -35,7 +55,7 @@
         android:hint="Descripción"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextUbicacion" />
+        app:layout_constraintTop_toBottomOf="@id/editTextCoordenadas" />
 
     <Button
         android:id="@+id/buttonGuardar"

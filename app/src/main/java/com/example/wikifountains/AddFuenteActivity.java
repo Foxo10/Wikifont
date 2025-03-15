@@ -8,7 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AddFuenteActivity extends AppCompatActivity {
     private EditText editTextNombre;
-    private EditText editTextUbicacion;
+    private EditText editTextLocalidad;
+    private EditText editTextCalle;
+    private EditText editTextCoordenadas;
     private EditText editTextDescripcion;
     private Button buttonGuardar;
 
@@ -18,7 +20,10 @@ public class AddFuenteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_fuente);
 
         editTextNombre = findViewById(R.id.editTextNombre);
-        editTextUbicacion = findViewById(R.id.editTextUbicacion);
+        editTextLocalidad= findViewById(R.id.editTextLocalidad);
+        editTextLocalidad.setText(getIntent().getStringExtra("localidadseleccionado"));
+        editTextCalle = findViewById(R.id.editTextCalle);
+        editTextCoordenadas = findViewById(R.id.editTextCoordenadas);
         editTextDescripcion = findViewById(R.id.editTextDescripcion);
         buttonGuardar = findViewById(R.id.buttonGuardar);
 
@@ -32,13 +37,12 @@ public class AddFuenteActivity extends AppCompatActivity {
 
     private void guardarFuente() {
         String nombre = editTextNombre.getText().toString();
-        String ubicacion = editTextUbicacion.getText().toString();
+        String localidad = editTextLocalidad.getText().toString();
+        String calle = editTextCalle.getText().toString();
+        String coordenadas = editTextCoordenadas.getText().toString();
         String descripcion = editTextDescripcion.getText().toString();
 
-        Fuente nuevaFuente = new Fuente();
-        nuevaFuente.setNombre(nombre);
-        nuevaFuente.setUbicacion(ubicacion);
-        nuevaFuente.setDescripcion(descripcion);
+        Fuente nuevaFuente = new Fuente(nombre, localidad, calle, coordenadas, descripcion);
 
         AppDatabase db = AppDatabase.getInstance(this);
         db.fuenteDao().insert(nuevaFuente);

@@ -3,6 +3,7 @@ package com.example.wikifountains;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -13,9 +14,13 @@ public interface FuenteDao {
 
     @Insert
     void insert(List<Fuente> fuentes);
+    @Update
+    void update(Fuente fuente);
 
-    @Query("SELECT * FROM fuentes WHERE ubicacion = :pueblo")
-    List<Fuente> getFuentesPorPueblo(String pueblo);
+    @Query("SELECT * FROM fuentes WHERE localidad = :localidad")
+    List<Fuente> getFuentesPorLocalidad(String localidad);
+    @Query("SELECT * FROM fuentes WHERE id = :id")
+    Fuente getFuenteById(int id);
 
     @Query("SELECT * FROM fuentes")
     List<Fuente> getAllFuentes();

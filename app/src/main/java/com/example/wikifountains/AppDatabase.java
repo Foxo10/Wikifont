@@ -37,8 +37,10 @@ public abstract class AppDatabase extends RoomDatabase {
 
     // Lista de fuentes predeterminadas (sin imágenes)
     private static final List<Fuente> PREPOPULATE_DATA = Arrays.asList(
-            new Fuente("Fuente del Parque", "Bilbao", "Una fuente histórica en el centro de Bilbao."),
-            new Fuente("Fuente de la Plaza", "Getxo", "Fuente moderna con iluminación nocturna."),
-            new Fuente("Fuente del Puerto", "Portugalete", "Fuente cerca del puerto deportivo.")
-    );
+            new Fuente("Fuente de Neguri", "Getxo", "12 Av. Algortako Etorbidea", "", ""),
+            new Fuente("Fuente plaza del casino", "Getxo", "49 Av. Basagoiti", "", ""),
+            new Fuente("Fuente de la playa", "Sopela", "Av. Atxabiribil, 77", "", ""),
+            new Fuente("Fuente de Zabalbide", "Bilbao", "Zabalbide Kalea, 5, Ibaiondo", "",""),
+            new Fuente("Fuente del perro", "Bilbao","Txakur Kalea, 2-4, Ibaiondo","","Fuente de estilo neoclásico del 1800 adosada a una pared de la calle del Perro. Tiene tres caños y un poyo en el que descansar después de refrescarnos.")
+            );
 }

@@ -15,6 +15,9 @@
         <activity
             android:name=".FuentesActivity" />
         <activity
+            android:name=".AddFuenteActivity">
+        </activity>
+        <activity
             android:name=".InicioActivity"
             android:exported="true">
             <intent-filter>

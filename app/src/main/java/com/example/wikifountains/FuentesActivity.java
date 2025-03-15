@@ -15,7 +15,7 @@ public class FuentesActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private FuenteAdapter adapter;
     private AppDatabase db;
-    private String puebloSeleccionado;
+    private String localidadSeleccionado;
     private Button buttonAddFuente;
     private TextView textoFuentesDe;
 
@@ -26,9 +26,9 @@ public class FuentesActivity extends AppCompatActivity {
 
         // Recibir el pueblo seleccionado desde InicioActivity
         Intent intent = getIntent();
-        puebloSeleccionado = intent.getStringExtra("pueblo");
+        localidadSeleccionado = intent.getStringExtra("pueblo");
         textoFuentesDe = findViewById(R.id.textViewFuentesDe);
-        textoFuentesDe.setText("Fuentes de "+ puebloSeleccionado);
+        textoFuentesDe.setText("Fuentes de "+ localidadSeleccionado);
 
         // Inicializar la base de datos
         db = AppDatabase.getInstance(this);
@@ -43,6 +43,7 @@ public class FuentesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FuentesActivity.this, AddFuenteActivity.class);
+                intent.putExtra("localidadseleccionado", localidadSeleccionado);
                 startActivity(intent);
             }
         });
@@ -58,7 +59,7 @@ public class FuentesActivity extends AppCompatActivity {
     }
     private void cargarFuentes() {
         // Obtener las fuentes filtradas por pueblo
-        List<Fuente> fuentes = db.fuenteDao().getFuentesPorPueblo(puebloSeleccionado);
+        List<Fuente> fuentes = db.fuenteDao().getFuentesPorLocalidad(localidadSeleccionado);
 
         // Asignar las fuentes al adaptador
         adapter = new FuenteAdapter(fuentes);
