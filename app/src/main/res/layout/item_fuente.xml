@@ -13,20 +13,12 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Imagen de la fuente -->
-        <ImageView
-            android:id="@+id/imageViewFuente"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_water" />
-
         <!-- Nombre de la fuente -->
         <TextView
             android:id="@+id/textViewNombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nombre de la Fuente"
+            android:text="Nombre de la fuente"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginTop="8dp" />

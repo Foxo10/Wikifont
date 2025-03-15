@@ -11,17 +11,15 @@ public class Fuente {
     private String nombre;
     private String ubicacion;
     private String descripcion;
-    private String imagenPath;  // Ruta de la imagen en el almacenamiento interno
 
     // Constructor
-    public Fuente(String nombre, String ubicacion, String descripcion, String imagenPath) {
+    public Fuente(String nombre, String ubicacion, String descripcion) {
         this.nombre = nombre;
         this.ubicacion = ubicacion;
         this.descripcion = descripcion;
-        this.imagenPath = imagenPath;
     }
 
-    // Getters y Setters (Room los necesita)
+    // Getters y Setters
     public int getId() {
         return id;
     }
@@ -52,13 +50,5 @@ public class Fuente {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public String getImagenPath() {
-        return imagenPath;
-    }
-
-    public void setImagenPath(String imagenPath) {
-        this.imagenPath = imagenPath;
     }
 }
