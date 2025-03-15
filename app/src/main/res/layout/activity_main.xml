@@ -9,18 +9,20 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewFuentes"
-        android:layout_width="343dp"
-        android:layout_height="561dp"
-        android:layout_marginBottom="84dp"
+        android:layout_width="330dp"
+        android:layout_height="312dp"
+        android:layout_marginBottom="332dp"
+        android:contentDescription="Lista de fuentes de Vizcaya"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         tools:listitem="@layout/item_fuente" />
 
     <TextView
         android:id="@+id/textViewFuentesDe"
-        android:layout_width="236dp"
-        android:layout_height="30dp"
+        android:layout_width="262dp"
+        android:layout_height="36dp"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="23dp"
         android:gravity="center_vertical"
@@ -29,9 +31,24 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewFuentes"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.194"
+        app:layout_constraintHorizontal_bias="0.181"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.882" />
+
+    <Button
+        android:id="@+id/buttonAddFuente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginTop="580dp"
+        android:layout_marginBottom="240dp"
+        android:text="Añadir Fuente"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/recyclerViewFuentes"
+        app:layout_constraintVertical_bias="0.718" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

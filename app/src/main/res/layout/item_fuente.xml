@@ -8,37 +8,50 @@
     android:background="@android:color/white">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="362dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- Imagen de la fuente -->
+
         <!-- Nombre de la fuente -->
+
+        <ImageView
+            android:id="@+id/imageViewFuente"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:contentDescription="Imagen de la fuente"
+            android:src="@drawable/ic_fuente" />
+
         <TextView
             android:id="@+id/textViewNombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:contentDescription="Nombre de la fuente"
             android:text="Nombre de la fuente"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="8dp" />
+            android:textStyle="bold" />
 
         <!-- Ubicación de la fuente -->
         <TextView
             android:id="@+id/textViewUbicacion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:contentDescription="Ubicación de la fuente"
             android:text="Ubicación"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp" />
+            android:textSize="14sp" />
 
         <!-- Descripción de la fuente -->
         <TextView
             android:id="@+id/textViewDescripcion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:contentDescription="Descripción de la fuente"
             android:text="Descripción"
-            android:textSize="12sp"
-            android:layout_marginTop="4dp" />
+            android:textSize="12sp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

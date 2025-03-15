@@ -9,13 +9,15 @@
 
     <ListView
         android:id="@+id/listViewPueblos"
-        android:layout_width="327dp"
-        android:layout_height="129dp"
+        android:layout_width="320dp"
+        android:layout_height="207dp"
         android:layout_margin="16dp"
+        android:contentDescription="Lista de pueblos de Vizcaya"
         app:layout_constraintBottom_toTopOf="@id/buttonOpciones"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.439"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tituloTextBiew"
+        app:layout_constraintTop_toBottomOf="@id/tituloTextView"
         app:layout_constraintVertical_bias="0.476" />
 
     <Button
@@ -33,7 +35,7 @@
         app:layout_constraintTop_toBottomOf="@id/listViewPueblos" />
 
     <TextView
-        android:id="@+id/tituloTextBiew"
+        android:id="@+id/tituloTextView"
         android:layout_width="237dp"
         android:layout_height="67dp"
         android:gravity="center"
@@ -56,8 +58,8 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/listViewPueblos"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.172"
+        app:layout_constraintHorizontal_bias="0.164"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tituloTextBiew"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/tituloTextView"
+        app:layout_constraintVertical_bias="0.876" />
 </androidx.constraintlayout.widget.ConstraintLayout>

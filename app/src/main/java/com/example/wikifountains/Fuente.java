@@ -19,6 +19,11 @@ public class Fuente {
         this.descripcion = descripcion;
     }
 
+    public Fuente() {
+
+    }
+
+
     // Getters y Setters
     public int getId() {
         return id;
