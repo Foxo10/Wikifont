@@ -23,7 +23,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public static synchronized AppDatabase getInstance(Context context) {
         if (instance == null) {
             // Eliminar la base de datos existente
-            deleteDatabase(context);
+            // deleteDatabase(context);
 
             instance = Room.databaseBuilder(context.getApplicationContext(),
                             AppDatabase.class, "fuentes_database")
