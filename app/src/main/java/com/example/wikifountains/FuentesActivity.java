@@ -2,6 +2,7 @@ package com.example.wikifountains;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -26,8 +27,9 @@ public class FuentesActivity extends AppCompatActivity {
 
         // Recibir el pueblo seleccionado desde InicioActivity
         Intent intent = getIntent();
-        localidadSeleccionado = intent.getStringExtra("pueblo");
+        localidadSeleccionado = intent.getStringExtra("localidad");
         textoFuentesDe = findViewById(R.id.textViewFuentesDe);
+        Log.d("tag 3", "Localidad seleccionada: " + localidadSeleccionado);
         textoFuentesDe.setText("Fuentes de "+ localidadSeleccionado);
 
         // Inicializar la base de datos
@@ -59,7 +61,9 @@ public class FuentesActivity extends AppCompatActivity {
     }
     private void cargarFuentes() {
         // Obtener las fuentes filtradas por pueblo
+        Log.d("tag 4", "Cargando fuentes para la localidad: " + localidadSeleccionado);
         List<Fuente> fuentes = db.fuenteDao().getFuentesPorLocalidad(localidadSeleccionado);
+        Log.d("tag 5", "Número de fuentes encontradas: " + (fuentes != null ? fuentes.size() : "null"));
 
         // Asignar las fuentes al adaptador
         adapter = new FuenteAdapter(fuentes);
