@@ -73,7 +73,7 @@ public class InicioActivity extends AppCompatActivity {
     }
     private void loadLocale() {
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        String language = preferences.getString(LANGUAGE_KEY, "");
+        String language = preferences.getString(LANGUAGE_KEY, "es");
         if (!language.isEmpty()) {
             setLocale(language);
         }

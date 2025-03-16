@@ -7,6 +7,6 @@
     <string name="english">Inglés</string>
     <string name="spanish">Español</string>
     <string name="basque">Euskera</string>
-    <string name="fuentes">Fuentes de </string>
+    <string name="fuentes_de">Fuentes en %s</string>
     <string name="localidades">Localidades de Vizcaya</string>
 </resources>

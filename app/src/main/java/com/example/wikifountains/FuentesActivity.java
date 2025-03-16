@@ -45,18 +45,10 @@ public class FuentesActivity extends AppCompatActivity implements
         Intent intent = getIntent();
         localidadSeleccionado = intent.getStringExtra("localidad");
         textoFuentesDe = findViewById(R.id.textViewFuentesDe);
-        Log.d("tag 3", "Localidad seleccionada: " + localidadSeleccionado);
-        Locale currentLocale = getResources().getConfiguration().locale;
-        String idioma = currentLocale.getLanguage();
-        switch (idioma) {
-            case "en" :
-            case "es" :
-                textoFuentesDe.setText(textoFuentesDe.getText().toString()+ " "+ localidadSeleccionado);
-                break;
-            case "eu":
-                textoFuentesDe.setText(localidadSeleccionado + textoFuentesDe.getText().toString());
-                break;
-        }
+
+        // Obtener el texto formateado según el idioma
+        String textoFormateado = getString(R.string.fuentes_de, localidadSeleccionado);
+        textoFuentesDe.setText(textoFormateado);
 
         // Inicializar la base de datos
         db = AppDatabase.getInstance(this);

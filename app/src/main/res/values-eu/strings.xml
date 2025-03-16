@@ -7,6 +7,6 @@
     <string name="english">Ingelesa</string>
     <string name="spanish">Gaztelania</string>
     <string name="basque">Euskara</string>
-    <string name="fuentes">ko iturriak</string>
+    <string name="fuentes_de">%sko iturriak</string>
     <string name="localidades">Bizkaiko herriak</string>
 </resources>

@@ -6,6 +6,6 @@
     <string name="english">English</string>
     <string name="spanish">Spanish</string>
     <string name="basque">Basque</string>
-    <string name="fuentes">Fountains of </string>
+    <string name="fuentes_de">Fountains in %s</string>
     <string name="localidades">Towns of Vizcaya</string>
 </resources>
