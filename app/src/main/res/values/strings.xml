@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">WikiFountains</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_message">Welcome to the Main Screen!</string>
+    <string name="options_button">Options</string>
+    <string name="language_selection">Select Language</string>
+    <string name="english">English</string>
+    <string name="spanish">Spanish</string>
+    <string name="basque">Basque</string>
+    <string name="fuentes">Fountains of </string>
+    <string name="localidades">Towns of Vizcaya</string>
 </resources>

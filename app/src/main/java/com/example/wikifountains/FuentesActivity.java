@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.Executors;
 
 public class FuentesActivity extends AppCompatActivity implements
@@ -45,7 +46,17 @@ public class FuentesActivity extends AppCompatActivity implements
         localidadSeleccionado = intent.getStringExtra("localidad");
         textoFuentesDe = findViewById(R.id.textViewFuentesDe);
         Log.d("tag 3", "Localidad seleccionada: " + localidadSeleccionado);
-        textoFuentesDe.setText("Fuentes de " + localidadSeleccionado);
+        Locale currentLocale = getResources().getConfiguration().locale;
+        String idioma = currentLocale.getLanguage();
+        switch (idioma) {
+            case "en" :
+            case "es" :
+                textoFuentesDe.setText(textoFuentesDe.getText().toString()+ " "+ localidadSeleccionado);
+                break;
+            case "eu":
+                textoFuentesDe.setText(localidadSeleccionado + textoFuentesDe.getText().toString());
+                break;
+        }
 
         // Inicializar la base de datos
         db = AppDatabase.getInstance(this);

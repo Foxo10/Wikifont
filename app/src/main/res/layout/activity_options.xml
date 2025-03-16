@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/language_selection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/language_selection"
+        android:textSize="20sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="24dp"/>
+
+    <Button
+        android:id="@+id/button_english"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/english"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/button_spanish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/spanish"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/button_basque"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/basque"
+        android:layout_gravity="center_horizontal"/>
+</LinearLayout>

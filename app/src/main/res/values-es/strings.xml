@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WikiFountains</string>
+    <string name="welcome_message">¡Bienvenido a la pantalla principal!</string>
+    <string name="options_button">Opciones</string>
+    <string name="language_selection">Selecciona el idioma</string>
+    <string name="english">Inglés</string>
+    <string name="spanish">Español</string>
+    <string name="basque">Euskera</string>
+    <string name="fuentes">Fuentes de </string>
+    <string name="localidades">Localidades de Vizcaya</string>
+</resources>

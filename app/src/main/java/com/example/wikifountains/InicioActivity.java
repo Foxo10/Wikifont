@@ -1,6 +1,10 @@
 package com.example.wikifountains;
 
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,12 +22,15 @@ import java.util.List;
 import java.util.Locale;
 
 public class InicioActivity extends AppCompatActivity {
+    private static final String LANGUAGE_KEY = "language";
+    private static final String PREFS_NAME = "MyPrefs";
     private ListView listViewPueblos;
     private Button buttonOpciones;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadLocale();
         setContentView(R.layout.activity_inicio);
 
         // Inicializar vistas
@@ -47,6 +54,15 @@ public class InicioActivity extends AppCompatActivity {
             }
         });
 
+        buttonOpciones.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Abrir la actividad de opciones
+                Intent intent = new Intent(InicioActivity.this, OptionsActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void filtrarFuentesPorLocalidades(String localidad) {
@@ -54,6 +70,24 @@ public class InicioActivity extends AppCompatActivity {
         intent.putExtra("localidad", localidad);
         Log.d("tag 2", "Iniciando FuentesActivity con la localidad: " + localidad);
         startActivity(intent);
+    }
+    private void loadLocale() {
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        String language = preferences.getString(LANGUAGE_KEY, "");
+        if (!language.isEmpty()) {
+            setLocale(language);
+        }
+    }
+
+    private void setLocale(String languageCode) {
+        Locale locale = new Locale(languageCode);
+        Locale.setDefault(locale);
+
+        Configuration configuration = new Configuration();
+        configuration.setLocale(locale);
+
+        getBaseContext().getResources().updateConfiguration(configuration,
+                getBaseContext().getResources().getDisplayMetrics());
     }
 
     @Override
