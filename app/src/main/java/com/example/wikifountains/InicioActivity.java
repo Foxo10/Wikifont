@@ -43,32 +43,38 @@ public class InicioActivity extends AppCompatActivity {
         // Cargar localidades desde el fichero
         List<String> localidades = cargarLocalidadesDesdeFichero();
 
-        // Ordenar las localidades alfabéticamente
-        Collator collator = Collator.getInstance(new Locale("es"));
-        List<String> sortedLocalidades = new ArrayList<>(localidades);
-        sortedLocalidades.sort(collator);
+        // Cargar la preferencia de ordenar alfabéticamente
+        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        boolean ordenarAlfabeticamente = preferences.getBoolean("ordenar_fuentes", false);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, sortedLocalidades);
+        // Ordenar las localidades alfabéticamente si la preferencia está activada
+        if (ordenarAlfabeticamente) {
+            Collator collator = Collator.getInstance(new Locale("es"));
+            localidades.sort(collator);
+        }
+
+        // Configurar el adaptador para el ListView
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, localidades);
         listViewPueblos.setAdapter(adapter);
 
+        // Manejar clics en las localidades
         listViewPueblos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String localidadSeleccionada = sortedLocalidades.get(position);
+                String localidadSeleccionada = localidades.get(position);
                 filtrarFuentesPorLocalidades(localidadSeleccionada);
-                Log.d("tag 1", "Localidad seleccionado: " + localidadSeleccionada);
+                Log.d("tag 1", "Localidad seleccionada: " + localidadSeleccionada);
             }
         });
 
+        // Manejar clic en el botón de opciones
         buttonOpciones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Abrir la actividad de opciones
                 Intent intent = new Intent(InicioActivity.this, OptionsActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1); // Usar startActivityForResult
             }
         });
-
     }
 
     private void filtrarFuentesPorLocalidades(String localidad) {
@@ -118,6 +124,14 @@ public class InicioActivity extends AppCompatActivity {
         return localidades;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            recreate();
+        }
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

@@ -6,19 +6,28 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/language_selection"
+        android:id="@+id/textViewOpciones"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/language_selection"
-        android:textSize="20sp"
+        android:text="Opciones"
+        android:textSize="24sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="24dp"/>
 
+    <Switch
+        android:id="@+id/switchOrdenar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ordenar fuentes alfabéticamente"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Botones para cambiar el idioma -->
     <Button
         android:id="@+id/button_english"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/english"
+        android:text="English"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"/>
 
@@ -26,7 +35,7 @@
         android:id="@+id/button_spanish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/spanish"
+        android:text="Español"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"/>
 
@@ -34,6 +43,6 @@
         android:id="@+id/button_basque"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/basque"
+        android:text="Euskera"
         android:layout_gravity="center_horizontal"/>
 </LinearLayout>

@@ -7,6 +7,9 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.Locale;
 
@@ -14,6 +17,8 @@ public class OptionsActivity extends AppCompatActivity {
 
     private static final String PREFS_NAME = "MyPrefs";
     private static final String LANGUAGE_KEY = "language";
+    private static final String KEY_ORDENAR = "ordenar_fuentes";
+    private Switch switchOrdenar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,22 @@ public class OptionsActivity extends AppCompatActivity {
                 setLocale("eu");
             }
         });
+
+        switchOrdenar = findViewById(R.id.switchOrdenar);
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        boolean ordenarFuentes = preferences.getBoolean(KEY_ORDENAR, false);
+        switchOrdenar.setChecked(ordenarFuentes);
+
+        // Guardar la preferencia cuando el usuario cambie el estado del Switch
+        switchOrdenar.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(KEY_ORDENAR, isChecked);
+            editor.apply();
+            Toast.makeText(this, "Preferencia de orden alfabético guardada", Toast.LENGTH_SHORT).show();
+            // Devolver un resultado para indicar que se debe recargar la actividad
+            setResult(RESULT_OK);
+        });
+
     }
 
     private void setLocale(String languageCode) {
