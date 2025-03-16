@@ -4,7 +4,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.concurrent.Executors;
 
 public class AddFuenteActivity extends AppCompatActivity {
     private EditText editTextNombre;
@@ -36,17 +40,28 @@ public class AddFuenteActivity extends AppCompatActivity {
     }
 
     private void guardarFuente() {
-        String nombre = editTextNombre.getText().toString();
-        String localidad = editTextLocalidad.getText().toString();
-        String calle = editTextCalle.getText().toString();
-        String coordenadas = editTextCoordenadas.getText().toString();
-        String descripcion = editTextDescripcion.getText().toString();
+        String nombre = editTextNombre.getText().toString().trim();
+        String localidad = editTextLocalidad.getText().toString().trim();
+        String calle = editTextCalle.getText().toString().trim();
+        String coordenadas = editTextCoordenadas.getText().toString().trim();
+        String descripcion = editTextDescripcion.getText().toString().trim();
 
+        // Validar que los campos no estén vacíos
+        if (nombre.isEmpty() || localidad.isEmpty() || calle.isEmpty() || descripcion.isEmpty()) {
+            Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
+            return; // Detener la ejecución si algún campo está vacío
+        }
+
+        // Crear la nueva fuente
         Fuente nuevaFuente = new Fuente(nombre, localidad, calle, coordenadas, descripcion);
 
-        AppDatabase db = AppDatabase.getInstance(this);
-        db.fuenteDao().insert(nuevaFuente);
-
-        finish(); // Regresa a la actividad anterior
+        // Guardar la fuente en la base de datos
+        Executors.newSingleThreadExecutor().execute(() -> {
+            AppDatabase.getInstance(this).fuenteDao().insert(nuevaFuente);
+            runOnUiThread(() -> {
+                Toast.makeText(this, "Fuente guardada correctamente", Toast.LENGTH_SHORT).show();
+                finish(); // Cerrar la actividad después de guardar
+            });
+        });
     }
 }

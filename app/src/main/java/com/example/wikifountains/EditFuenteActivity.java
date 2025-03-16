@@ -3,6 +3,7 @@ package com.example.wikifountains;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -46,12 +47,17 @@ public class EditFuenteActivity extends AppCompatActivity {
     }
 
     private void guardarCambios() {
-        // Obtener los nuevos valores de los EditText
-        String nombre = editTextNombre.getText().toString();
-        String localidad = editTextLocalidad.getText().toString();
-        String calle = editTextCalle.getText().toString();
-        String coordenadas = editTextCoordenadas.getText().toString();
-        String descripcion = editTextDescripcion.getText().toString();
+        String nombre = editTextNombre.getText().toString().trim();
+        String localidad = editTextLocalidad.getText().toString().trim();
+        String calle = editTextCalle.getText().toString().trim();
+        String coordenadas = editTextCoordenadas.getText().toString().trim();
+        String descripcion = editTextDescripcion.getText().toString().trim();
+
+        // Validar que los campos no estén vacíos
+        if (nombre.isEmpty() || localidad.isEmpty() || calle.isEmpty() || coordenadas.isEmpty() || descripcion.isEmpty()) {
+            Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
+            return; // Detener la ejecución si algún campo está vacío
+        }
 
         // Actualizar la fuente
         fuente.setNombre(nombre);
@@ -64,6 +70,7 @@ public class EditFuenteActivity extends AppCompatActivity {
         Executors.newSingleThreadExecutor().execute(() -> {
             AppDatabase.getInstance(this).fuenteDao().update(fuente);
             runOnUiThread(() -> {
+                Toast.makeText(this, "Fuente actualizada correctamente", Toast.LENGTH_SHORT).show();
                 finish(); // Cerrar la actividad después de guardar
             });
         });
