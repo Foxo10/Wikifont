@@ -30,7 +30,7 @@ public class InicioActivity extends AppCompatActivity {
         listViewPueblos = findViewById(R.id.listViewPueblos);
         buttonOpciones = findViewById(R.id.buttonOpciones);
 
-        List<String> localidades = List.of("Bilbao", "Getxo", "Portugalete", "Barakaldo", "Durango", "Gernika", "Bermeo", "Mungia", "Sopelana", "Berango");
+        List<String> localidades = List.of("Bilbao", "Getxo", "Barakaldo", "Durango", "Gernika", "Bermeo", "Mungia", "Sopelana", "Berango");
         Collator collator = Collator.getInstance(new Locale("es"));
         List<String> sortedLocalidades = new ArrayList<>(localidades);
         sortedLocalidades.sort(collator);
