@@ -55,4 +55,9 @@ public class InicioActivity extends AppCompatActivity {
         Log.d("tag 2", "Iniciando FuentesActivity con la localidad: " + localidad);
         startActivity(intent);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

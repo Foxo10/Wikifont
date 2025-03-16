@@ -3,48 +3,40 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="8dp"
     android:elevation="8dp"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    app:cardCornerRadius="8dp">
 
     <LinearLayout
-        android:layout_width="397dp"
-        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
 
-
-        <!-- Nombre de la fuente -->
         <TextView
             android:id="@+id/textViewNombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:contentDescription="Nombre de la fuente"
             android:text="Nombre de la fuente"
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <!-- Localidad de la fuente -->
         <TextView
             android:id="@+id/textViewLocalidad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:contentDescription="Localidad de la fuente"
             android:text="Localidad"
             android:textSize="14sp" />
 
-        <!-- Calle de la fuente -->
         <TextView
             android:id="@+id/textViewCalle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:contentDescription="Calle de la fuente"
             android:text="Calle"
             android:textSize="14sp" />
-
-
     </LinearLayout>
 </androidx.cardview.widget.CardView>

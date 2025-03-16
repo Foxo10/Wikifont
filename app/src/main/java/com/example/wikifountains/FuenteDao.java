@@ -1,6 +1,7 @@
 package com.example.wikifountains;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -24,4 +25,8 @@ public interface FuenteDao {
 
     @Query("SELECT * FROM fuentes")
     List<Fuente> getAllFuentes();
+
+    @Delete
+    void deleteFuente(Fuente fuente);
+
 }
