@@ -19,6 +19,7 @@
             android:name=".AddFuenteActivity">
         </activity>
         <activity android:name=".EditFuenteActivity" />
+        <activity android:name=".DetallesFuenteActivity" />
         <activity
             android:name=".InicioActivity"
             android:exported="true">
