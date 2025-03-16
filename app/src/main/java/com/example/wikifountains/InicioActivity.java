@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,6 +31,7 @@ public class InicioActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "MyPrefs";
     private ListView listViewPueblos;
     private Button buttonOpciones;
+    private Button buttonBuscarFuentes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,7 @@ public class InicioActivity extends AppCompatActivity {
         // Inicializar vistas
         listViewPueblos = findViewById(R.id.listViewPueblos);
         buttonOpciones = findViewById(R.id.buttonOpciones);
+        buttonBuscarFuentes = findViewById(R.id.buttonBuscarFuentes);
 
         // Cargar localidades desde el fichero
         List<String> localidades = cargarLocalidadesDesdeFichero();
@@ -73,6 +77,14 @@ public class InicioActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(InicioActivity.this, OptionsActivity.class);
                 startActivityForResult(intent, 1); // Usar startActivityForResult
+            }
+        });
+
+        // Manejar clic en el botón de buscar fuentes en Google Maps
+        buttonBuscarFuentes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buscarFuentesEnGoogleMaps();
             }
         });
     }
@@ -132,8 +144,21 @@ public class InicioActivity extends AppCompatActivity {
             recreate();
         }
     }
+
+    private void buscarFuentesEnGoogleMaps() {
+        // Crear un intent para abrir Google Maps y buscar fuentes
+        //Uri gmmIntentUri1 = Uri.parse("geo:0,0?q=fuentes");
+        Uri gmmIntentUri2 = Uri.parse("google.streetview:cbll=0,0");
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri2);
+        mapIntent.setPackage("com.google.android.apps.maps");
+
+        startActivity(mapIntent);
+
+    }
+    
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
+    
 }
