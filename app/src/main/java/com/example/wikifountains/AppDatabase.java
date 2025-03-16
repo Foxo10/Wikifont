@@ -55,6 +55,7 @@ public abstract class AppDatabase extends RoomDatabase {
             Log.e(TAG, "Error al eliminar la base de datos: ", e);
         }
     }
+
     // Lista de fuentes predeterminadas (sin imágenes)
     private static final List<Fuente> PREPOPULATE_DATA = Arrays.asList(
             new Fuente("Fuente de Neguri", "Getxo", "12 Av. Algortako Etorbidea", "", ""),
@@ -63,4 +64,5 @@ public abstract class AppDatabase extends RoomDatabase {
             new Fuente("Fuente de Zabalbide", "Bilbao", "Zabalbide Kalea, 5, Ibaiondo", "",""),
             new Fuente("Fuente del perro", "Bilbao","Txakur Kalea, 2-4, Ibaiondo","","Fuente de estilo neoclásico del 1800 adosada a una pared de la calle del Perro. Tiene tres caños y un poyo en el que descansar después de refrescarnos.")
             );
+
 }

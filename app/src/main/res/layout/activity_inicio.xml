@@ -32,15 +32,16 @@
 
     <ListView
         android:id="@+id/listViewPueblos"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="337dp"
+        android:layout_height="360dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:contentDescription="Lista de pueblos de Vizcaya"
         app:layout_constraintBottom_toTopOf="@id/buttonOpciones"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewPueblosVizcaya" />
+        app:layout_constraintTop_toBottomOf="@id/textViewPueblosVizcaya"
+        app:layout_constraintVertical_bias="0.093" />
 
     <Button
         android:id="@+id/buttonOpciones"

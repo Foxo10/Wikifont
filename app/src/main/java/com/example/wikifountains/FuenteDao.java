@@ -29,4 +29,7 @@ public interface FuenteDao {
     @Delete
     void deleteFuente(Fuente fuente);
 
+    @Query("SELECT COUNT(*) FROM fuentes")
+    int countFuentes();
+
 }

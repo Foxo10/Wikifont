@@ -15,9 +15,12 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.Collator;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -37,7 +40,10 @@ public class InicioActivity extends AppCompatActivity {
         listViewPueblos = findViewById(R.id.listViewPueblos);
         buttonOpciones = findViewById(R.id.buttonOpciones);
 
-        List<String> localidades = List.of("Bilbao", "Getxo", "Barakaldo", "Durango", "Gernika", "Bermeo", "Mungia", "Sopelana", "Berango");
+        // Cargar localidades desde el fichero
+        List<String> localidades = cargarLocalidadesDesdeFichero();
+
+        // Ordenar las localidades alfabéticamente
         Collator collator = Collator.getInstance(new Locale("es"));
         List<String> sortedLocalidades = new ArrayList<>(localidades);
         sortedLocalidades.sort(collator);
@@ -88,6 +94,28 @@ public class InicioActivity extends AppCompatActivity {
 
         getBaseContext().getResources().updateConfiguration(configuration,
                 getBaseContext().getResources().getDisplayMetrics());
+    }
+    private List<String> cargarLocalidadesDesdeFichero() {
+        List<String> localidades = new ArrayList<>();
+        InputStream inputStream = getResources().openRawResource(R.raw.localidades);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+        try {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                localidades.add(line.trim());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return localidades;
     }
 
     @Override
