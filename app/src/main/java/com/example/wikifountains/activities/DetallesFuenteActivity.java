@@ -1,9 +1,12 @@
-package com.example.wikifountains;
+package com.example.wikifountains.activities;
 
 import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.wikifountains.data.Fuente;
+import com.example.wikifountains.R;
 
 public class DetallesFuenteActivity extends AppCompatActivity {
     private TextView textViewNombre;

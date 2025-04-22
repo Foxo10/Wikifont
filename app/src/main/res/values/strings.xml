@@ -1,4 +1,5 @@
 <resources>
+    <!-- General Strings -->
     <string name="app_name">WikiFountains</string>
     <string name="welcome_message">Welcome to the Main Screen!</string>
     <string name="options_button">Options</string>
@@ -8,4 +9,19 @@
     <string name="basque">Basque</string>
     <string name="fuentes_de">Fountains in %s</string>
     <string name="localidades">Towns of Vizcaya</string>
+    <string name="ordenar">Sort sources alphabetically</string>
+
+    <!-- Navigation/Toolbar Menu Strings -->
+    <string name="access">Log in to access your fountains</string>
+    <string name="menu">Home</string>
+    <string name="account">Account</string>
+    <string name="search">Search</string>
+    <string name="settings">Settings</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="logout">Close session</string>
+    <string name="map">Map</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+
 </resources>

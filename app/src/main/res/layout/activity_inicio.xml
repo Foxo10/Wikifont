@@ -1,70 +1,76 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".InicioActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tituloTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:gravity="center"
-        android:text="WikiFountains"
-        android:textSize="34sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!-- Contenido principal -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textViewPueblosVizcaya"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="@string/localidades"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tituloTextView" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:elevation="4dp"/>
 
-    <ListView
-        android:id="@+id/listViewPueblos"
-        android:layout_width="337dp"
-        android:layout_height="360dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:contentDescription="Lista de pueblos de Vizcaya"
-        app:layout_constraintBottom_toTopOf="@id/buttonOpciones"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewPueblosVizcaya"
-        app:layout_constraintVertical_bias="0.093" />
+        <!-- Contenido de la actividad -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="498dp"
+            android:gravity="center|center_horizontal|center_vertical"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-    <Button
-        android:id="@+id/buttonBuscarFuentes"
-        android:layout_width="195dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="53dp"
-        android:text="Buscar fuentes"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonOpciones"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listViewPueblos"
-        app:layout_constraintVertical_bias="1.0" />
+            <!-- Mensaje de bienvenida -->
+            <TextView
+                android:id="@+id/textViewWelcome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textColor="@color/design_default_color_secondary"
+                android:textSize="34sp"
+                android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/buttonOpciones"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="@string/options_button"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Texto para cuando no hay libros -->
+            <TextView
+                android:id="@+id/textViewNoRecommended"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="no_reccomend"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="333dp"
+                android:layout_height="333dp"
+                android:layout_gravity="center"
+                android:foregroundGravity="center|center_horizontal"
+                app:srcCompat="@mipmap/wikifon_launcher_round" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Menú lateral -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:menu="@menu/drawer_menu" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

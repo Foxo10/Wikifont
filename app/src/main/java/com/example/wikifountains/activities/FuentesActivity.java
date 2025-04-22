@@ -1,4 +1,4 @@
-package com.example.wikifountains;
+package com.example.wikifountains.activities;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -20,6 +20,11 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.wikifountains.data.AppDatabase;
+import com.example.wikifountains.EliminarFuenteDialog;
+import com.example.wikifountains.data.Fuente;
+import com.example.wikifountains.R;
+import com.example.wikifountains.adapters.FuenteAdapter;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
@@ -28,7 +33,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.Executors;
 
 public class FuentesActivity extends AppCompatActivity implements
@@ -45,7 +49,7 @@ public class FuentesActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_fuentes);
 
         crearCanalNotificaciones(); // Crear el canal de notificaciones
 

@@ -1,4 +1,4 @@
-package com.example.wikifountains;
+package com.example.wikifountains.activities;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -6,6 +6,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.wikifountains.data.AppDatabase;
+import com.example.wikifountains.data.Fuente;
+import com.example.wikifountains.R;
 
 import java.util.concurrent.Executors;
 

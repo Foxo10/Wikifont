@@ -1,5 +1,4 @@
-package com.example.wikifountains;
-
+package com.example.wikifountains.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,9 +12,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.wikifountains.R;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,23 +26,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class InicioActivity extends AppCompatActivity {
+public class PueblosActivity extends AppCompatActivity {
+
     private static final String LANGUAGE_KEY = "language";
     private static final String PREFS_NAME = "MyPrefs";
     private ListView listViewPueblos;
-    private Button buttonOpciones;
-    private Button buttonBuscarFuentes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadLocale();
-        setContentView(R.layout.activity_inicio);
+        setContentView(R.layout.activity_pueblos);
 
         // Inicializar vistas
         listViewPueblos = findViewById(R.id.listViewPueblos);
-        buttonOpciones = findViewById(R.id.buttonOpciones);
-        buttonBuscarFuentes = findViewById(R.id.buttonBuscarFuentes);
+
 
         // Cargar localidades desde el fichero
         List<String> localidades = cargarLocalidadesDesdeFichero();
@@ -71,26 +69,11 @@ public class InicioActivity extends AppCompatActivity {
             }
         });
 
-        // Manejar clic en el botón de opciones
-        buttonOpciones.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(InicioActivity.this, OptionsActivity.class);
-                startActivityForResult(intent, 1); // Usar startActivityForResult
-            }
-        });
 
-        // Manejar clic en el botón de buscar fuentes en Google Maps
-        buttonBuscarFuentes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buscarFuentesEnGoogleMaps();
-            }
-        });
     }
 
     private void filtrarFuentesPorLocalidades(String localidad) {
-        Intent intent = new Intent(InicioActivity.this, FuentesActivity.class);
+        Intent intent = new Intent(PueblosActivity.this, FuentesActivity.class);
         intent.putExtra("localidad", localidad);
         Log.d("tag 2", "Iniciando FuentesActivity con la localidad: " + localidad);
         startActivity(intent);
@@ -136,29 +119,11 @@ public class InicioActivity extends AppCompatActivity {
         return localidades;
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1) {
-            recreate();
-        }
-    }
 
-    private void buscarFuentesEnGoogleMaps() {
-        // Crear un intent para abrir Google Maps y buscar fuentes
-        //Uri gmmIntentUri1 = Uri.parse("geo:0,0?q=fuentes");
-        Uri gmmIntentUri2 = Uri.parse("google.streetview:cbll=0,0");
-        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri2);
-        mapIntent.setPackage("com.google.android.apps.maps");
-
-        startActivity(mapIntent);
-
-    }
-    
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
-    
+
 }

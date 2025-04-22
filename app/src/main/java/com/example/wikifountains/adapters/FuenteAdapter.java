@@ -1,14 +1,19 @@
-package com.example.wikifountains;
+package com.example.wikifountains.adapters;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.wikifountains.EliminarFuenteDialog;
+import com.example.wikifountains.data.Fuente;
+import com.example.wikifountains.R;
+import com.example.wikifountains.activities.EditFuenteActivity;
+
 import java.util.List;
 public class FuenteAdapter extends RecyclerView.Adapter<FuenteViewHolder> {
     private List<Fuente> fuentes;

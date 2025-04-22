@@ -1,4 +1,4 @@
-package com.example.wikifountains;
+package com.example.wikifountains.data;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

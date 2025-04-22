@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- String Orokorrak -->
     <string name="app_name">WikiFountains</string>
     <string name="welcome_message">Ongi etorri pantaila nagusira!</string>
     <string name="options_button">Aukerak</string>
@@ -9,4 +10,19 @@
     <string name="basque">Euskara</string>
     <string name="fuentes_de">%sko iturriak</string>
     <string name="localidades">Bizkaiko herriak</string>
+    <string name="ordenar">Ordenatu iturriak alfabetikoki</string>
+
+    <!-- Nabigazioko Strings -->
+    <string name="access">Hasi saioa zure iturriak atzitzeko</string>
+    <string name="menu">Menua</string>
+    <string name="account">Kontua</string>
+    <string name="search">Bilaketa</string>
+    <string name="settings">Ezarpenak</string>
+    <string name="login">Hasi saioa</string>
+    <string name="register">Erregistratu</string>
+    <string name="logout">Itxi saioa</string>
+    <string name="map">Mapa</string>
+    <string name="navigation_drawer_open">Ireki</string>
+    <string name="navigation_drawer_close">Itxi</string>
+
 </resources>

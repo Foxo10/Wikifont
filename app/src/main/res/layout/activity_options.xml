@@ -18,7 +18,7 @@
         android:id="@+id/switchOrdenar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ordenar fuentes alfabéticamente"
+        android:text="@string/ordenar"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"/>
 

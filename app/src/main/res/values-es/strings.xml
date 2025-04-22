@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Strings Generales-->
     <string name="app_name">WikiFountains</string>
     <string name="welcome_message">¡Bienvenido a la pantalla principal!</string>
     <string name="options_button">Opciones</string>
@@ -9,4 +10,19 @@
     <string name="basque">Euskera</string>
     <string name="fuentes_de">Fuentes en %s</string>
     <string name="localidades">Localidades de Vizcaya</string>
+    <string name="ordenar">Ordenar las fuentes alfabéticamente</string>
+
+    <!-- Navigacion Strings -->
+    <string name="access">Inicia sesión para acceder a tus fuentes</string>
+    <string name="menu">Menu</string>
+    <string name="account">Cuenta</string>
+    <string name="search">Búsqueda</string>
+    <string name="settings">Ajustes</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="register">Registrarse</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="map">Mapa</string>
+    <string name="navigation_drawer_open">Abrir</string>
+    <string name="navigation_drawer_close">Cerrar</string>
+
 </resources>

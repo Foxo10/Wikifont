@@ -1,4 +1,4 @@
-package com.example.wikifountains;
+package com.example.wikifountains.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,9 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.wikifountains.R;
+
 import java.util.Locale;
 
 public class OptionsActivity extends AppCompatActivity {

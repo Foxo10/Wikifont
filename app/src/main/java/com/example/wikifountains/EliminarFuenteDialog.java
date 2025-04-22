@@ -2,12 +2,13 @@ package com.example.wikifountains;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
+import com.example.wikifountains.data.Fuente;
 
 public class EliminarFuenteDialog extends DialogFragment {
     public interface EliminarFuenteListener {
