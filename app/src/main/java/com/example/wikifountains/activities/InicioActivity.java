@@ -94,12 +94,8 @@ public class InicioActivity extends AppCompatActivity {
                                 break;
                             case R.id.localizacion:
                                 // Acción para "Mapa"
-                                // Crear un intent para abrir Google Maps y buscar fuentes
-                                Uri gmmIntentUri1 = Uri.parse("geo:0,0?q=fuentes");
-                                //Uri gmmIntentUri2 = Uri.parse("google.streetview:cbll=0,0");
-                                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri1);
-                                mapIntent.setPackage("com.google.android.apps.maps");
-                                startActivity(mapIntent);
+                                Intent fuentesMapsIntent = new Intent(getApplicationContext() , FountainMapsActivity.class);
+                                startActivity(fuentesMapsIntent);
                                 break;
                         }
                         mDrawerLayout.closeDrawers();
@@ -130,7 +126,6 @@ public class InicioActivity extends AppCompatActivity {
         switch (id){
             case R.id.action_home:{
                 intent = new Intent(this, InicioActivity.class);
-                // Limpiar el stack de activities si vamos al home
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 recreate();
                 startActivity(intent);
@@ -140,6 +135,14 @@ public class InicioActivity extends AppCompatActivity {
                 intent = new Intent(this, PueblosActivity.class);
                 startActivity(intent);
                 return true;
+            }
+            case R.id.action_google_maps:{
+                // Crear un intent para abrir Google Maps y buscar fuentes
+                Uri gmmIntentUri1 = Uri.parse("geo:0,0?q=fuentes");
+                //Uri gmmIntentUri2 = Uri.parse("google.streetview:cbll=0,0");
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri1);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent);
             }
         }
 

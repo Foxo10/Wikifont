@@ -65,7 +65,7 @@ public class FuentesActivity extends AppCompatActivity implements
         // Inicializar la base de datos
         db = AppDatabase.getInstance(this);
 
-        // Cargar datos iniciales desde el CSV si es necesario
+        // Cargar datos iniciales desde el CSV
         cargarDatosIniciales();
 
         // Configurar el RecyclerView
@@ -168,26 +168,34 @@ public class FuentesActivity extends AppCompatActivity implements
         InputStream inputStream = getResources().openRawResource(R.raw.fuentes);
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
         CSVReader csvReader = new CSVReader(inputStreamReader);
+        String[] nextLine;
 
         try {
-            String[] nextLine;
-            boolean isFirstLine = true; // Para saltar la primera línea (cabeceras)
+            boolean isFirstLine = true;
             while ((nextLine = csvReader.readNext()) != null) {
                 if (isFirstLine) {
                     isFirstLine = false;
-                    continue; // Saltar la primera línea (cabeceras)
+                    continue;
                 }
 
-                // Crear un objeto Fuente con los datos de la línea
-                String nombre = nextLine[0];
-                String localidad = nextLine[1];
-                String calle = nextLine[2];
+                // Corregir manejo de campos vacíos
+                String nombre = nextLine.length > 0 ? nextLine[0] : "";
+                String localidad = nextLine.length > 1 ? nextLine[1] : "";
+                String calle = nextLine.length > 2 ? nextLine[2] : "";
 
-                Fuente fuente = new Fuente(nombre, localidad, calle,"","");
+                // Coordenadas: evitar índices fuera de rango
+                String latitud = nextLine.length > 3 ? nextLine[3] : "";
+                String longitud = nextLine.length > 4 ? nextLine[4] : "";
+                String coordenadas = !latitud.isEmpty() && !longitud.isEmpty() ? latitud + ", " + longitud : "";
+
+                // Descripción: corregir asignación condicional
+                String descripcion = nextLine.length > 5 ? nextLine[5] : "Sin descripción";
+
+                Fuente fuente = new Fuente(nombre, localidad, calle, coordenadas, descripcion);
                 fuentes.add(fuente);
             }
-        } catch (IOException | CsvValidationException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.e("CSV Error", "Error al leer CSV", e);
         } finally {
             try {
                 csvReader.close();
@@ -201,17 +209,18 @@ public class FuentesActivity extends AppCompatActivity implements
 
     private void cargarDatosIniciales() {
         Executors.newSingleThreadExecutor().execute(() -> {
-            // Verificar si ya hay fuentes en la base de datos
-            if (db.fuenteDao().countFuentes() <= 10) {
-                // Cargar fuentes desde el CSV
-                List<Fuente> fuentes = cargarFuentesDesdeCSV();
+            List<Fuente> fuentes = cargarFuentesDesdeCSV();
+            Log.d("DEBUG", "Número de fuentes en CSV: " + fuentes.size());
 
-                // Insertar las fuentes en la base de datos
-                for (Fuente fuente : fuentes) {
+            for (Fuente fuente : fuentes) {
+                // Verificar si la fuente ya existe
+                Fuente existente = db.fuenteDao().getFuenteByNombre(fuente.getNombre());
+                if (existente == null) {
                     db.fuenteDao().insert(fuente);
+                    Log.d("DEBUG", "Insertada: " + fuente.getNombre());
+                } else {
+                    Log.d("DEBUG", "Ya existe: " + fuente.getNombre());
                 }
-
-                Log.d("Database", "Datos iniciales cargados en la base de datos.");
             }
         });
     }

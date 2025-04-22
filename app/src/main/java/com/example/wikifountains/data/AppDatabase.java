@@ -13,8 +13,9 @@ import android.util.Log;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Executors;
 
-@Database(entities = {Fuente.class}, version = 2)
+@Database(entities = {Fuente.class}, version = 3)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase instance;
 
@@ -23,7 +24,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public static synchronized AppDatabase getInstance(Context context) {
         if (instance == null) {
             // Eliminar la base de datos existente
-            // deleteDatabase(context);
+            //deleteDatabase(context);
+            context.deleteDatabase("fuentes_database");
 
             instance = Room.databaseBuilder(context.getApplicationContext(),
                             AppDatabase.class, "fuentes_database")
@@ -32,11 +34,13 @@ public abstract class AppDatabase extends RoomDatabase {
                         @Override
                         public void onCreate(@NonNull SupportSQLiteDatabase db) {
                             super.onCreate(db);
-                            // Insertar datos iniciales en un hilo separado
-                            new Thread(() -> {
-                                instance.fuenteDao().insert(PREPOPULATE_DATA);
-                                Log.d(TAG, "Datos iniciales insertados");
-                            }).start();
+                            Executors.newSingleThreadExecutor().execute(() -> {
+                                // Solo insertar si la tabla está vacía
+                                if (instance.fuenteDao().countFuentes() == 0) {
+                                    instance.fuenteDao().insert(PREPOPULATE_DATA);
+                                    Log.d(TAG, "Datos iniciales insertados");
+                                }
+                            });
                         }
                     })
                     .build();

@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -50,9 +51,14 @@ public class PueblosActivity extends AppCompatActivity {
         boolean ordenarAlfabeticamente = preferences.getBoolean("ordenar_fuentes", false);
 
         // Ordenar las localidades alfabéticamente si la preferencia está activada
-        if (ordenarAlfabeticamente) {
+        if (!ordenarAlfabeticamente) {
+            // Orden alfabético normal (A-Z)
             Collator collator = Collator.getInstance(new Locale("es"));
             localidades.sort(collator);
+        } else {
+            // Orden alfabético inverso (Z-A)
+            Collator collator = Collator.getInstance(new Locale("es"));
+            localidades.sort(collator.reversed()); // <- reversed() aquí
         }
 
         // Configurar el adaptador para el ListView

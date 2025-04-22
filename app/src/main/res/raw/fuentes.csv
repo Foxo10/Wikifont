@@ -1,10 +1,10 @@
-Nombre,Localidad,Calle
-Fuente del Parque,Bilbao,Parque de Doña Casilda
-Fuente de la Plaza,Getxo,Plaza del Ayuntamiento
-Fuente del Mercado,Barakaldo,Calle Mercado
-Fuente de la Iglesia,Durango,Plaza de la Iglesia
-Fuente del Ayuntamiento,Gernika,Plaza del Ayuntamiento
-Fuente del Puerto,Bermeo,Calle del Puerto
-Fuente de la Plaza Mayor,Mungia,Plaza Mayor
-Fuente de la Playa,Sopelana,Calle de la Playa
-Fuente del Parque Central,Berango,Parque Central
+Nombre,Localidad,Calle,Latitud,Longitud,Descripcion
+Iturri Zibernetikoa/fuente cibernética,Bilbao,Parque de Doña Casilda,(43.26496567250899,-2.9408004452543697),
+Gobe Iturria,Getxo,C. Serantes,(43.33010257663224,-3.0069813999971604),Fuente de agua potable
+Fuente del Mercado,Barakaldo,Calle Mercado,(43.33010257663224,-3.0069813999971604),
+Fuente de la Iglesia,Durango,Plaza de la Iglesia,(43.33010257663224,-3.0069813999971604),
+Fuente del Ayuntamiento,Gernika,Plaza del Ayuntamiento,(43.33010257663224,-3.0069813999971604),
+Fuente del Puerto,Bermeo,Calle del Puerto,(43.33010257663224,-3.0069813999971604),
+Fuente de la Plaza Mayor,Mungia,Plaza Mayor,(43.33010257663224,-3.0069813999971604),
+Fuente de la Playa,Sopelana,Calle de la Playa,(43.33010257663224,-3.0069813999971604),
+Fuente del Parque Central,Berango,Parque Central,(43.33010257663224,-3.0069813999971604),
