@@ -18,7 +18,7 @@ public interface FuenteDao {
     @Update
     void update(Fuente fuente);
 
-    @Query("SELECT * FROM fuentes WHERE localidad = :localidad")
+    @Query("SELECT * FROM fuentes WHERE LOWER(localidad) = LOWER(:localidad)")
     List<Fuente> getFuentesPorLocalidad(String localidad);
     @Query("SELECT * FROM fuentes WHERE id = :id")
     Fuente getFuenteById(int id);
@@ -32,4 +32,6 @@ public interface FuenteDao {
     @Query("SELECT COUNT(*) FROM fuentes")
     int countFuentes();
 
+    @Query("SELECT * FROM fuentes WHERE nombre = :nombre LIMIT 1")
+    Fuente getFuenteByNombre(String nombre);
 }
