@@ -11,6 +11,7 @@
     <string name="fuentes_de">Fuentes en %s</string>
     <string name="localidades">Localidades de Vizcaya</string>
     <string name="ordenar">Invertir pueblos alfabeticamente</string>
+    <string name="no_fuentes">Cargando fuentes</string>
 
     <!-- Navigacion Strings -->
     <string name="access">Inicia sesión para acceder a tus fuentes</string>

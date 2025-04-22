@@ -62,11 +62,12 @@ public abstract class AppDatabase extends RoomDatabase {
 
     // Lista de fuentes predeterminadas (sin imágenes)
     private static final List<Fuente> PREPOPULATE_DATA = Arrays.asList(
-            new Fuente("Fuente de Neguri", "Getxo", "12 Av. Algortako Etorbidea", "", ""),
-            new Fuente("Fuente plaza del casino", "Getxo", "49 Av. Basagoiti", "", ""),
-            new Fuente("Fuente de la playa", "Sopelana", "Av. Atxabiribil, 77", "", ""),
-            new Fuente("Fuente de Zabalbide", "Bilbao", "Zabalbide Kalea, 5, Ibaiondo", "",""),
-            new Fuente("Fuente del perro", "Bilbao","Txakur Kalea, 2-4, Ibaiondo","","Fuente de estilo neoclásico del 1800 adosada a una pared de la calle del Perro. Tiene tres caños y un poyo en el que descansar después de refrescarnos.")
+            new Fuente("Fuente de Neguri", "Getxo", "12 Av. Algortako Etorbidea", "43.33934510217123,-3.008521173851977", ""),
+            new Fuente("Fuente plaza del casino", "Getxo", "49 Av. Basagoiti", "43.34876176033387,-3.0112277566790775", ""),
+            new Fuente("Fuente de la playa", "Sopela", "Av. Atxabiribil, 77", "43.39000284440325,2.9923713401220398", ""),
+            new Fuente("Fuente en Larrabasterra", "Sopela", "Gatzarriñe kalea, 9", "43.37695174670079,-2.9894370846529537", ""),
+            new Fuente("Fuente de Zabalbide", "Bilbao", "Zabalbide Kalea, 5, Ibaiondo", "43.25581662072112,-2.921622020548674",""),
+            new Fuente("Fuente del perro", "Bilbao","Txakur Kalea, 2-4, Ibaiondo","43.25780813835872,-2.924311014893625","Fuente de estilo neoclásico del 1800 adosada a una pared de la calle del Perro. Tiene tres caños y un poyo en el que descansar después de refrescarnos.")
             );
 
 }

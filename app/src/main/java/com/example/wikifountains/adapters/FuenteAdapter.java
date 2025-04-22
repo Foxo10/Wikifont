@@ -19,6 +19,7 @@ public class FuenteAdapter extends RecyclerView.Adapter<FuenteViewHolder> {
     private List<Fuente> fuentes;
     private EliminarFuenteDialog.EliminarFuenteListener listener;
     private OnGuardarNotificacionClickListener guardarNotificacionClickListener;
+    private OnMapsClickListener onMapsClickListener;
 
     // Constructor simplificado: solo recibe la lista de fuentes
     public FuenteAdapter(List<Fuente> fuentes) {
@@ -27,12 +28,19 @@ public class FuenteAdapter extends RecyclerView.Adapter<FuenteViewHolder> {
     public interface OnGuardarNotificacionClickListener {
         void onGuardarNotificacionClick(Fuente fuente);
     }
+    // Interface para el clic en Maps
+    public interface OnMapsClickListener {
+        void onMapsClick(Fuente fuente);
+    }
 
     public void setEliminarFuenteListener(EliminarFuenteDialog.EliminarFuenteListener listener) {
         this.listener = listener;
     }
     public void setOnGuardarNotificacionClickListener(OnGuardarNotificacionClickListener listener) {
         this.guardarNotificacionClickListener = listener;
+    }
+    public void setOnMapsClickListener(OnMapsClickListener listener) {
+        this.onMapsClickListener = listener;
     }
 
     @NonNull
@@ -70,6 +78,18 @@ public class FuenteAdapter extends RecyclerView.Adapter<FuenteViewHolder> {
             dialog.show(((AppCompatActivity) v.getContext()).getSupportFragmentManager(), "EliminarFuenteDialog");
             return true;
         });
+        holder.imageViewMaps.setOnClickListener(v -> {
+            onMapsClickListener.onMapsClick(fuente);
+        });
+
+        // Habilitar/Deshabilitar ícono de Maps
+        if (fuente.tieneCoordenadasValidas()) {
+            holder.imageViewMaps.setAlpha(1f);
+            holder.imageViewMaps.setClickable(true);
+        } else {
+            holder.imageViewMaps.setAlpha(0.3f);
+            holder.imageViewMaps.setClickable(false);
+        }
     }
 
     @Override

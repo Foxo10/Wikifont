@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.wikifountains.R;
 
 public class FuenteViewHolder extends RecyclerView.ViewHolder {
+    public ImageView imageViewMaps;
     public TextView textViewNombre;
     public TextView textViewLocalidad;
     public TextView textViewCalle;
@@ -17,6 +18,7 @@ public class FuenteViewHolder extends RecyclerView.ViewHolder {
 
     public FuenteViewHolder(@NonNull View itemView) {
         super(itemView);
+        imageViewMaps = itemView.findViewById(R.id.imageViewMaps);
         textViewNombre = itemView.findViewById(R.id.textViewNombre);
         textViewLocalidad = itemView.findViewById(R.id.textViewLocalidad);
         textViewCalle = itemView.findViewById(R.id.textViewCalle);

@@ -10,6 +10,7 @@
     <string name="fuentes_de">Fountains in %s</string>
     <string name="localidades">Towns of Vizcaya</string>
     <string name="ordenar">Invert towns alphabetically</string>
+    <string name="no_fuentes">Loading fountains</string>
 
     <!-- Navigation/Toolbar Menu Strings -->
     <string name="access">Log in to access your fountains</string>
@@ -23,5 +24,6 @@
     <string name="map">Map</string>
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
+
 
 </resources>

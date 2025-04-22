@@ -6,12 +6,15 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -37,7 +40,8 @@ import java.util.concurrent.Executors;
 
 public class FuentesActivity extends AppCompatActivity implements
         EliminarFuenteDialog.EliminarFuenteListener,
-        FuenteAdapter.OnGuardarNotificacionClickListener {
+        FuenteAdapter.OnGuardarNotificacionClickListener,
+        FuenteAdapter.OnMapsClickListener  {
 
     private RecyclerView recyclerView;
     private FuenteAdapter adapter;
@@ -45,11 +49,21 @@ public class FuentesActivity extends AppCompatActivity implements
     private String localidadSeleccionado;
     private Button buttonAddFuente;
     private TextView textoFuentesDe;
+    private ProgressBar progressBar;
+    private TextView tvEmptyState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_fuentes);
+
+        // Inicializar vistas
+        // Inicializar vistas
+        progressBar = findViewById(R.id.progressBar);
+        recyclerView = findViewById(R.id.recyclerViewFuentes);
+        buttonAddFuente = findViewById(R.id.buttonAddFuente);
+        tvEmptyState = findViewById(R.id.tvEmptyState);
 
         crearCanalNotificaciones(); // Crear el canal de notificaciones
 
@@ -85,6 +99,8 @@ public class FuentesActivity extends AppCompatActivity implements
 
         // Cargar las fuentes desde la base de datos
         cargarFuentes();
+
+
     }
 
     private void crearCanalNotificaciones() {
@@ -108,16 +124,35 @@ public class FuentesActivity extends AppCompatActivity implements
     }
 
     private void cargarFuentes() {
-        // Obtener las fuentes filtradas por pueblo
-        Log.d("tag 4", "Cargando fuentes para la localidad: " + localidadSeleccionado);
-        List<Fuente> fuentes = db.fuenteDao().getFuentesPorLocalidad(localidadSeleccionado);
-        Log.d("tag 5", "Número de fuentes encontradas: " + (fuentes != null ? fuentes.size() : "null"));
+        progressBar.setVisibility(View.VISIBLE);
+        tvEmptyState.setVisibility(View.GONE);
 
-        // Asignar las fuentes al adaptador
-        adapter = new FuenteAdapter(fuentes);
-        adapter.setEliminarFuenteListener(this);
-        adapter.setOnGuardarNotificacionClickListener(this); // Asignar el listener para "guardar como notificación"
-        recyclerView.setAdapter(adapter);
+        Executors.newSingleThreadExecutor().execute(()-> {
+            // Obtener las fuentes filtradas por pueblo
+            Log.d("tag 4", "Cargando fuentes para la localidad: " + localidadSeleccionado);
+            List<Fuente> fuentes = db.fuenteDao().getFuentesPorLocalidad(localidadSeleccionado);
+            Log.d("tag 5", "Número de fuentes encontradas: " + (fuentes != null ? fuentes.size() : "null"));
+
+            runOnUiThread(() -> {
+                progressBar.setVisibility(View.GONE); // Ocultar ProgressBar
+
+                if (fuentes == null || fuentes.isEmpty()) {
+                    tvEmptyState.setVisibility(View.VISIBLE); // Mostrar mensaje
+                    recyclerView.setVisibility(View.GONE);
+                } else {
+                    tvEmptyState.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    adapter = new FuenteAdapter(fuentes);
+                    // Configurar listeners del adaptador
+                    adapter.setEliminarFuenteListener(this);
+                    adapter.setOnGuardarNotificacionClickListener(this); // Asignar el listener para "guardar como notificación"
+                    adapter.setOnMapsClickListener(this);
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.setAdapter(adapter);
+                }
+            });
+        });
+
     }
 
     @Override
@@ -186,7 +221,7 @@ public class FuentesActivity extends AppCompatActivity implements
                 // Coordenadas: evitar índices fuera de rango
                 String latitud = nextLine.length > 3 ? nextLine[3] : "";
                 String longitud = nextLine.length > 4 ? nextLine[4] : "";
-                String coordenadas = !latitud.isEmpty() && !longitud.isEmpty() ? latitud + ", " + longitud : "";
+                String coordenadas = !latitud.isEmpty() && !longitud.isEmpty() ? latitud + "," + longitud : "";
 
                 // Descripción: corregir asignación condicional
                 String descripcion = nextLine.length > 5 ? nextLine[5] : "Sin descripción";
@@ -208,20 +243,65 @@ public class FuentesActivity extends AppCompatActivity implements
     }
 
     private void cargarDatosIniciales() {
+        progressBar.setVisibility(View.VISIBLE);
+
         Executors.newSingleThreadExecutor().execute(() -> {
             List<Fuente> fuentes = cargarFuentesDesdeCSV();
             Log.d("DEBUG", "Número de fuentes en CSV: " + fuentes.size());
+
+            runOnUiThread(() -> {
+                progressBar.setVisibility(View.GONE);
+                cargarFuentes(); // Recargar después de insertar datos
+            });
 
             for (Fuente fuente : fuentes) {
                 // Verificar si la fuente ya existe
                 Fuente existente = db.fuenteDao().getFuenteByNombre(fuente.getNombre());
                 if (existente == null) {
                     db.fuenteDao().insert(fuente);
-                    Log.d("DEBUG", "Insertada: " + fuente.getNombre());
+                    Log.d("DEBUG", "Insertando fuente: " + fuente.getNombre() + " - Coordenadas: " + fuente.getCoordenadas());
                 } else {
                     Log.d("DEBUG", "Ya existe: " + fuente.getNombre());
                 }
             }
         });
     }
+
+    @Override
+    public void onMapsClick(Fuente fuente) {
+        Log.d("MapsClick", "Iniciando clic en Maps para: " + fuente.getNombre());
+        Log.d("Validación", "Coordenadas: " + fuente.getCoordenadas());
+
+        if (!fuente.tieneCoordenadasValidas()) {
+            Log.e("Error", "Coordenadas inválidas: " + fuente.getCoordenadas());
+            Toast.makeText(this, "Coordenadas inválidas", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            String[] partes = fuente.getCoordenadas().split(",");
+            Log.d("Split", "Latitud: " + partes[0] + " | Longitud: " + partes[1]);
+
+            double latitud = Double.parseDouble(partes[0]);
+            double longitud = Double.parseDouble(partes[1]);
+            Log.d("Coords", "Lat: " + latitud + " | Lon: " + longitud);
+
+            // Intent para Google Maps
+            Uri gmmIntentUri = Uri.parse("google.streetview:cbll=" + latitud + "," + longitud);
+            Intent streetViewIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            streetViewIntent.setPackage("com.google.android.apps.maps");
+
+            if (streetViewIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(streetViewIntent);
+            } else {
+                String urlWeb = "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=" + latitud + "," + longitud;
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(urlWeb)));
+            }
+
+        } catch (Exception e) {
+            Log.e("Error", "Excepción en onMapsClick: " + e.getMessage());
+            Toast.makeText(this, "Error al abrir Maps", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

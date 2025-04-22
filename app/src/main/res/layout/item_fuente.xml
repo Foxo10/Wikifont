@@ -9,8 +9,8 @@
     card_view:cardCornerRadius="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="204dp"
         android:orientation="vertical"
         android:padding="16dp">
 
@@ -60,8 +60,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
-            android:layout_width="100dp"
-            android:layout_height="146dp"
+            android:layout_width="99dp"
+            android:layout_height="172dp"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintHorizontal_bias="1.0"
@@ -70,14 +70,32 @@
             card_view:layout_constraintVertical_bias="1.0">
 
             <ImageView
+                android:id="@+id/imageViewMaps"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="16dp"
+                android:contentDescription="Maps"
+                android:src="@drawable/ic_google_maps"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.491"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/imageViewNotify"
+                card_view:layout_constraintVertical_bias="1.0"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <ImageView
                 android:id="@+id/imageViewNotify"
                 android:layout_width="37dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="4dp"
                 android:contentDescription="Notificar"
                 android:src="@drawable/ic_notification"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.507"
                 card_view:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
@@ -85,14 +103,14 @@
                 android:layout_width="39dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="19dp"
-                android:layout_marginBottom="16dp"
                 android:contentDescription="Editar"
                 android:src="@drawable/ic_edit"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintBottom_toTopOf="@+id/imageViewMaps"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toBottomOf="@+id/imageViewNotify"
-                card_view:layout_constraintVertical_bias="1.0" />
+                card_view:layout_constraintVertical_bias="0.056" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

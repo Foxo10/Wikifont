@@ -11,6 +11,7 @@
     <string name="fuentes_de">%sko iturriak</string>
     <string name="localidades">Bizkaiko herriak</string>
     <string name="ordenar">Alderantzikatu herriak alfabetikoki</string>
+    <string name="no_fuentes">Iturriak kargatzen</string>
 
     <!-- Nabigazioko Strings -->
     <string name="access">Hasi saioa zure iturriak atzitzeko</string>

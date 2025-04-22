@@ -74,4 +74,8 @@ public class Fuente implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    public boolean tieneCoordenadasValidas() {
+        return coordenadas != null && coordenadas.matches("-?\\d+\\.\\d+,-?\\d+\\.\\d+");
+    }
 }
