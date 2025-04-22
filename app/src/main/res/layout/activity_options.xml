@@ -3,16 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="20dp">
 
     <TextView
         android:id="@+id/textViewOpciones"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Opciones"
-        android:textSize="24sp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="24dp"/>
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="24dp"
+        android:text="@string/settings"
+        android:textSize="24sp" />
 
     <Switch
         android:id="@+id/switchOrdenar"

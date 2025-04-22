@@ -10,7 +10,7 @@
     <string name="basque">Euskara</string>
     <string name="fuentes_de">%sko iturriak</string>
     <string name="localidades">Bizkaiko herriak</string>
-    <string name="ordenar">Ordenatu iturriak alfabetikoki</string>
+    <string name="ordenar">Alderantzikatu herriak alfabetikoki</string>
 
     <!-- Nabigazioko Strings -->
     <string name="access">Hasi saioa zure iturriak atzitzeko</string>

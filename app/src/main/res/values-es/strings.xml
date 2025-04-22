@@ -10,7 +10,7 @@
     <string name="basque">Euskera</string>
     <string name="fuentes_de">Fuentes en %s</string>
     <string name="localidades">Localidades de Vizcaya</string>
-    <string name="ordenar">Ordenar las fuentes alfabéticamente</string>
+    <string name="ordenar">Invertir pueblos alfabeticamente</string>
 
     <!-- Navigacion Strings -->
     <string name="access">Inicia sesión para acceder a tus fuentes</string>

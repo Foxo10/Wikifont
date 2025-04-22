@@ -65,7 +65,7 @@ public class FuentesActivity extends AppCompatActivity implements
         // Inicializar la base de datos
         db = AppDatabase.getInstance(this);
 
-        // Cargar datos iniciales desde el CSV si es necesario
+        // Cargar datos iniciales desde el CSV
         cargarDatosIniciales();
 
         // Configurar el RecyclerView
@@ -182,8 +182,13 @@ public class FuentesActivity extends AppCompatActivity implements
                 String nombre = nextLine[0];
                 String localidad = nextLine[1];
                 String calle = nextLine[2];
+                String coordenadas = nextLine[3]+", "+nextLine[4];
+                if (nextLine[5].isEmpty()){
+                    String descripcion = "Sin descripción";
+                }
+                String descripcion = nextLine[5];
 
-                Fuente fuente = new Fuente(nombre, localidad, calle,"","");
+                Fuente fuente = new Fuente(nombre, localidad, calle,coordenadas,descripcion);
                 fuentes.add(fuente);
             }
         } catch (IOException | CsvValidationException e) {
@@ -201,18 +206,17 @@ public class FuentesActivity extends AppCompatActivity implements
 
     private void cargarDatosIniciales() {
         Executors.newSingleThreadExecutor().execute(() -> {
-            // Verificar si ya hay fuentes en la base de datos
-            if (db.fuenteDao().countFuentes() <= 10) {
-                // Cargar fuentes desde el CSV
-                List<Fuente> fuentes = cargarFuentesDesdeCSV();
+            // Cargar fuentes desde el CSV
+            List<Fuente> fuentes = cargarFuentesDesdeCSV();
+            Log.d("Fuentes", "Fuentes iniciales cargadas desde csv");
 
-                // Insertar las fuentes en la base de datos
-                for (Fuente fuente : fuentes) {
-                    db.fuenteDao().insert(fuente);
-                }
-
-                Log.d("Database", "Datos iniciales cargados en la base de datos.");
+            // Insertar las fuentes en la base de datos
+            for (Fuente fuente : fuentes) {
+                db.fuenteDao().insert(fuente);
             }
+
+            Log.d("Fuentes", "Datos iniciales cargados en la base de datos.");
+
         });
     }
 }
