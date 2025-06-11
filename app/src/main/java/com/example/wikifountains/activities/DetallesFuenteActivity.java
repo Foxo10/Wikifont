@@ -33,7 +33,8 @@ public class DetallesFuenteActivity extends BaseActivity {
             textViewNombre.setText(fuente.getNombre());
             textViewLocalidad.setText(fuente.getLocalidad());
             textViewCalle.setText(fuente.getCalle());
-            textViewCoordenadas.setText(fuente.getCoordenadas());
+            String coords = fuente.getLatitud() + ", " + fuente.getLongitud();
+            textViewCoordenadas.setText(coords);
             textViewDescripcion.setText(fuente.getDescripcion());
         }
     }

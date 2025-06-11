@@ -47,17 +47,19 @@ public class AddFuenteActivity extends BaseActivity {
         String nombre = editTextNombre.getText().toString().trim();
         String localidad = editTextLocalidad.getText().toString().trim();
         String calle = editTextCalle.getText().toString().trim();
-        String latitud = editTextLatitud.getText().toString().trim();
-        String longitud = editTextLongitud.getText().toString().trim();
+        String latitudStr = editTextLatitud.getText().toString().trim();
+        String longitudStr = editTextLongitud.getText().toString().trim();
         String descripcion = editTextDescripcion.getText().toString().trim();
 
         // Validar que los campos no estén vacíos
-        if (nombre.isEmpty() || localidad.isEmpty() || calle.isEmpty() || descripcion.isEmpty()) {
+        if (nombre.isEmpty() || localidad.isEmpty() || calle.isEmpty() || latitudStr.isEmpty() || longitudStr.isEmpty() || descripcion.isEmpty()) {
             Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
             return; // Detener la ejecución si algún campo está vacío
         }
 
         // Crear la nueva fuente
+        double latitud = Double.parseDouble(latitudStr);
+        double longitud = Double.parseDouble(longitudStr);
         Fuente nuevaFuente = new Fuente(nombre, localidad, calle, latitud, longitud, descripcion);
 
         // Guardar la fuente en la base de datos

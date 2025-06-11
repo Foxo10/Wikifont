@@ -15,7 +15,8 @@ public class EditFuenteActivity extends BaseActivity {
     private EditText editTextNombre;
     private EditText editTextLocalidad;
     private EditText editTextCalle;
-    private EditText editTextCoordenadas;
+    private EditText editTextLatitud;
+    private EditText editTextLongitud;
     private EditText editTextDescripcion;
     private Button buttonGuardar;
     private Fuente fuente;
@@ -29,7 +30,8 @@ public class EditFuenteActivity extends BaseActivity {
         editTextNombre = findViewById(R.id.editTextNombre);
         editTextLocalidad = findViewById(R.id.editTextLocalidad);
         editTextCalle = findViewById(R.id.editTextCalle);
-        editTextCoordenadas = findViewById(R.id.editTextCoordenadas);
+        editTextLatitud = findViewById(R.id.editTextLatitud);
+        editTextLongitud = findViewById(R.id.editTextLongitud);
         editTextDescripcion = findViewById(R.id.editTextDescripcion);
         buttonGuardar = findViewById(R.id.buttonGuardar);
 
@@ -40,7 +42,8 @@ public class EditFuenteActivity extends BaseActivity {
             editTextNombre.setText(fuente.getNombre());
             editTextLocalidad.setText(fuente.getLocalidad());
             editTextCalle.setText(fuente.getCalle());
-            editTextCoordenadas.setText(fuente.getCoordenadas());
+            editTextLatitud.setText(String.valueOf(fuente.getLatitud()));
+            editTextLongitud.setText(String.valueOf(fuente.getLongitud()));
             editTextDescripcion.setText(fuente.getDescripcion());
         }
 
@@ -52,20 +55,25 @@ public class EditFuenteActivity extends BaseActivity {
         String nombre = editTextNombre.getText().toString().trim();
         String localidad = editTextLocalidad.getText().toString().trim();
         String calle = editTextCalle.getText().toString().trim();
-        String coordenadas = editTextCoordenadas.getText().toString().trim();
+        String latitudStr = editTextLatitud.getText().toString().trim();
+        String longitudStr = editTextLongitud.getText().toString().trim();
         String descripcion = editTextDescripcion.getText().toString().trim();
 
         // Validar que los campos no estén vacíos
-        if (nombre.isEmpty() || localidad.isEmpty() || calle.isEmpty() || coordenadas.isEmpty() || descripcion.isEmpty()) {
+        if (nombre.isEmpty() || localidad.isEmpty() || calle.isEmpty() || latitudStr.isEmpty() || longitudStr.isEmpty() || descripcion.isEmpty()) {
             Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
             return; // Detener la ejecución si algún campo está vacío
         }
 
         // Actualizar la fuente
+        double latitud = Double.parseDouble(latitudStr);
+        double longitud = Double.parseDouble(longitudStr);
+
         fuente.setNombre(nombre);
         fuente.setLocalidad(localidad);
         fuente.setCalle(calle);
-        fuente.setCoordenadas(coordenadas);
+        fuente.setLatitud(latitud);
+        fuente.setLongitud(longitud);
         fuente.setDescripcion(descripcion);
 
         // Guardar los cambios en la base de datos
