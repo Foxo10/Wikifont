@@ -38,12 +38,26 @@
         app:layout_constraintTop_toBottomOf="@id/editTextLocalidad" />
 
     <EditText
-        android:id="@+id/editTextCoordenadas"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/editTextLatitud"
+        android:layout_width="168dp"
+        android:layout_height="41dp"
         android:layout_margin="16dp"
-        android:hint="Coordenadas"
+        android:layout_marginTop="16dp"
+        android:hint="Latitud"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextCalle" />
+
+    <EditText
+        android:id="@+id/editTextLongitud"
+        android:layout_width="195dp"
+        android:layout_height="41dp"
+        android:layout_margin="16dp"
+        android:layout_marginTop="16dp"
+        android:hint="Longitud"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextCalle" />
 
@@ -54,16 +68,19 @@
         android:layout_margin="16dp"
         android:hint="Descripción"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.937"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextCoordenadas" />
+        app:layout_constraintTop_toBottomOf="@id/editTextLatitud" />
 
     <Button
         android:id="@+id/buttonGuardar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:layout_marginTop="384dp"
         android:text="Guardar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextDescripcion" />
 

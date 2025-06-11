@@ -16,7 +16,8 @@ public class AddFuenteActivity extends BaseActivity {
     private EditText editTextNombre;
     private EditText editTextLocalidad;
     private EditText editTextCalle;
-    private EditText editTextCoordenadas;
+    private EditText editTextLatitud;
+    private EditText editTextLongitud;
     private EditText editTextDescripcion;
     private Button buttonGuardar;
 
@@ -29,7 +30,8 @@ public class AddFuenteActivity extends BaseActivity {
         editTextLocalidad= findViewById(R.id.editTextLocalidad);
         editTextLocalidad.setText(getIntent().getStringExtra("localidadseleccionado"));
         editTextCalle = findViewById(R.id.editTextCalle);
-        editTextCoordenadas = findViewById(R.id.editTextCoordenadas);
+        editTextLatitud = findViewById(R.id.editTextLatitud);
+        editTextLongitud = findViewById(R.id.editTextLongitud);
         editTextDescripcion = findViewById(R.id.editTextDescripcion);
         buttonGuardar = findViewById(R.id.buttonGuardar);
 
@@ -45,7 +47,8 @@ public class AddFuenteActivity extends BaseActivity {
         String nombre = editTextNombre.getText().toString().trim();
         String localidad = editTextLocalidad.getText().toString().trim();
         String calle = editTextCalle.getText().toString().trim();
-        String coordenadas = editTextCoordenadas.getText().toString().trim();
+        String latitud = editTextLatitud.getText().toString().trim();
+        String longitud = editTextLongitud.getText().toString().trim();
         String descripcion = editTextDescripcion.getText().toString().trim();
 
         // Validar que los campos no estén vacíos

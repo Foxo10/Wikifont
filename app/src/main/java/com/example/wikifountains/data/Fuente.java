@@ -12,12 +12,12 @@ public class Fuente implements Serializable {
     private String nombre;
     private String localidad;
     private String calle;
-    private Float latitud;
-    private Float longitud;
+    private double latitud;
+    private double longitud;
     private String descripcion;
 
     // Constructor
-    public Fuente(String nombre, String localidad, String calle, Float latitud, Float longitud, String descripcion) {
+    public Fuente(String nombre, String localidad, String calle, double latitud, double longitud, String descripcion) {
         this.nombre = nombre;
         this.localidad = localidad;
         this.calle = calle;
@@ -60,11 +60,11 @@ public class Fuente implements Serializable {
         this.calle = calle;
     }
 
-    public Float getLatitud() {
+    public double getLatitud() {
         return latitud;
     }
 
-    public void setLatitud(Float latitud) {
+    public void setLatitud(double latitud) {
         this.latitud = latitud;
     }
 
@@ -76,11 +76,11 @@ public class Fuente implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Float getLongitud() {
+    public double getLongitud() {
         return longitud;
     }
 
-    public void setLongitud(Float longitud) {
+    public void setLongitud(double longitud) {
         this.longitud = longitud;
     }
 }
