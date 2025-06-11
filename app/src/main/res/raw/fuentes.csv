@@ -1,10 +1,12 @@
-Nombre,Localidad,Calle,Latitud,Longitud,Descripcion
-Iturri Zibernetikoa/fuente cibernética,Bilbao,Parque de Doña Casilda,(43.26496567250899,-2.9408004452543697),
-Gobe Iturria,Getxo,C. Serantes,(43.33010257663224,-3.0069813999971604),Fuente de agua potable
-Fuente del Mercado,Barakaldo,Calle Mercado,(43.33010257663224,-3.0069813999971604),
-Fuente de la Iglesia,Durango,Plaza de la Iglesia,(43.33010257663224,-3.0069813999971604),
-Fuente del Ayuntamiento,Gernika,Plaza del Ayuntamiento,(43.33010257663224,-3.0069813999971604),
-Fuente del Puerto,Bermeo,Calle del Puerto,(43.33010257663224,-3.0069813999971604),
-Fuente de la Plaza Mayor,Mungia,Plaza Mayor,(43.33010257663224,-3.0069813999971604),
-Fuente de la Playa,Sopelana,Calle de la Playa,(43.33010257663224,-3.0069813999971604),
-Fuente del Parque Central,Berango,Parque Central,(43.33010257663224,-3.0069813999971604),
+Nombre,Localidad,Calle,Latitud,Longitud,Descripción
+Fuente del Parque Central,Sopelana,Plaza Euskadi,43.378956,-2.982123,"Fuente ornamental con tres chorros, bancos alrededor y zona ajardinada"
+Fuente de la Plaza Berango,Berango,Calle San Esteban,43.365432,-2.996745,"Fuente tradicional de piedra con caño metálico, restaurada en 2018"
+Fuente de Gorliz,Gorliz,Paseo de la Playa,43.416789,-2.934567,"Fuente moderna con sistema de recirculación de agua, cerca del acceso a la playa"
+Fuente del Ayuntamiento,Urduliz,Calle Mayor,43.379654,-2.961987,"Fuente adosada a muro de piedra con escudo municipal, agua potable"
+Fuente de la Plaza Plentzia,Plentzia,Plaza del Astillero,43.405321,-2.950159,"Fuente histórica (1895) con cuatro caños y abrevadero para animales"
+Fuente de Sopelana Berri,Sopelana,Avenida del Surf,43.381234,-2.989012,"Fuente contemporánea con iluminación LED, instalada en 2020"
+Fuente de la Iglesia,Berango,Calle Iglesia,43.367890,-2.998765,"Fuente sencilla junto a la iglesia de San Andrés, con agua fresca de manantial"
+Fuente del Puerto,Gorliz,Muelle de Gorliz,43.419876,-2.931234,"Fuente metálica para uso portuario, diseñada para llenar cubetas de barcos"
+Fuente del Parque Urduliz,Urduliz,Parque Urdai,43.382109,-2.959876,"Fuente interactiva para niños con sensores de movimiento"
+Fuente de la Ría,Plentzia,Paseo de la Ría,43.407654,-2.948765,"Fuente artística de acero inoxidable con forma de ola marina"
+Fuente de Lamiaran,Getxo,Calle Mayor de Algorta,43.354321,-3.010987,"Única fuente de estilo neoclásico en Uribe Kosta, declarada BIC en 2005"

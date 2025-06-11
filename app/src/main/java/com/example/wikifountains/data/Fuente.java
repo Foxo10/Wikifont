@@ -12,21 +12,22 @@ public class Fuente implements Serializable {
     private String nombre;
     private String localidad;
     private String calle;
-    private String coordenadas;
+    private Float latitud;
+    private Float longitud;
     private String descripcion;
 
     // Constructor
-    public Fuente(String nombre, String localidad, String calle, String coordenadas, String descripcion) {
+    public Fuente(String nombre, String localidad, String calle, Float latitud, Float longitud, String descripcion) {
         this.nombre = nombre;
         this.localidad = localidad;
         this.calle = calle;
-        this.coordenadas = coordenadas;
+        this.latitud = latitud;
+        this.longitud = longitud;
         this.descripcion = descripcion;
     }
 
 
     // Getters y Setters
-
     public int getId() {
         return id;
     }
@@ -59,12 +60,12 @@ public class Fuente implements Serializable {
         this.calle = calle;
     }
 
-    public String getCoordenadas() {
-        return coordenadas;
+    public Float getLatitud() {
+        return latitud;
     }
 
-    public void setCoordenadas(String coordenadas) {
-        this.coordenadas = coordenadas;
+    public void setLatitud(Float latitud) {
+        this.latitud = latitud;
     }
 
     public String getDescripcion() {
@@ -73,5 +74,13 @@ public class Fuente implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public Float getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(Float longitud) {
+        this.longitud = longitud;
     }
 }

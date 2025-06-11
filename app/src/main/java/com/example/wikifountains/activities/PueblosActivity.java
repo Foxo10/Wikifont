@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,18 +27,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
-public class PueblosActivity extends AppCompatActivity {
+public class PueblosActivity extends BaseActivity {
 
-    private static final String LANGUAGE_KEY = "language";
-    private static final String PREFS_NAME = "MyPrefs";
     private ListView listViewPueblos;
+
+    private ImageView imagenMapa;
+    private ImageView imagenLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadLocale();
-        setContentView(R.layout.activity_pueblos);
+        setContentViewWithDrawer(R.layout.activity_pueblos);
 
         // Inicializar vistas
         listViewPueblos = findViewById(R.id.listViewPueblos);
@@ -75,7 +77,24 @@ public class PueblosActivity extends AppCompatActivity {
             }
         });
 
+        // Configurar imagen de uribe kosta
+        int[] imageIDs = {
+                R.drawable.mapa_uribe_kosta,
+                R.drawable.uribe_kosta_colores,
+                R.drawable.bizakaia_uribe_kosta
+        };
+        imagenMapa = findViewById(R.id.imageView);
+        final int[] currentIndex = {0};
+        imagenMapa.setImageResource(imageIDs[currentIndex[0]]);
 
+        imagenMapa.setOnClickListener(v -> {
+            currentIndex[0] = (currentIndex[0] + 1) % imageIDs.length;
+            imagenMapa.setImageResource(imageIDs[currentIndex[0]]);
+        });
+
+        // Configurar imagen logo
+        imagenLogo = findViewById(R.id.logoImagen);
+        imagenLogo.setImageResource(R.drawable.wikifont_logo);
     }
 
     private void filtrarFuentesPorLocalidades(String localidad) {
@@ -83,24 +102,6 @@ public class PueblosActivity extends AppCompatActivity {
         intent.putExtra("localidad", localidad);
         Log.d("tag 2", "Iniciando FuentesActivity con la localidad: " + localidad);
         startActivity(intent);
-    }
-    private void loadLocale() {
-        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        String language = preferences.getString(LANGUAGE_KEY, "es");
-        if (!language.isEmpty()) {
-            setLocale(language);
-        }
-    }
-
-    private void setLocale(String languageCode) {
-        Locale locale = new Locale(languageCode);
-        Locale.setDefault(locale);
-
-        Configuration configuration = new Configuration();
-        configuration.setLocale(locale);
-
-        getBaseContext().getResources().updateConfiguration(configuration,
-                getBaseContext().getResources().getDisplayMetrics());
     }
     private List<String> cargarLocalidadesDesdeFichero() {
         List<String> localidades = new ArrayList<>();

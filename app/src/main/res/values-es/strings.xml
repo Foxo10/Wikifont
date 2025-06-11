@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Strings Generales-->
-    <string name="app_name">WikiFountains</string>
+    <string name="app_name">WikiFont</string>
     <string name="welcome_message">¡Bienvenido a la pantalla principal!</string>
     <string name="options_button">Opciones</string>
     <string name="language_selection">Selecciona el idioma</string>
@@ -9,8 +9,10 @@
     <string name="spanish">Español</string>
     <string name="basque">Euskera</string>
     <string name="fuentes_de">Fuentes en %s</string>
-    <string name="localidades">Localidades de Vizcaya</string>
-    <string name="ordenar">Invertir pueblos alfabeticamente</string>
+    <string name="localidades">Municipios de Uribe Costa</string>
+    <string name="ordenar">Ordenar las fuentes alfabéticamente</string>
+    <string name="idiomas">Selecciona tu idioma </string>
+    <string name="temas">Elige un tema</string>
 
     <!-- Navigacion Strings -->
     <string name="access">Inicia sesión para acceder a tus fuentes</string>

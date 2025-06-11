@@ -4,40 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.InicioActivity">
+    tools:context=".activities.PueblosActivity">
 
-    <TextView
-        android:id="@+id/tituloTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:gravity="center"
-        android:text="WikiFountains"
-        android:textSize="34sp"
+    <ImageView
+        android:id="@+id/logoImagen"
+        android:layout_width="372dp"
+        android:layout_height="94dp"
+        android:layout_marginTop="36dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/wikifont_logo"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewPueblosVizcaya"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="364dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="36dp"
         android:gravity="center"
         android:text="@string/localidades"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tituloTextView" />
+        app:layout_constraintTop_toBottomOf="@id/logoImagen" />
 
     <ListView
         android:id="@+id/listViewPueblos"
-        android:layout_width="337dp"
-        android:layout_height="360dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="289dp"
+        android:layout_height="144dp"
+        android:layout_marginTop="40dp"
         android:contentDescription="Lista de pueblos de Vizcaya"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewPueblosVizcaya" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="299dp"
+        android:layout_height="289dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginBottom="228dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listViewPueblos"
+        app:layout_constraintVertical_bias="0.145">
+
+    </ImageView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

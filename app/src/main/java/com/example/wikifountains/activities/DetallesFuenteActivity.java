@@ -3,12 +3,10 @@ package com.example.wikifountains.activities;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.wikifountains.data.Fuente;
 import com.example.wikifountains.R;
 
-public class DetallesFuenteActivity extends AppCompatActivity {
+public class DetallesFuenteActivity extends BaseActivity {
     private TextView textViewNombre;
     private TextView textViewLocalidad;
     private TextView textViewCalle;
@@ -19,7 +17,7 @@ public class DetallesFuenteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detalles_fuente);
+        setContentViewWithDrawer(R.layout.activity_detalles_fuente);
 
         // Inicializar vistas
         textViewNombre = findViewById(R.id.textViewNombre);

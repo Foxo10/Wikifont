@@ -5,15 +5,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.wikifountains.data.AppDatabase;
 import com.example.wikifountains.data.Fuente;
 import com.example.wikifountains.R;
 
 import java.util.concurrent.Executors;
 
-public class EditFuenteActivity extends AppCompatActivity {
+public class EditFuenteActivity extends BaseActivity {
     private EditText editTextNombre;
     private EditText editTextLocalidad;
     private EditText editTextCalle;
@@ -25,7 +23,7 @@ public class EditFuenteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_fuente);
+        setContentViewWithDrawer(R.layout.activity_edit_fuente);
 
         // Inicializar vistas
         editTextNombre = findViewById(R.id.editTextNombre);

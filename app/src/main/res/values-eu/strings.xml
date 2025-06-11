@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- String Orokorrak -->
-    <string name="app_name">WikiFountains</string>
+    <string name="app_name">WikiFont</string>
     <string name="welcome_message">Ongi etorri pantaila nagusira!</string>
     <string name="options_button">Aukerak</string>
     <string name="language_selection">Aukeratu hizkuntza</string>
@@ -9,8 +9,10 @@
     <string name="spanish">Gaztelania</string>
     <string name="basque">Euskara</string>
     <string name="fuentes_de">%sko iturriak</string>
-    <string name="localidades">Bizkaiko herriak</string>
-    <string name="ordenar">Alderantzikatu herriak alfabetikoki</string>
+    <string name="localidades">Uribe Kostako udalerriak</string>
+    <string name="ordenar">Iturriak ordenatu alfabetikoki</string>
+    <string name="idiomas">Aukeratu zure hizkuntza</string>
+    <string name="temas">Aukeratu gai bat</string>
 
     <!-- Nabigazioko Strings -->
     <string name="access">Hasi saioa zure iturriak atzitzeko</string>

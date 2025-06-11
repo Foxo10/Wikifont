@@ -9,13 +9,6 @@
         android:title="@string/menu"
         app:showAsAction="always" />
 
-    <!--Google Maps-->
-    <item
-        android:id="@+id/action_google_maps"
-        android:icon="@drawable/ic_google_maps"
-        android:title="Google Maps"
-        app:showAsAction="always" />
-
     <!--Buscar-->
     <item
         android:id="@+id/action_search"
@@ -23,6 +16,11 @@
         android:title="@string/search"
         app:showAsAction="always" />
 
-
+    <!--Google aps-->
+    <item
+        android:id="@+id/action_google_maps"
+        android:icon="@drawable/ic_maps"
+        android:title="@string/search"
+        app:showAsAction="always" />
 
 </menu>

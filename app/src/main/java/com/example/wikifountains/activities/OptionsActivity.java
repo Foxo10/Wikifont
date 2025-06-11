@@ -16,17 +16,15 @@ import com.example.wikifountains.R;
 
 import java.util.Locale;
 
-public class OptionsActivity extends AppCompatActivity {
+public class OptionsActivity extends BaseActivity {
 
-    private static final String PREFS_NAME = "MyPrefs";
-    private static final String LANGUAGE_KEY = "language";
     private static final String KEY_ORDENAR = "ordenar_fuentes";
     private Switch switchOrdenar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_options);
+        setContentViewWithDrawer(R.layout.activity_options);
 
         Button buttonEnglish = findViewById(R.id.button_english);
         Button buttonSpanish = findViewById(R.id.button_spanish);
@@ -35,21 +33,21 @@ public class OptionsActivity extends AppCompatActivity {
         buttonEnglish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setLocale("en");
+                changeLocale("en");
             }
         });
 
         buttonSpanish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setLocale("es");
+                changeLocale("es");
             }
         });
 
         buttonBasque.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setLocale("eu");
+                changeLocale("eu");
             }
         });
 
@@ -70,16 +68,8 @@ public class OptionsActivity extends AppCompatActivity {
 
     }
 
-    private void setLocale(String languageCode) {
-        Locale locale = new Locale(languageCode);
-        Locale.setDefault(locale);
-
-        Configuration configuration = new Configuration();
-        configuration.setLocale(locale);
-
-        getBaseContext().getResources().updateConfiguration(configuration,
-                getBaseContext().getResources().getDisplayMetrics());
-
+    private void changeLocale(String languageCode) {
+        setLocale(languageCode);
         // Guardar el idioma seleccionado
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -91,5 +81,7 @@ public class OptionsActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
+
     }
+
 }

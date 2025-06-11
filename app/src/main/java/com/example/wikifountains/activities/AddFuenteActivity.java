@@ -6,15 +6,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.wikifountains.data.AppDatabase;
 import com.example.wikifountains.data.Fuente;
 import com.example.wikifountains.R;
 
 import java.util.concurrent.Executors;
 
-public class AddFuenteActivity extends AppCompatActivity {
+public class AddFuenteActivity extends BaseActivity {
     private EditText editTextNombre;
     private EditText editTextLocalidad;
     private EditText editTextCalle;
@@ -25,7 +23,7 @@ public class AddFuenteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_fuente);
+        setContentViewWithDrawer(R.layout.activity_add_fuente);
 
         editTextNombre = findViewById(R.id.editTextNombre);
         editTextLocalidad= findViewById(R.id.editTextLocalidad);
@@ -57,7 +55,7 @@ public class AddFuenteActivity extends AppCompatActivity {
         }
 
         // Crear la nueva fuente
-        Fuente nuevaFuente = new Fuente(nombre, localidad, calle, coordenadas, descripcion);
+        Fuente nuevaFuente = new Fuente(nombre, localidad, calle, latitud, longitud, descripcion);
 
         // Guardar la fuente en la base de datos
         Executors.newSingleThreadExecutor().execute(() -> {
