@@ -173,11 +173,10 @@ public class FuentesActivity extends BaseActivity implements
 
     private List<Fuente> cargarFuentesDesdeCSV() {
         List<Fuente> fuentes = new ArrayList<>();
-        InputStream inputStream = getResources().openRawResource(R.raw.fuentes);
-        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-        CSVReader csvReader = new CSVReader(inputStreamReader);
 
-        try {
+        try (InputStream inputStream = getResources().openRawResource(R.raw.fuentes);
+             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+             CSVReader csvReader = new CSVReader(inputStreamReader)) {
             String[] nextLine;
             boolean isFirstLine = true; // Para saltar la primera línea (cabeceras)
             while ((nextLine = csvReader.readNext()) != null) {
@@ -199,12 +198,7 @@ public class FuentesActivity extends BaseActivity implements
             }
         } catch (IOException | CsvValidationException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                csvReader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
         }
 
         return fuentes;
