@@ -1,6 +1,7 @@
 package com.example.wikifountains.adapters;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,22 +47,37 @@ public class FuenteAdapter extends RecyclerView.Adapter<FuenteViewHolder> {
     public void onBindViewHolder(@NonNull FuenteViewHolder holder, int position) {
         Fuente fuente = fuentes.get(position);
         holder.textViewNombre.setText(fuente.getNombre());
-        holder.textViewLocalidad.setText(fuente.getLocalidad());
-        holder.textViewCalle.setText(fuente.getCalle());
 
-        // Listener para editar una fuente (al hacer clic en el icono de editar)
-        holder.imageViewEdit.setOnClickListener(v -> {
-            Intent intent = new Intent(v.getContext(), EditFuenteActivity.class);
-            intent.putExtra("fuente", fuente); // Pasar la fuente a editar
-            v.getContext().startActivity(intent);
-        });
+        if (holder.imageViewMap != null) {
+            // Diseño horizontal: mostrar coordenadas y descripción
+            String coords = fuente.getLatitud() + ", " + fuente.getLongitud();
+            holder.textViewLocalidad.setText(coords);
+            holder.textViewCalle.setText(fuente.getDescripcion());
 
-        // Listener para guardar como notificación (al hacer clic en el icono de guardar)
-        holder.imageViewGuardarNotificacion.setOnClickListener(v -> {
-            if (guardarNotificacionClickListener != null) {
-                guardarNotificacionClickListener.onGuardarNotificacionClick(fuente); // Notificar a la actividad
-            }
-        });
+            holder.imageViewMap.setOnClickListener(v -> {
+                String uri = "geo:" + fuente.getLatitud() + "," + fuente.getLongitud() +
+                        "?q=" + fuente.getLatitud() + "," + fuente.getLongitud() +
+                        "(" + Uri.encode(fuente.getNombre()) + ")";
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                v.getContext().startActivity(intent);
+            });
+        } else {
+            // Diseño vertical: nombre, localidad y calle con acciones
+            holder.textViewLocalidad.setText(fuente.getLocalidad());
+            holder.textViewCalle.setText(fuente.getCalle());
+
+            holder.imageViewEdit.setOnClickListener(v -> {
+                Intent intent = new Intent(v.getContext(), EditFuenteActivity.class);
+                intent.putExtra("fuente", fuente);
+                v.getContext().startActivity(intent);
+            });
+
+            holder.imageViewGuardarNotificacion.setOnClickListener(v -> {
+                if (guardarNotificacionClickListener != null) {
+                    guardarNotificacionClickListener.onGuardarNotificacionClick(fuente);
+                }
+            });
+        }
 
         // Listener para eliminar una fuente (al mantener presionado el elemento)
         holder.itemView.setOnLongClickListener(v -> {

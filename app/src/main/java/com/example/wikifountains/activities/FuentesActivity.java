@@ -73,16 +73,18 @@ public class FuentesActivity extends BaseActivity implements
         recyclerView = findViewById(R.id.recyclerViewFuentes);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Inicializar y configurar botón de añadir fuente
+        // Inicializar y configurar botón de añadir fuente (solo en vertical)
         buttonAddFuente = findViewById(R.id.buttonAddFuente);
-        buttonAddFuente.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FuentesActivity.this, AddFuenteActivity.class);
-                intent.putExtra("localidadseleccionado", localidadSeleccionado);
-                startActivity(intent);
-            }
-        });
+        if (buttonAddFuente != null) {
+            buttonAddFuente.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(FuentesActivity.this, AddFuenteActivity.class);
+                    intent.putExtra("localidadseleccionado", localidadSeleccionado);
+                    startActivity(intent);
+                }
+            });
+        }
 
         // Cargar las fuentes desde la base de datos
         cargarFuentes();

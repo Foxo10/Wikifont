@@ -8,41 +8,28 @@
 
     <TextView
         android:id="@+id/textViewFuentesDe"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_width="574dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="@string/fuentes_de"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewFuentes"
-        android:layout_width="392dp"
-        android:layout_height="468dp"
-        android:layout_marginTop="40dp"
-        android:contentDescription="Lista de fuentes de Vizcaya"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewFuentesDe"
-        tools:listitem="@layout/item_fuente" />
-
-    <Button
-        android:id="@+id/buttonAddFuente"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginTop="44dp"
-        android:text="@string/add_font"
+        android:layout_width="651dp"
+        android:layout_height="202dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewFuentes"
-        app:layout_constraintVertical_bias="0.316" />
+        app:layout_constraintTop_toBottomOf="@id/textViewFuentesDe"
+        app:layout_constraintVertical_bias="0.403"
+        tools:listitem="@layout/item_fuente" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
