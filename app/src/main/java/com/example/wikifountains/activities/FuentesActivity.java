@@ -111,16 +111,20 @@ public class FuentesActivity extends BaseActivity implements
     }
 
     private void cargarFuentes() {
-        // Obtener las fuentes filtradas por pueblo
-        Log.d("tag 4", "Cargando fuentes para la localidad: " + localidadSeleccionado);
-        List<Fuente> fuentes = db.fuenteDao().getFuentesPorLocalidad(localidadSeleccionado);
-        Log.d("tag 5", "Número de fuentes encontradas: " + (fuentes != null ? fuentes.size() : "null"));
+        Executors.newSingleThreadExecutor().execute(() -> {
+            // Obtener las fuentes filtradas por pueblo
+            Log.d("tag 4", "Cargando fuentes para la localidad: " + localidadSeleccionado);
+            List<Fuente> fuentes = db.fuenteDao().getFuentesPorLocalidad(localidadSeleccionado);
+            Log.d("tag 5", "Número de fuentes encontradas: " + (fuentes != null ? fuentes.size() : "null"));
 
-        // Asignar las fuentes al adaptador
-        adapter = new FuenteAdapter(fuentes);
-        adapter.setEliminarFuenteListener(this);
-        adapter.setOnGuardarNotificacionClickListener(this); // Asignar el listener para "guardar como notificación"
-        recyclerView.setAdapter(adapter);
+            runOnUiThread(() -> {
+                // Asignar las fuentes al adaptador
+                adapter = new FuenteAdapter(fuentes);
+                adapter.setEliminarFuenteListener(this);
+                adapter.setOnGuardarNotificacionClickListener(this); // Asignar el listener para "guardar como notificación"
+                recyclerView.setAdapter(adapter);
+            });
+        });
     }
 
     @Override

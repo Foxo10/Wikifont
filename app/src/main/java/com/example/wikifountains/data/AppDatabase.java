@@ -23,13 +23,9 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public static synchronized AppDatabase getInstance(Context context) {
         if (instance == null) {
-            // Eliminar la base de datos existente
-            //deleteDatabase(context);
-            context.deleteDatabase("fuentes_database");
 
             instance = Room.databaseBuilder(context.getApplicationContext(),
                             AppDatabase.class, "fuentes_database")
-                    .allowMainThreadQueries()  // Permitir consultas en el hilo principal (solo para pruebas)
                     .addCallback(new RoomDatabase.Callback() {
                         @Override
                         public void onCreate(@NonNull SupportSQLiteDatabase db) {
