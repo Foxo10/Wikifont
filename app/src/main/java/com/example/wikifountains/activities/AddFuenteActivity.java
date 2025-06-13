@@ -53,7 +53,7 @@ public class AddFuenteActivity extends BaseActivity {
 
         // Validar que los campos no estén vacíos
         if (nombre.isEmpty() || localidad.isEmpty() || calle.isEmpty() || latitudStr.isEmpty() || longitudStr.isEmpty() || descripcion.isEmpty()) {
-            Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_fields), Toast.LENGTH_SHORT).show();
             return; // Detener la ejecución si algún campo está vacío
         }
 
@@ -66,7 +66,7 @@ public class AddFuenteActivity extends BaseActivity {
         Executors.newSingleThreadExecutor().execute(() -> {
             AppDatabase.getInstance(this).fuenteDao().insert(nuevaFuente);
             runOnUiThread(() -> {
-                Toast.makeText(this, "Fuente guardada correctamente", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.toast_saved), Toast.LENGTH_SHORT).show();
                 finish(); // Cerrar la actividad después de guardar
             });
         });

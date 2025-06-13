@@ -61,7 +61,7 @@ public class EditFuenteActivity extends BaseActivity {
 
         // Validar que los campos no estén vacíos
         if (nombre.isEmpty() || localidad.isEmpty() || calle.isEmpty() || latitudStr.isEmpty() || longitudStr.isEmpty() || descripcion.isEmpty()) {
-            Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toast_fields, Toast.LENGTH_SHORT).show();
             return; // Detener la ejecución si algún campo está vacío
         }
 
@@ -80,7 +80,7 @@ public class EditFuenteActivity extends BaseActivity {
         Executors.newSingleThreadExecutor().execute(() -> {
             AppDatabase.getInstance(this).fuenteDao().update(fuente);
             runOnUiThread(() -> {
-                Toast.makeText(this, "Fuente actualizada correctamente", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.toast_saved, Toast.LENGTH_SHORT).show();
                 finish(); // Cerrar la actividad después de guardar
             });
         });

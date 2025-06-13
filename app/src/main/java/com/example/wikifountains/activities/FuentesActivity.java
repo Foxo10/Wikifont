@@ -149,11 +149,12 @@ public class FuentesActivity extends BaseActivity implements
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
+        String font = getString(R.string.font);
         // Crear la notificación persistente
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
                 .setSmallIcon(R.drawable.ic_noti_fountain) // Icono de la notificación
-                .setContentTitle("Fuente "+fuente.getNombre()+" guardada") // Título de la notificación
-                .setContentText("Has guardado la fuente: " + fuente.getNombre()) // Mensaje de la notificación
+                .setContentTitle(getString(R.string.font)+" "+fuente.getNombre()+" "+getString(R.string.saved)) // Título de la notificación
+                .setContentText(getString(R.string.notification) +"\n"+ fuente.getNombre() +"\n" + getString(R.string.more_info)) // Mensaje de la notificación
                 .setSubText(fuente.getCalle()) // Subtexto de la notificación
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT) // Prioridad de la notificación
                 .setContentIntent(pendingIntent) // Intent al hacer clic en la notificación

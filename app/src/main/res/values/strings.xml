@@ -12,6 +12,7 @@
     <string name="ordenar">Sort fonts alphabetically</string>
     <string name="idiomas">Select your language</string>
     <string name="temas">Choose a theme</string>
+    <string name="font">Font</string>
 
     <!-- Navigation/Toolbar Menu Strings -->
     <string name="access">Log in to access your fountains</string>
@@ -25,5 +26,20 @@
     <string name="map">Map</string>
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
+
+    <!-- Otras actividades -->
+    <string name="add_font">Add fountain</string>
+    <string name="save_change">Save changes</string>
+    <string name="delete_font">Delete fountain</string>
+    <string name="delete_text">Do you want to eliminate this fountain?</string>
+    <string name="save">Save</string>
+    <string name="delete">DELETE</string>
+    <string name="cancel">CANCEL</string>
+    <string name="saved">saved</string>
+    <string name="notification">You have saved the fountain: </string>
+    <string name="toast_fields">All fields are mandatory.</string>
+    <string name="toast_saved">Font saved correctly.</string>
+    <string name="more_info">Click here for more information</string>
+
 
 </resources>

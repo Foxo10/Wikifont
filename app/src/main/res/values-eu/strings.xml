@@ -13,6 +13,7 @@
     <string name="ordenar">Iturriak ordenatu alfabetikoki</string>
     <string name="idiomas">Aukeratu zure hizkuntza</string>
     <string name="temas">Aukeratu gai bat</string>
+    <string name="font">Iturria</string>
 
     <!-- Nabigazioko Strings -->
     <string name="access">Hasi saioa zure iturriak atzitzeko</string>
@@ -26,5 +27,19 @@
     <string name="map">Mapa</string>
     <string name="navigation_drawer_open">Ireki</string>
     <string name="navigation_drawer_close">Itxi</string>
+
+    <!-- Otras actividades -->
+    <string name ="add_font">Gehitu iturria</string>
+    <string name ="save_change">Gorde aldaketak</string>
+    <string name ="delete_font">Ezabatu iturria</string>
+    <string name ="delete_text">Iturri hau ezabatu nahi duzu?</string>
+    <string name ="delete">EZABATU</string>
+    <string name ="cancel">UTZI</string>
+    <string name ="saved"> gordeta</string>
+    <string name="save">Gorde</string>
+    <string name ="notification">Iturri hau gorde duzu: </string>
+    <string name="toast_fields">Eremu guztiak derrigorrezkoak dira.</string>
+    <string name="toast_saved">Iturria behar bezala gorde da.</string>
+    <string name="more_info">Egin klik hemen informazio gehiago lortzeko</string>
 
 </resources>

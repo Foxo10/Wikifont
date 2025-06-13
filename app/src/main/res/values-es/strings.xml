@@ -13,6 +13,8 @@
     <string name="ordenar">Ordenar las fuentes alfabéticamente</string>
     <string name="idiomas">Selecciona tu idioma </string>
     <string name="temas">Elige un tema</string>
+    <string name="font">Fuente</string>
+
 
     <!-- Navigacion Strings -->
     <string name="access">Inicia sesión para acceder a tus fuentes</string>
@@ -26,5 +28,19 @@
     <string name="map">Mapa</string>
     <string name="navigation_drawer_open">Abrir</string>
     <string name="navigation_drawer_close">Cerrar</string>
+
+    <!-- Otras actividades -->
+    <string name ="add_font">Agregar fuente</string>
+    <string name ="save_change">Guardar cambios</string>
+    <string name ="delete_font">Eliminar la fuente</string>
+    <string name ="delete_text">¿Quieres eliminar esta fuente?</string>
+    <string name ="delete">ELIMINAR</string>
+    <string name ="cancel">CANCELAR</string>
+    <string name ="saved"> guardada</string>
+    <string name="save">Guardar</string>
+    <string name ="notification">Has guardado la fuente: </string>
+    <string name="toast_fields">Todos los campos son obligatorios.</string>
+    <string name="toast_saved">Fuente guardada correctamente.</string>
+    <string name="more_info">Haga clic aquí para obtener más información</string>
 
 </resources>
