@@ -26,7 +26,7 @@ public abstract class AppDatabase extends RoomDatabase {
         if (instance == null) {
             instance = Room.databaseBuilder(
                     context.getApplicationContext(),
-                            AppDatabase.class, "mifuente_db")
+                            AppDatabase.class, "mifuentes_db")
                     .fallbackToDestructiveMigration()
                     .build();
 
@@ -36,7 +36,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static void deleteDatabase(Context context) {
         try {
-            File database = context.getDatabasePath("mifuente_db");
+            File database = context.getDatabasePath("mifuentes_db");
             if (database.exists()) {
                 database.delete();
                 Log.d(TAG, "Base de datos eliminada");
