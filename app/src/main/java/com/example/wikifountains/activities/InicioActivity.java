@@ -11,7 +11,6 @@ import android.view.MenuItem;
 
 
 import com.example.wikifountains.R;
-import com.example.wikifountains.data.BBDDInitializer;
 
 
 public class InicioActivity extends BaseActivity {
@@ -22,8 +21,7 @@ public class InicioActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentViewWithDrawer(R.layout.activity_inicio);
-        // Inicializar base de datos y cargar fuentes
-        BBDDInitializer.initialize(this);
+        // La base de datos se inicializa desde AppDatabase.getInstance()
         // Cargar orden de preferencia
         SharedPreferences preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         preferences.getBoolean("ordenar_fuentes", false);
