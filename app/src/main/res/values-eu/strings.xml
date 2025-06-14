@@ -14,6 +14,8 @@
     <string name="idiomas">Aukeratu zure hizkuntza</string>
     <string name="temas">Aukeratu gai bat</string>
     <string name="font">Iturria</string>
+    <string name="fonts">Iturriak</string>
+    <string name="back">Atzera</string>
 
     <!-- Nabigazioko Strings -->
     <string name="access">Hasi saioa zure iturriak atzitzeko</string>

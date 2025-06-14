@@ -13,6 +13,8 @@
     <string name="idiomas">Select your language</string>
     <string name="temas">Choose a theme</string>
     <string name="font">Font</string>
+    <string name="fonts">Fonts</string>
+    <string name="back">Back</string>
 
     <!-- Navigation/Toolbar Menu Strings -->
     <string name="access">Log in to access your fountains</string>

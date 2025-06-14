@@ -14,6 +14,8 @@
     <string name="idiomas">Selecciona tu idioma </string>
     <string name="temas">Elige un tema</string>
     <string name="font">Fuente</string>
+    <string name="fonts">Fuentes</string>
+    <string name="back">Atrás</string>
 
 
     <!-- Navigacion Strings -->

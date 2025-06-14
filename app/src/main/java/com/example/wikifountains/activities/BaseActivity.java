@@ -124,6 +124,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.inicio_menu, menu);
+        if (this instanceof InicioActivity) {
+            menu.findItem(R.id.action_backspace).setVisible(false);
+        }
         return true;
     }
 
@@ -139,6 +142,9 @@ public abstract class BaseActivity extends AppCompatActivity {
                 intent = new Intent(this, InicioActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
+                finish();
+                break;
+            case R.id.action_backspace:
                 finish();
                 break;
             case R.id.action_search:

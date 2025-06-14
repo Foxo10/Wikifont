@@ -49,6 +49,9 @@ public class InicioActivity extends BaseActivity {
                 intent = new Intent(this, PueblosActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.action_backspace:
+                finish();
+                break;
             case R.id.localizacion:
                 Uri gmmIntentUri1 = Uri.parse("geo:0,0?q=fuentes");
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri1);
@@ -71,6 +74,7 @@ public class InicioActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu (Menu menu){
         getMenuInflater().inflate(R.menu.inicio_menu, menu);
+        menu.findItem(R.id.action_backspace).setVisible(false);
         return true;
     }
 

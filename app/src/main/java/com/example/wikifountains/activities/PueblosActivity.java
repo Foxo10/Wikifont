@@ -34,7 +34,6 @@ public class PueblosActivity extends BaseActivity {
     private ListView listViewPueblos;
 
     private ImageView imagenMapa;
-    private ImageView imagenLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,9 +87,6 @@ public class PueblosActivity extends BaseActivity {
             imagenMapa.setImageResource(imageIDs[currentIndex[0]]);
         });
 
-        // Configurar imagen logo
-        imagenLogo = findViewById(R.id.logoImagen);
-        imagenLogo.setImageResource(R.drawable.wikifont_logo);
     }
 
     private void filtrarFuentesPorLocalidades(String localidad) {
