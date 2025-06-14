@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Fuente.class}, version = 3)
+@Database(entities = {Fuente.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase instance;
 
@@ -23,23 +23,15 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public static synchronized AppDatabase getInstance(Context context) {
         if (instance == null) {
-
-            instance = Room.databaseBuilder(context.getApplicationContext(),
+            instance = Room.databaseBuilder(
+                    context.getApplicationContext(),
                             AppDatabase.class, "fuentes_database")
-                    .addCallback(new RoomDatabase.Callback() {
-                        @Override
-                        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                            super.onCreate(db);
-                            Executors.newSingleThreadExecutor().execute(() -> {
-                                // Solo insertar si la tabla está vacía
-                                if (instance.fuenteDao().countFuentes() == 0) {
-                                    instance.fuenteDao().insert(PREPOPULATE_DATA);
-                                    Log.d(TAG, "Datos iniciales insertados");
-                                }
-                            });
-                        }
-                    })
+                    .fallbackToDestructiveMigration()
+                    .addCallback(BBDDInitializer.getDatabaseCreationCallback())
                     .build();
+
+            // Cargar la base de datos con datos iniciales
+            BBDDInitializer.initialize(context);
         }
         return instance;
     }
@@ -56,10 +48,5 @@ public abstract class AppDatabase extends RoomDatabase {
         }
     }
 
-    // Lista de fuentes predeterminadas (sin imágenes)
-    private static final List<Fuente> PREPOPULATE_DATA = Arrays.asList(
-            new Fuente("Fuente de Berango Antzokia", "Berango", "9 Abarotxu Bidea", 43.35531045006519, -2.9954482967626492, "Fuente ubicada en los columpios previos a la entrada del Antzoki."),
-            new Fuente("fuente agua potable Algorta", "Getxo", "Telletxe Kalea, 3,", 43.351172132492216, -3.009839010952571,  "Fuente de agua potable en el parque de la estación de metro de Algorta.")
-            );
 
 }

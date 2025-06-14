@@ -4,25 +4,15 @@ package com.example.wikifountains.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import androidx.appcompat.widget.Toolbar;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.wikifountains.R;
-import com.google.android.material.navigation.NavigationView;
+import com.example.wikifountains.data.BBDDInitializer;
 
-import java.util.Locale;
 
 public class InicioActivity extends BaseActivity {
 
@@ -32,6 +22,8 @@ public class InicioActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentViewWithDrawer(R.layout.activity_inicio);
+        // Inicializar base de datos y cargar fuentes
+        BBDDInitializer.initialize(this);
         // Cargar orden de preferencia
         SharedPreferences preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         preferences.getBoolean("ordenar_fuentes", false);

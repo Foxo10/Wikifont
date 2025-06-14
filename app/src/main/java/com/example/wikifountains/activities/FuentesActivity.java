@@ -24,15 +24,6 @@ import com.example.wikifountains.EliminarFuenteDialog;
 import com.example.wikifountains.data.Fuente;
 import com.example.wikifountains.R;
 import com.example.wikifountains.adapters.FuenteAdapter;
-import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvValidationException;
-
-import org.osmdroid.util.GeoPoint;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 
@@ -65,9 +56,6 @@ public class FuentesActivity extends BaseActivity implements
 
         // Inicializar la base de datos
         db = AppDatabase.getInstance(this);
-
-        // Cargar datos iniciales desde el CSV si es necesario
-        cargarDatosIniciales();
 
         // Configurar el RecyclerView
         recyclerView = findViewById(R.id.recyclerViewFuentes);
@@ -171,53 +159,4 @@ public class FuentesActivity extends BaseActivity implements
         notificationManager.notify(fuente.getId(), builder.build()); // Usar el ID de la fuente como ID de notificación
     }
 
-    private List<Fuente> cargarFuentesDesdeCSV() {
-        List<Fuente> fuentes = new ArrayList<>();
-
-        try (InputStream inputStream = getResources().openRawResource(R.raw.fuentes);
-             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-             CSVReader csvReader = new CSVReader(inputStreamReader)) {
-            String[] nextLine;
-            boolean isFirstLine = true; // Para saltar la primera línea (cabeceras)
-            while ((nextLine = csvReader.readNext()) != null) {
-                if (isFirstLine) {
-                    isFirstLine = false;
-                    continue; // Saltar la primera línea (cabeceras)
-                }
-
-                // Crear un objeto Fuente con los datos de la línea
-                String nombre = nextLine[0];
-                String localidad = nextLine[1];
-                String calle = nextLine[2];
-                Float latitud = Float.parseFloat(nextLine[3]);
-                Float longitud = Float.parseFloat(nextLine[4]);
-                String descripcion = nextLine[5];
-
-                Fuente fuente = new Fuente(nombre, localidad, calle, latitud, longitud ,descripcion);
-                fuentes.add(fuente);
-            }
-        } catch (IOException | CsvValidationException e) {
-            e.printStackTrace();
-
-        }
-
-        return fuentes;
-    }
-
-    private void cargarDatosIniciales() {
-        Executors.newSingleThreadExecutor().execute(() -> {
-            // Verificar si ya hay fuentes en la base de datos
-            if (db.fuenteDao().countFuentes() <= 10) {
-                // Cargar fuentes desde el CSV
-                List<Fuente> fuentes = cargarFuentesDesdeCSV();
-
-                // Insertar las fuentes en la base de datos
-                for (Fuente fuente : fuentes) {
-                    db.fuenteDao().insert(fuente);
-                }
-
-                Log.d("Database", "Datos iniciales cargados en la base de datos.");
-            }
-        });
-    }
 }
