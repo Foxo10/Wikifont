@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.concurrent.Executors;
 
 public class BBDDInitializer {
-    private static final String TAG = "BBDDInitializer";
     public static void initialize(Context context) {
         Executors.newSingleThreadExecutor().execute(() -> {
             AppDatabase db = AppDatabase.getInstance(context);
@@ -30,7 +29,6 @@ public class BBDDInitializer {
                 for (Fuente fuente : fuentes) {
                     db.fuenteDao().insert(fuente);
                 }
-                Toast.makeText(context, "Fuentes añadidas: "+fuentes.size(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -62,19 +60,4 @@ public class BBDDInitializer {
         return fuentes;
     }
 
-    public static RoomDatabase.Callback getDatabaseCreationCallback() {
-        return new RoomDatabase.Callback() {
-            @Override
-            public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                super.onCreate(db);
-                Log.d(TAG, "Base de datos creada.");
-            }
-
-            @Override
-            public void onOpen(@NonNull SupportSQLiteDatabase db) {
-                super.onOpen(db);
-                Log.d(TAG, "Base de datos abierta.");
-            }
-        };
-    }
 }

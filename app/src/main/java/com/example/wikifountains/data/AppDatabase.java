@@ -22,23 +22,21 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract FuenteDao fuenteDao();
 
     public static synchronized AppDatabase getInstance(Context context) {
+
         if (instance == null) {
             instance = Room.databaseBuilder(
                     context.getApplicationContext(),
-                            AppDatabase.class, "fuentes_database")
+                            AppDatabase.class, "mifuente_db")
                     .fallbackToDestructiveMigration()
-                    .addCallback(BBDDInitializer.getDatabaseCreationCallback())
                     .build();
 
-            // Cargar la base de datos con datos iniciales
-            BBDDInitializer.initialize(context);
         }
         return instance;
     }
 
     private static void deleteDatabase(Context context) {
         try {
-            File database = context.getDatabasePath("fuentes_database");
+            File database = context.getDatabasePath("mifuente_db");
             if (database.exists()) {
                 database.delete();
                 Log.d(TAG, "Base de datos eliminada");
