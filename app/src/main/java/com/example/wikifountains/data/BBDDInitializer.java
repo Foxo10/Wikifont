@@ -24,9 +24,10 @@ public class BBDDInitializer {
         Executors.newSingleThreadExecutor().execute(() -> {
             AppDatabase db = AppDatabase.getInstance(context);
 
-            if (db.fuenteDao().countFuentes() == 0) {
-                List<Fuente> fuentes = cargarFuentesDesdeCSV(context);
-                for (Fuente fuente : fuentes) {
+            List<Fuente> fuentes = cargarFuentesDesdeCSV(context);
+            for (Fuente fuente : fuentes) {
+                Fuente existente = db.fuenteDao().getFuenteByNombre(fuente.getNombre());
+                if (existente == null) {
                     db.fuenteDao().insert(fuente);
                 }
             }

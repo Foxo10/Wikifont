@@ -148,7 +148,7 @@ public class FuentesActivity extends BaseActivity implements
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
                 .setSmallIcon(R.drawable.ic_noti_fountain) // Icono de la notificación
                 .setContentTitle(getString(R.string.font)+" "+fuente.getNombre()+" "+getString(R.string.saved)) // Título de la notificación
-                .setContentText(getString(R.string.notification) +"\n"+ fuente.getNombre() +"\n" + getString(R.string.more_info)) // Mensaje de la notificación
+                .setContentText(getString(R.string.more_info)) // Mensaje de la notificación
                 .setSubText(fuente.getCalle()) // Subtexto de la notificación
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT) // Prioridad de la notificación
                 .setContentIntent(pendingIntent) // Intent al hacer clic en la notificación

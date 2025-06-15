@@ -28,6 +28,7 @@ public abstract class AppDatabase extends RoomDatabase {
                     context.getApplicationContext(),
                             AppDatabase.class, "mifuentes_db")
                     .fallbackToDestructiveMigration()
+                    .allowMainThreadQueries()
                     .build();
 
         }

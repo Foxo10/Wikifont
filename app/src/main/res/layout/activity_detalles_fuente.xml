@@ -43,7 +43,7 @@
         android:text="Localidad"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.646"
+        app:layout_constraintHorizontal_bias="0.964"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewNombre" />
 
@@ -76,38 +76,38 @@
 
     <TextView
         android:id="@+id/textViewLocal4"
-        android:layout_width="80dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="93dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="8dp"
         android:gravity="center_vertical"
         android:text="Calle:"
         android:textColor="@color/cyan"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/textViewLocalidad"
-        app:layout_constraintHorizontal_bias="0.627"
+        app:layout_constraintHorizontal_bias="0.289"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewLocal" />
 
     <TextView
         android:id="@+id/textViewLocal"
-        android:layout_width="80dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="131dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="16dp"
         android:gravity="center_vertical"
         android:text="Localidad: "
+        android:textColor="@color/cyan"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="@color/cyan"
         app:layout_constraintEnd_toStartOf="@+id/textViewLocalidad"
-        app:layout_constraintHorizontal_bias="0.627"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewNombre" />
 
     <TextView
         android:id="@+id/textViewLocal3"
-        android:layout_width="100dp"
-        android:layout_height="36dp"
+        android:layout_width="120dp"
+        android:layout_height="37dp"
         android:layout_marginTop="20dp"
         android:gravity="center_vertical"
         android:text="Descripcion: -------------"
@@ -124,7 +124,7 @@
         android:layout_width="272dp"
         android:layout_height="24dp"
         android:layout_margin="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="20dp"
         android:text="Calle"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
