@@ -5,4 +5,7 @@
     <color name="blue">#03A9F4</color>
     <color name="cyan">#00BCD4</color>
     <color name="verdoso">#009688</color>
+    <color name="amber">#FFC107</color>
+    <color name="gray">#9E9E9E</color>
+    <color name="dark_text">#212121</color>
 </resources>

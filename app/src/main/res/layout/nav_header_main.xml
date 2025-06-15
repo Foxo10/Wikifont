@@ -31,7 +31,8 @@
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:fontFamily="?attr/fontFamily" />
 
     <!-- Email de usuario -->
     <TextView
@@ -40,6 +41,8 @@
         android:layout_height="wrap_content"
         android:text="@string/access"
         android:textAlignment="center"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:fontFamily="?attr/fontFamily" />
+
 
 </LinearLayout>

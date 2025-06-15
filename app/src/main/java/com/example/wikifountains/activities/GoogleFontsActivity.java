@@ -4,12 +4,12 @@ import android.os.Bundle;
 
 import com.example.wikifountains.R;
 
-public class FountainMapsActivity extends BaseActivity {
+public class GoogleFontsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentViewWithDrawer(R.layout.activity_fountain_maps);
+        setContentViewWithDrawer(R.layout.activity_google_fonts);
     }
 }

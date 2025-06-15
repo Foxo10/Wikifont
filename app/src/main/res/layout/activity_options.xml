@@ -8,22 +8,52 @@
 
     <TextView
         android:id="@+id/textoTemas"
-        android:text="@string/temas"
         android:layout_width="199dp"
         android:layout_height="35dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/temas"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.088"
+        app:layout_constraintHorizontal_bias="0.094"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_spanish" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/textoTemas"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <RadioButton
+            android:id="@+id/radio_light"
+            android:layout_width="115dp"
+            android:layout_height="match_parent"
+            android:text="@string/light_mode" />
+
+        <RadioButton
+            android:id="@+id/radio_dark"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:text="@string/dark_mode" />
+
+        <RadioButton
+            android:id="@+id/radio_font"
+            android:layout_width="126dp"
+            android:layout_height="match_parent"
+            android:text="@string/font_mode" />
+    </RadioGroup>
 
     <TextView
         android:id="@+id/textViewOpciones"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="@string/options_button"
+        android:text="@string/settings"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -33,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
-        android:text="@string/ordenar"
+        android:text="@string/ordenar_alfa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.093"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,10 +71,11 @@
 
     <TextView
         android:id="@+id/textoIdiomas"
-        android:text="@string/idiomas"
         android:layout_width="199dp"
         android:layout_height="35dp"
         android:layout_marginTop="40dp"
+        android:text="@string/idiomas"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.088"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,33 +83,35 @@
 
     <Button
         android:id="@+id/button_english"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
-        android:text="English"
+        android:layout_width="112dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="?attr/colorButtonNormal"
+        android:text="@string/english"
         app:layout_constraintEnd_toStartOf="@+id/button_spanish"
-        app:layout_constraintHorizontal_bias="0.347"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/switchOrdenar" />
+        app:layout_constraintTop_toBottomOf="@+id/textoIdiomas" />
 
     <Button
         android:id="@+id/button_spanish"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
-        android:layout_marginEnd="24dp"
-        android:text="Español"
+        android:layout_width="139dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="4dp"
+        android:backgroundTint="?attr/colorButtonNormal"
+        android:text="@string/spanish"
         app:layout_constraintEnd_toStartOf="@+id/button_basque"
-        app:layout_constraintTop_toBottomOf="@+id/switchOrdenar" />
+        app:layout_constraintTop_toBottomOf="@+id/textoIdiomas" />
 
     <Button
         android:id="@+id/button_basque"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
-        android:layout_marginEnd="16dp"
-        android:text="Euskera"
+        android:layout_width="114dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="?attr/colorButtonNormal"
+        android:text="@string/basque"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switchOrdenar" />
+        app:layout_constraintTop_toBottomOf="@+id/textoIdiomas" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

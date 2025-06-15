@@ -9,9 +9,13 @@
     <string name="basque">Basque</string>
     <string name="fuentes_de">Fountains in %s</string>
     <string name="localidades">Municipalities of Uribe-Coast</string>
-    <string name="ordenar">Sort fonts alphabetically</string>
+    <string name="ordenar_alfa">Sort municipalities alphabetically</string>
+    <string name="ordenar_popu">Sort municipalities by population</string>
     <string name="idiomas">Select your language</string>
     <string name="temas">Choose a theme</string>
+    <string name="light_mode">Light</string>
+    <string name="dark_mode">Dark</string>
+    <string name="font_mode">Font</string>
     <string name="font">Font</string>
     <string name="fonts">Fonts</string>
     <string name="back">Back</string>
@@ -41,6 +45,8 @@
     <string name="notification">You have saved the fountain: </string>
     <string name="toast_fields">All fields are mandatory.</string>
     <string name="toast_saved">Font saved correctly.</string>
+    <string name="toast_theme_applied">Theme applied</string>
+    <string name="toast_language_applied">Language applied</string>
     <string name="more_info">Click here for more information</string>
 
 

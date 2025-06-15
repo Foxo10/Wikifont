@@ -31,6 +31,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public static final int THEME_SYSTEM = 0;
     public static final int THEME_LIGHT = 1;
     public static final int THEME_DARK = 2;
+    public static final int THEME_FONT = 3;
 
     protected DrawerLayout drawerLayout;
     protected ActionBarDrawerToggle drawerToggle;
@@ -76,10 +77,14 @@ public abstract class BaseActivity extends AppCompatActivity {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 setTheme(R.style.Theme_WikiFountains);
                 break;
+            case THEME_FONT:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                setTheme(R.style.Theme_WikiFountains_Font);
+                break;
             case THEME_SYSTEM:
             default:
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                setTheme(R.style.Base_Theme_WikiFountains);
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                setTheme(R.style.Theme_WikiFountains);
                 break;
         }
     }
@@ -167,7 +172,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 startActivityForResult(new Intent(this, OptionsActivity.class), 1);
                 break;
             case R.id.localizacion:
-                startActivity(new Intent(this, FountainMapsActivity.class));
+                startActivity(new Intent(this, GoogleFontsActivity.class));
                 break;
         }
         drawerLayout.closeDrawers();

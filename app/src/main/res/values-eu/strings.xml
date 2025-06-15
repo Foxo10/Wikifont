@@ -10,9 +10,13 @@
     <string name="basque">Euskara</string>
     <string name="fuentes_de">%sko iturriak</string>
     <string name="localidades">Uribe Kostako udalerriak</string>
-    <string name="ordenar">Iturriak ordenatu alfabetikoki</string>
+    <string name="ordenar_alfa">Udalerriak ordenatu alfabetikoki</string>
+    <string name="ordenar_popu">Udalerriak ordenatu biztanleriaren arabera</string>
     <string name="idiomas">Aukeratu zure hizkuntza</string>
     <string name="temas">Aukeratu gai bat</string>
+    <string name="light_mode">Argia</string>
+    <string name="dark_mode">Iluna</string>
+    <string name="font_mode">Iturria</string>
     <string name="font">Iturria</string>
     <string name="fonts">Iturriak</string>
     <string name="back">Atzera</string>
@@ -42,6 +46,8 @@
     <string name ="notification">Iturri hau gorde duzu: </string>
     <string name="toast_fields">Eremu guztiak derrigorrezkoak dira.</string>
     <string name="toast_saved">Iturria behar bezala gorde da.</string>
+    <string name="toast_theme_applied">Gaia aplikatuta</string>
+    <string name="toast_language_applied">Hizkuntza aplikatuta</string>
     <string name="more_info">Egin klik hemen informazio gehiago lortzeko</string>
 
 </resources>
