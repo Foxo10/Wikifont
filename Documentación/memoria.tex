@@ -57,38 +57,55 @@ Profesor Iker Sobrón Polancos
 \newpage
 
 \section{Motivación}
+El objetivo de este proyecto es catalogar fuentes de agua potable en diferentes localidades con el objetivo de ayudar a la gente que pasea habitualmente. Para facilitar el escalado de la app, se ha concentrado a la mancomunidad de Uribe Kosta; comarca situada al norte de Bizkaia que incluye los pueblos situados al norte de Leioa y al este de la ría de Bilbao.
 
 
-\section{Descripción y objetivo de la \textit{aplicación}}
+\section{Descripción de la \textit{aplicación}}
 
 \subsection{Descripción de las clases}
 
 \begin{itemize}
-    \item 
-    \item 
-    \item 
+    \item \textbf{Activities}: \textit{BaseActivity} gestiona la \textit{toolbar}
+    y el \textit{navigation drawer}. Desde \textit{InicioActivity} se accede a \text
+    it{PueblosActivity}, la cual muestra las localidades disponibles. \textit{Fuente
+    sActivity} presenta las fuentes en un \textit{RecyclerView}; \textit{AddFuenteAc
+    tivity} y \textit{EditFuenteActivity} permiten crear y editar una fuente; \texti
+    t{DetallesFuenteActivity} muestra la información completa y \textit{GoogleFontsA
+    ctivity} abre el mapa. Las preferencias del usuario se configuran en \textit{Opt
+    ionsActivity}.
+    \item \textbf{Adapters}: \textit{FuenteAdapter} y \textit{FuenteViewHolder} vi
+    nculan cada \textit{Fuente} a su tarjeta y gestionan los clics de edición, borra
+    do y notificación.
+    \item \textbf{Clases de datos}: \textit{Fuente} es la entidad de Room. \textit
+    {FuenteDao} define las operaciones CRUD, \textit{AppDatabase} provee la instanci
+    a de la base de datos y \textit{BBDDInitializer} carga los datos iniciales desde
+     un fichero CSV.
+    \item \textbf{Diálogos}: \textit{EliminarFuenteDialog} solicita confirmación a
+    ntes de borrar una fuente del listado.
 \end{itemize}
+
+
 
 \subsection{Funcionalidades obligatorias y adicionales}
 
 Funcionalidades principales:
 \begin{itemize}
-  \item  
-  \item 
-  \item 
-  \item 
-    
+  \item Visualización de las fuentes mediante \textit{RecyclerView} y \textit{CardView}.
+  \item Operaciones de base de datos con \textit{Room}: insertar, editar, consultar y eliminar fuentes.
+  \item Diálogos de confirmación para las acciones de borrado.
+  \item Notificaciones locales persistentes con acceso directo a los detalles de la fuente.
+  \item Gestión de la pila de actividades empleando las flags \textit{CLEAR\_TOP} y \textit{SINGLE\_TOP}.
 \end{itemize}
 
 	
     Funcionalidades extras:\\
     
 \begin{itemize}
-  \item 
-  \item 
-  \item 
-  \item 
-  \item 
+  \item Cambio de idioma en tiempo real entre castellano, inglés y euskera.
+  \item Carga de municipios desde un fichero de texto para poblar el listado inicial.
+  \item Preferencias para seleccionar tema visual y ordenación de las fuentes.
+  \item Uso de intents implícitos para abrir localizaciones en Google Maps, tanto fuentes de la app como de Google Maps.
+  \item Barra de herramientas con menú y \textit{navigation drawer} para moverse por la aplicación.
 \end{itemize}
 
 
@@ -100,30 +117,107 @@ Todo el código está disponible en el repositorio de Github: \\ \textit{https:/
 
 \section{Manual de usuario}
 
-	La figura [\ref{tini}] muestra la primera pantalla de la aplicación, donde ... 
-    
-    Las figuras [\ref{gpsatv}][\ref{intatv}][\ref{gpswifinocont}] muestran los modos 
-    
-    La pantalla [\ref{cad}] corresponde al registro de datos del usuario, 
-    Tras completar el registro, la pantalla inicial pasa a ser la figura [\ref{connowifiegps}], donde
-    
-    La figura [\ref{loadcont}] muestra la pantalla previa a la selección de contactos, que corresponde a la pantalla [\ref{selcont}]. 
-    La información relacionada con X función se encuentra en la figura [\ref{inf}].
+	La figura [\ref{inicio}] muestra la primera pantalla de la aplicación, donde podemos visualizar la navigation drawer [\ref{nav_drawer}] y la toolbar. \\
+    En la toolbar tenemos los botones, de izquierda a derecha, la casa para ir a \textit{InicioActivity0}, la flecha para volver a la actividad anterior, la lupa para iniciar \textit{PueblosActivity} y el fuente maps para abrir un intent implícito que busca las fuentes cercanas a tu zona. \\
+    En la navigation drawer sólo tenemos como funcionalidad disponible los ajustes de la app.\\
 
+    Las figuras [\ref{opt1}][\ref{opt2}][\ref{opt3}] muestran los modos de visualización de la interfaz con los 3 diferentes idiomas y temas. \\
+    
+    Las figuras [\ref{fuentes}] y [\ref{fuentes_hori}] muestra la pantalla previa a la selección de fuentes, que corresponde a la pantalla [\ref{municipios}]. En esta actividad en vertical tendremos la opción para añadir una fuente dentro de cada municipio mediante un botón [\ref{añadir}]. Además podremos editar las fuentes [\ref{editar}] y crear notificaciones locales con una fuente [\ref{noti}]. Al clickar en la notificación podremos ver más detalles de la fuente guardada [\ref{detalle}]. \\
+    En esta actividad en horizontal, nos aparecerán diferentes datos de cada fuente y tenemos un ImageButton para ver la fuente en Google Maps.\\
+
+    La pantalla [\ref{delete}] corresponde al \textit{dialog} para poder eliminar una fuente.\\
 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale = 0.2]{imagenes/1telainicial.png}
+    \includegraphics[scale = 0.15]{imagenes/entrega_1/inicio_activity.png}
     \caption{Pantalla inicial}
-    \label{tini}
+    \label{inicio}
 \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.15]{imagenes/entrega_1/navitaion_drawer.png}
+    \caption{Navigation Drawer}
+    \label{nav_drawer}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_1/options_activity_1.png}
+    \caption{Idioma Euskera, Tema Fuente}
+    \label{opt1}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_1/options_activity_2.png}
+    \caption{Idioma Español, Tema Oscuro}
+    \label{opt2}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_1/options_activity_3.png}
+    \caption{Idioma Inglés, Tema Claro}
+    \label{opt3}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_1/fuentes_activity.png}
+    \caption{Fuentes Activity}
+    \label{fuentes}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_1/fuentes_horizontal.png}
+    \caption{Fuentes Activity en horizontal}
+    \label{fuentes_hori}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_1/pueblos_activity.png}
+    \caption{Pueblos Activity}
+    \label{municipios}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_1/añadir_fuente.png}
+    \caption{Añadir Fuente}
+    \label{añadir}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_1/editar_fuente.png}
+    \caption{Editar Fuente}
+    \label{editar}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_1/notificacion_fuente.png}
+    \caption{Notificación}
+    \label{noti}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_1/detalles_activity.png}
+    \caption{Detalle Fuente}
+    \label{detalle}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_1/eliminar_dialog.png}
+    \caption{Eliminar Fuente Dialog}
+    \label{delete}
+\end{figure}
+
+\newpage
 
 \section{Dificultades afrontadas}
 
-    Problemas con la base de datos de Room. Fuente mal añadida en el .csv.
-    Dificultades con las interfaces tras implementar temas y estilos personalizados.
-
+    Problemas con la base de datos de Room y la migración de la BBDD. Fuente mal añadida en el .csv.\\
+    Dificultades con las interfaces tras implementar temas y estilos personalizados. Muchos desencuadres generados y he tenido que reajustar textviews y el cardview a mano.\\
+    Dificultades al traducir correctamente todas las cadenas de texto manteniendo la coherencia.\\
 
 
 \bibliographystyle{abbrv}
@@ -150,8 +244,16 @@ Todo el código está disponible en el repositorio de Github: \\ \textit{https:/
     Codelabs.
 	\newblock Android Room with a View - Java \\
 	\newblock Disponible en \textit{https://developer.android.com/codelabs/android-room-with-a-view?authuser=1#8}.
-    
-    
+
+    \bibitem{}
+    StackOverflow.
+	\newblock Navigation drawer not showing hamburger icon \\
+	\newblock Disponible en \textit{https://stackoverflow.com/questions/26754940/appcompatv7-v21-navigation-drawer-not-showing-hamburger-icon}.
+
+    \bibitem{}
+    Android Developer
+	\newblock Cuadro de diálogo \\
+	\newblock Disponible en \textit{https://developer.android.com/develop/ui/compose/components/dialog?hl=es-419&authuser=1}.
     
 
 \end{thebibliography}
