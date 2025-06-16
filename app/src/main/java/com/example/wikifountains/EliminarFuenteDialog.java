@@ -33,13 +33,13 @@ public class EliminarFuenteDialog extends DialogFragment {
                 .setTitle(R.string.delete_font)
                 .setMessage(R.string.delete_text)
                 .setCancelable(false)
-                .setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 })
-                .setPositiveButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (listener != null) {
