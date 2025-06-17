@@ -51,4 +51,8 @@
     <string name="toast_language_applied">Idioma aplicado</string>
     <string name="more_info">Haga clic aquí para obtener más información</string>
 
+    <string name="no_location">Localización no disponible</string>
+    <string name="route_error">No se pudo calcular la ruta</string>
+    <string name="step">Paso</string>
+
 </resources>
