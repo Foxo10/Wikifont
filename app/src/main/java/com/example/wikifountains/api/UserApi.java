@@ -18,12 +18,16 @@ import java.util.StringJoiner;
 public class UserApi {
     private static final String BASE_URL = "http://ec2-51-44-167-78.eu-west-3.compute.amazonaws.com/odiez016/WEB/";
 
-    public static JSONObject login(String user, String password) throws Exception {
-        return post("login.php", Map.of("user", user, "password", password));
+    public static JSONObject login(String name, String password) throws Exception {
+        return post("login.php", Map.of("name", name, "password", password));
     }
 
     public static JSONObject register(String name, String email, String password) throws Exception {
         return post("register.php", Map.of("name", name, "email", email, "password", password));
+    }
+
+    public static JSONObject updatePhoto(String email, String image) throws Exception {
+        return post("update_photo.php", Map.of("email", email, "image", image));
     }
 
     private static JSONObject post(String endpoint, Map<String, String> params) throws Exception {

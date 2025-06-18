@@ -1,44 +1,41 @@
 <?php
 header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
 
-$DB_SERVER = "localhost";
-$DB_USER = "Xodiez016";
-$DB_PASS = "1pUQN3Vut";
-$DB_DATABASE = "Xodiez016_usuarios";
-
-$con = mysqli_connect($DB_SERVER, $DB_USER, $DB_PASS, $DB_DATABASE);
-
-if (!$con) {
-    echo json_encode(['success' => false, 'error' => 'Error de conexión']);
-    exit();
+function respond($success, $extra = []) {
+    echo json_encode(array_merge(['success' => $success], $extra));
+    exit;
 }
 
-$data = json_decode(file_get_contents('php://input'), true);
-$username = $data['username'];
-$password = $data['password'];
+$mysqli = new mysqli('localhost', 'Xodiez016', '1pUQN3Vut', 'Xodiez016_usuarios');
+if ($mysqli->connect_errno) {
+    respond(false, ['message' => 'DB connection error']);
+}
 
-$stmt = $con->prepare("SELECT id, password, email, foto_perfil FROM usuarios WHERE username = ?");
-$stmt->bind_param("s", $username);
+$name = $_POST['name'] ?? '';
+$password = $_POST['password'] ?? '';
+if (!$name || !$password) {
+    respond(false, ['message' => 'Missing parameters']);
+}
+
+$stmt = $mysqli->prepare('SELECT name,email,password,photo FROM users WHERE name=?');
+if (!$stmt) {
+    respond(false, ['message' => 'Query error']);
+}
+$stmt->bind_param('s', $name);
 $stmt->execute();
-$stmt->store_result();
+$result = $stmt->get_result();
+$row = $result->fetch_assoc();
 
-if ($stmt->num_rows == 0) {
-    echo json_encode(['success' => false, 'error' => 'Usuario no encontrado']);
-    exit();
-}
-
-$stmt->bind_result($id, $hash, $email, $foto_perfil);
-$stmt->fetch();
-
-if (password_verify($password, $hash)) {
-    echo json_encode([
-        'success' => true,
-        'id' => $id,
-        'username' => $username,
-        'email' => $email,
-        'foto_perfil' => $foto_perfil
+if ($row && password_verify($password, $row['password'])) {
+    $base = 'http://ec2-51-44-167-78.eu-west-3.compute.amazonaws.com/odiez016/WEB/';
+    respond(true, [
+        'name' => $row['name'],
+        'email' => $row['email'],
+        'photo' => $base . $row['photo']
     ]);
 } else {
-    echo json_encode(['success' => false, 'error' => 'Contraseña incorrecta']);
+    respond(false, ['message' => 'Invalid credentials']);
 }
+
 ?>

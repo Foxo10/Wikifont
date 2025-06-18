@@ -12,28 +12,30 @@ if ($mysqli->connect_errno) {
     respond(false, ['message' => 'DB connection error']);
 }
 
-$name = $_POST['name'] ?? '';
 $email = $_POST['email'] ?? '';
-$password = $_POST['password'] ?? '';
-if (!$name || !$email || !$password) {
+$image = $_POST['image'] ?? '';
+if (!$email || !$image) {
     respond(false, ['message' => 'Missing parameters']);
 }
 
-$photo = 'uploads/default.png';
-$hashed = password_hash($password, PASSWORD_DEFAULT);
-$stmt = $mysqli->prepare('INSERT INTO users(name,email,password,photo) VALUES(?,?,?,?)');
+$data = base64_decode($image);
+if ($data === false) {
+    respond(false, ['message' => 'Invalid image']);
+}
+$filename = 'uploads/' . uniqid('img_', true) . '.png';
+if (file_put_contents($filename, $data) === false) {
+    respond(false, ['message' => 'Failed to save file']);
+}
+
+$stmt = $mysqli->prepare('UPDATE users SET photo=? WHERE email=?');
 if (!$stmt) {
     respond(false, ['message' => 'Query error']);
 }
-$stmt->bind_param('ssss', $name, $email, $hashed, $photo);
+$stmt->bind_param('ss', $filename, $email);
 if ($stmt->execute()) {
     $base = 'http://ec2-51-44-167-78.eu-west-3.compute.amazonaws.com/odiez016/WEB/';
-    respond(true, ['photo' => $base . $photo]);
-} else {
-    if ($stmt->errno === 1062) {
-        respond(false, ['message' => 'User already exists']);
-    }
-    respond(false, ['message' => 'Insert failed']);
+    respond(true, ['photo' => $base . $filename]);
 }
+respond(false, ['message' => 'Update failed']);
 
 ?>

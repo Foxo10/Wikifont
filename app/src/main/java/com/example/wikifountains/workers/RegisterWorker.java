@@ -7,18 +7,19 @@ import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.example.wikifountains.api.UserApi;
+
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
-import javax.xml.transform.Result;
-
-
+/**
+ * Worker que realiza el registro de usuarios en segundo plano mediante WorkManager.
+ */
 public class RegisterWorker extends Worker {
+    public static final String KEY_NAME = "name";
+    public static final String KEY_EMAIL = "email";
+    public static final String KEY_PASSWORD = "password";
+
     public RegisterWorker(@NonNull Context context, @NonNull WorkerParameters params) {
         super(context, params);
     }
@@ -26,30 +27,22 @@ public class RegisterWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+        String name = getInputData().getString(KEY_NAME);
+        String email = getInputData().getString(KEY_EMAIL);
+        String password = getInputData().getString(KEY_PASSWORD);
         try {
-            String urlStr = "http://ec2-51-44-167-78.eu-west-3.compute.amazonaws.com/odiez016/WEB/register.php";
-            JSONObject json = new JSONObject();
-            json.put("username", getInputData().getString("username"));
-            json.put("password", getInputData().getString("password"));
-
-            HttpURLConnection conn = (HttpURLConnection) new URL(urlStr).openConnection();
-            conn.setRequestMethod("POST");
-            conn.setDoOutput(true);
-            conn.setRequestProperty("Content-Type", "application/json");
-            OutputStream os = conn.getOutputStream();
-            os.write(json.toString().getBytes("UTF-8"));
-            os.close();
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            StringBuilder response = new StringBuilder();
-            String line;
-            while ((line = in.readLine()) != null) response.append(line);
-            in.close();
-
-            return Result.success(new Data.Builder().putString("result", response.toString()).build());
+            JSONObject res = UserApi.register(name, email, password);
+            boolean success = res.optBoolean("success");
+            Data output = new Data.Builder()
+                    .putBoolean("success", success)
+                    .build();
+            if (success) {
+                return Result.success(output);
+            } else {
+                return Result.failure(output);
+            }
         } catch (Exception e) {
             return Result.failure();
         }
     }
 }
-

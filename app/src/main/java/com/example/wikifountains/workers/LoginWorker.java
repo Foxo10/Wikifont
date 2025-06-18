@@ -7,6 +7,8 @@ import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.example.wikifountains.api.UserApi;
+
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -15,7 +17,13 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * Worker que realiza el login de usuarios en segundo plano mediante WorkManager.
+ */
 public class LoginWorker extends Worker {
+    public static final String KEY_NAME = "name";
+    public static final String KEY_PASSWORD = "password";
+
     public LoginWorker(@NonNull Context context, @NonNull WorkerParameters params) {
         super(context, params);
     }
@@ -23,27 +31,22 @@ public class LoginWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+        String name = getInputData().getString(KEY_NAME);
+        String password = getInputData().getString(KEY_PASSWORD);
         try {
-            String urlStr = "http://ec2-51-44-167-78.eu-west-3.compute.amazonaws.com/odiez016/WEB/login.php";
-            JSONObject json = new JSONObject();
-            json.put("username", getInputData().getString("username"));
-            json.put("password", getInputData().getString("password"));
-
-            HttpURLConnection conn = (HttpURLConnection) new URL(urlStr).openConnection();
-            conn.setRequestMethod("POST");
-            conn.setDoOutput(true);
-            conn.setRequestProperty("Content-Type", "application/json");
-            OutputStream os = conn.getOutputStream();
-            os.write(json.toString().getBytes("UTF-8"));
-            os.close();
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            StringBuilder response = new StringBuilder();
-            String line;
-            while ((line = in.readLine()) != null) response.append(line);
-            in.close();
-
-            return Result.success(new Data.Builder().putString("result", response.toString()).build());
+            JSONObject res = UserApi.login(name, password);
+            boolean success = res.optBoolean("success");
+            Data output = new Data.Builder()
+                    .putBoolean("success", success)
+                    .putString("name", res.optString("name", ""))
+                    .putString("email", res.optString("email", ""))
+                    .putString("photo", res.optString("photo", ""))
+                    .build();
+            if (success) {
+                return Result.success(output);
+            } else {
+                return Result.failure(output);
+            }
         } catch (Exception e) {
             return Result.failure();
         }

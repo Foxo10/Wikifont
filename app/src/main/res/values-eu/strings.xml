@@ -62,5 +62,6 @@
     <string name="register_success">Erregistroa ongi burutu da</string>
     <string name="register_error">Errorea erregistratzean</string>
     <string name="network_error">Sare errorea</string>
+    <string name="change_photo">Argazkia aldatu</string>
 
 </resources>

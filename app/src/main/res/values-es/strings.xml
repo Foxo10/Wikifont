@@ -63,5 +63,6 @@
     <string name="register_success">Registro completado</string>
     <string name="register_error">Error al registrar</string>
     <string name="network_error">Error de red</string>
+    <string name="change_photo">Cambiar foto</string>
 
 </resources>

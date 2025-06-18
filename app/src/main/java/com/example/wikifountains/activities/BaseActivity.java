@@ -167,17 +167,32 @@ public abstract class BaseActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /** Actualiza el drawer header con la info del usuario actual. */
     protected void updateNavHeader() {
         if (navigationView == null) return;
         android.view.View header = navigationView.getHeaderView(0);
         android.widget.TextView name = header.findViewById(R.id.textViewNavHeaderName);
         android.widget.TextView email = header.findViewById(R.id.textViewNavHeaderEmail);
+        de.hdodenhof.circleimageview.CircleImageView avatar = header.findViewById(R.id.imageViewNavHeaderProfile);
+        header.setOnClickListener(v -> {
+            if (com.example.wikifountains.data.UserManager.isLoggedIn(this)) {
+                startActivity(new Intent(this, ProfileActivity.class));
+            } else {
+                startActivity(new Intent(this, LoginActivity.class));
+            }
+        });
         if (com.example.wikifountains.data.UserManager.isLoggedIn(this)) {
             name.setText(com.example.wikifountains.data.UserManager.getName(this));
             email.setText(com.example.wikifountains.data.UserManager.getEmail(this));
+            String photo = com.example.wikifountains.data.UserManager.getPhoto(this);
+            com.bumptech.glide.Glide.with(this)
+                    .load(photo)
+                    .placeholder(R.drawable.ic_account)
+                    .into(avatar);
         } else {
             name.setText(getString(R.string.app_name));
             email.setText(getString(R.string.access));
+            avatar.setImageResource(R.drawable.ic_account);
         }
     }
     private boolean onDrawerItemSelected(@NonNull MenuItem item) {
