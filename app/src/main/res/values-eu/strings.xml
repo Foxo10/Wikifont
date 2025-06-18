@@ -54,4 +54,13 @@
     <string name="route_error">Ibilbidea kalkulatu ezin izan da</string>
     <string name="step">Urrats</string>
 
+    <string name="email">Posta</string>
+    <string name="password">Pasahitza</string>
+    <string name="name">Izena</string>
+    <string name="login_success">Saioa hasi da</string>
+    <string name="login_error">Datu okerrak</string>
+    <string name="register_success">Erregistroa ongi burutu da</string>
+    <string name="register_error">Errorea erregistratzean</string>
+    <string name="network_error">Sare errorea</string>
+
 </resources>

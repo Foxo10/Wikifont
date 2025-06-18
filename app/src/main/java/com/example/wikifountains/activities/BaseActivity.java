@@ -99,6 +99,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         navigationView.inflateHeaderView(R.layout.nav_header_main);
+        updateNavHeader();
 
         drawerToggle = new ActionBarDrawerToggle(
                 this,
@@ -166,6 +167,19 @@ public abstract class BaseActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    protected void updateNavHeader() {
+        if (navigationView == null) return;
+        android.view.View header = navigationView.getHeaderView(0);
+        android.widget.TextView name = header.findViewById(R.id.textViewNavHeaderName);
+        android.widget.TextView email = header.findViewById(R.id.textViewNavHeaderEmail);
+        if (com.example.wikifountains.data.UserManager.isLoggedIn(this)) {
+            name.setText(com.example.wikifountains.data.UserManager.getName(this));
+            email.setText(com.example.wikifountains.data.UserManager.getEmail(this));
+        } else {
+            name.setText(getString(R.string.app_name));
+            email.setText(getString(R.string.access));
+        }
+    }
     private boolean onDrawerItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.ajustes:
@@ -174,9 +188,19 @@ public abstract class BaseActivity extends AppCompatActivity {
             case R.id.localizacion:
                 startActivity(new Intent(this, GoogleFontsActivity.class));
                 break;
+            case R.id.logout:
+                com.example.wikifountains.data.UserManager.clear(this);
+                updateNavHeader();
+                recreate();
+                break;
         }
         drawerLayout.closeDrawers();
         return true;
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateNavHeader();
     }
 }
 

@@ -8,13 +8,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 
 import com.example.wikifountains.R;
 import com.example.wikifountains.data.BBDDInitializer;
+import com.example.wikifountains.data.UserManager;
 
 
 public class InicioActivity extends BaseActivity {
+    private Button buttonLogin;
+    private Button buttonRegister;
 
 
     @Override
@@ -27,6 +32,15 @@ public class InicioActivity extends BaseActivity {
         // Cargar orden de preferencia
         SharedPreferences preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         preferences.getBoolean("ordenar_fuentes", false);
+
+        // Configurar botones Login y Register
+        buttonLogin = findViewById(R.id.buttonLogin);
+        buttonRegister = findViewById(R.id.buttonRegister);
+
+        buttonLogin.setOnClickListener(v ->
+                startActivity(new Intent(this, LoginActivity.class)));
+        buttonRegister.setOnClickListener(v ->
+                startActivity(new Intent(this, RegisterActivity.class)));
     }
 
 
@@ -78,5 +92,13 @@ public class InicioActivity extends BaseActivity {
         return true;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        boolean logged = UserManager.isLoggedIn(this);
+        int visibility = logged ? View.GONE : View.VISIBLE;
+        buttonLogin.setVisibility(visibility);
+        buttonRegister.setVisibility(visibility);
+    }
 
 }

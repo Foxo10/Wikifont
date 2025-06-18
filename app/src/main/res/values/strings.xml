@@ -53,5 +53,13 @@
     <string name="route_error">Failed to calculate route</string>
     <string name="step">Step</string>
 
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="name">Name</string>
+    <string name="login_success">Login successful</string>
+    <string name="login_error">Invalid credentials</string>
+    <string name="register_success">Registration successful</string>
+    <string name="register_error">Registration failed</string>
+    <string name="network_error">Network error</string>
 
 </resources>

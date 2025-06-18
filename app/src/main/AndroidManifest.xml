@@ -11,9 +11,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application xmlns:tools="http://schemas.android.com/tools"
         android:allowBackup="true"
@@ -28,10 +27,10 @@
         tools:replace="android:allowBackup"
         tools:targetApi="31">
         <activity
-            android:name=".activities.LoginRegisterActivity"
+            android:name=".activities.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.GoogleFontsActivity"
+            android:name=".activities.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".activities.InicioActivity"
@@ -59,6 +58,9 @@
             android:exported="false" />
         <activity
             android:name=".activities.OptionsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.GoogleFontsActivity"
             android:exported="false" />
     </application>
 

@@ -8,11 +8,19 @@
                 android:id="@+id/localizacion"
                 android:icon="@android:drawable/ic_dialog_map"
                 android:title="@string/map" />
+            <item
+                android:id="@+id/widget"
+                android:icon="@drawable/ic_widgets"
+                android:title="Widget" />
         </menu>
     </item>
     <item
         android:id="@+id/ajustes"
         android:icon="@drawable/ic_settings"
         android:title="@string/settings" />
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/ic_logout"
+        android:title="@string/logout" />
 
 </menu>
