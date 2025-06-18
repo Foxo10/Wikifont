@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -13,21 +14,32 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.work.Constraints;
+import androidx.work.Data;
+import androidx.work.NetworkType;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
 import com.bumptech.glide.Glide;
 import com.example.wikifountains.R;
 import com.example.wikifountains.api.UserApi;
 import com.example.wikifountains.data.UserManager;
+import com.example.wikifountains.workers.UploadPhotoWorker;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.URI;
 import java.util.concurrent.Executors;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -45,12 +57,25 @@ public class ProfileActivity extends BaseActivity {
     private final ActivityResultLauncher<Intent> cameraLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                    Bitmap photo = (Bitmap) result.getData().getExtras().get("data");
+                    Bundle bundle = result.getData().getExtras();
+                    Bitmap photo = (Bitmap) bundle.get("data");
                     if (photo != null) {
                         imageView.setImageBitmap(photo);
                         uploadPhoto(photo);
                     }
                 }
+            });
+    private final ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
+            registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
+                    if (uri != null) {
+                        try {
+                            imageView.setImageURI(uri);
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+                            uploadPhoto(bitmap);
+                        } catch (IOException e) {
+                            Toast.makeText(this, R.string.network_error, Toast.LENGTH_SHORT).show();
+                        }
+                    }
             });
 
     @Override
@@ -70,7 +95,7 @@ public class ProfileActivity extends BaseActivity {
                 .placeholder(R.drawable.ic_account)
                 .into(imageView);
 
-        buttonChange.setOnClickListener(v -> takePhoto());
+        buttonChange.setOnClickListener(v -> showPhotoDialog());
     }
 
     private void takePhoto() {
@@ -84,25 +109,59 @@ public class ProfileActivity extends BaseActivity {
     }
 
     private void uploadPhoto(Bitmap bitmap) {
-        Executors.newSingleThreadExecutor().execute(() -> {
-            try {
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-                String encoded = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
-                String email = UserManager.getEmail(this);
-                var res = UserApi.updatePhoto(email, encoded);
-                if (res.optBoolean("success")) {
-                    String photo = res.optString("photo", "");
-                    UserManager.saveUser(this, UserManager.getName(this), email, photo);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] fototransformada = stream.toByteArray();
+        String fotoen64 = Base64.encodeToString(fototransformada,Base64.DEFAULT);
+        Data input = new Data.Builder()
+                .putString(UploadPhotoWorker.KEY_EMAIL, UserManager.getEmail(this))
+                .putString(UploadPhotoWorker.KEY_PHOTO, fotoen64)
+                .build();
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(UploadPhotoWorker.class)
+                .setInputData(input)
+                .setConstraints(constraints)
+                .build();
+        WorkManager wm = WorkManager.getInstance(this);
+        wm.enqueue(request);
+        wm.getWorkInfoByIdLiveData(request.getId()).observe(this, info -> {
+            if (info != null && info.getState().isFinished()) {
+                if (info.getState() == WorkInfo.State.SUCCEEDED) {
+                    String photo = info.getOutputData().getString("photo");
+                    UserManager.saveUser(this, UserManager.getName(this),
+                            UserManager.getEmail(this), photo);
+                    Glide.with(this)
+                            .load(photo)
+                            .placeholder(R.drawable.ic_account)
+                            .into(imageView);
+                    updateNavHeader();
                 } else {
-                    runOnUiThread(() ->
-                            Toast.makeText(this, R.string.network_error, Toast.LENGTH_SHORT).show());
+                    Toast.makeText(this, R.string.network_error, Toast.LENGTH_SHORT).show();
                 }
-            } catch (Exception e) {
-                runOnUiThread(() ->
-                        Toast.makeText(this, R.string.network_error, Toast.LENGTH_SHORT).show());
             }
         });
+    }
+
+    private void pickFromGallery() {
+        pickMedia.launch(new PickVisualMediaRequest.Builder()
+                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageAndVideo.INSTANCE)
+                .build());
+    }
+
+    private void showPhotoDialog() {
+        String[] options = {getString(R.string.take_photo), getString(R.string.choose_gallery)};
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.change_photo)
+                .setItems(options, (dialog, which) -> {
+                    if (which == 0) {
+                        takePhoto();
+                    } else {
+                        pickFromGallery();
+                    }
+                })
+                .show();
     }
 
     @Override

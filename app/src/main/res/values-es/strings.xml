@@ -64,5 +64,7 @@
     <string name="register_error">Error al registrar</string>
     <string name="network_error">Error de red</string>
     <string name="change_photo">Cambiar foto</string>
+    <string name="take_photo">Tomar foto</string>
+    <string name="choose_gallery">Elegir de la galería</string>
 
 </resources>
