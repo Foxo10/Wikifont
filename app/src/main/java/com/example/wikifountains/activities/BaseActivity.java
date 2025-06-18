@@ -185,10 +185,13 @@ public abstract class BaseActivity extends AppCompatActivity {
             name.setText(com.example.wikifountains.data.UserManager.getName(this));
             email.setText(com.example.wikifountains.data.UserManager.getEmail(this));
             String photo = com.example.wikifountains.data.UserManager.getPhoto(this);
-            com.bumptech.glide.Glide.with(this)
-                    .load(photo)
-                    .placeholder(R.drawable.ic_account)
-                    .into(avatar);
+            if (!photo.isEmpty()) {
+                byte[] bytes = android.util.Base64.decode(photo, android.util.Base64.DEFAULT);
+                android.graphics.Bitmap bmp = android.graphics.BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                avatar.setImageBitmap(bmp);
+            } else {
+                avatar.setImageResource(R.drawable.ic_account);
+            }
         } else {
             name.setText(getString(R.string.app_name));
             email.setText(getString(R.string.access));

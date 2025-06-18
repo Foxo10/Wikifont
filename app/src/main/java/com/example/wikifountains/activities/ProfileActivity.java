@@ -90,10 +90,14 @@ public class ProfileActivity extends BaseActivity {
 
         textName.setText(UserManager.getName(this));
         textEmail.setText(UserManager.getEmail(this));
-        Glide.with(this)
-                .load(UserManager.getPhoto(this))
-                .placeholder(R.drawable.ic_account)
-                .into(imageView);
+        String storedPhoto = UserManager.getPhoto(this);
+        if (!storedPhoto.isEmpty()) {
+            byte[] bytes = Base64.decode(storedPhoto, Base64.DEFAULT);
+            android.graphics.Bitmap bmp = android.graphics.BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            imageView.setImageBitmap(bmp);
+        } else {
+            imageView.setImageResource(R.drawable.ic_account);
+        }
 
         buttonChange.setOnClickListener(v -> showPhotoDialog());
     }
@@ -163,6 +167,7 @@ public class ProfileActivity extends BaseActivity {
                 })
                 .show();
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,

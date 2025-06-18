@@ -22,19 +22,14 @@ $data = base64_decode($image);
 if ($data === false) {
     respond(false, ['message' => 'Invalid image']);
 }
-$filename = 'uploads/' . uniqid('img_', true) . '.png';
-if (file_put_contents($filename, $data) === false) {
-    respond(false, ['message' => 'Failed to save file']);
-}
 
 $stmt = $mysqli->prepare('UPDATE users SET photo=? WHERE email=?');
 if (!$stmt) {
     respond(false, ['message' => 'Query error']);
 }
-$stmt->bind_param('ss', $filename, $email);
+$stmt->bind_param('ss', $data, $email);
 if ($stmt->execute()) {
-    $base = 'http://ec2-51-44-167-78.eu-west-3.compute.amazonaws.com/odiez016/WEB/';
-    respond(true, ['photo' => $base . $filename]);
+    respond(true, ['photo' => $image])
 }
 respond(false, ['message' => 'Update failed']);
 

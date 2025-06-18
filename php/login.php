@@ -28,11 +28,16 @@ $result = $stmt->get_result();
 $row = $result->fetch_assoc();
 
 if ($row && password_verify($password, $row['password'])) {
-    $base = 'http://ec2-51-44-167-78.eu-west-3.compute.amazonaws.com/odiez016/WEB/';
+    $photo = $row['photo'];
+        if ($photo !== null && $photo !== '') {
+            $photo = base64_encode($photo);
+        } else {
+            $photo = '';
+        }
     respond(true, [
         'name' => $row['name'],
         'email' => $row['email'],
-        'photo' => $base . $row['photo']
+        'photo' => $photo
     ]);
 } else {
     respond(false, ['message' => 'Invalid credentials']);
