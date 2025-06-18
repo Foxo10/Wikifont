@@ -3,3 +3,7 @@ CREATE TABLE usuarios (
     username VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL
 );
+
+ALTER TABLE usuarios
+ADD COLUMN email VARCHAR(255) UNIQUE NOT NULL,
+ADD COLUMN foto_perfil TEXT;
