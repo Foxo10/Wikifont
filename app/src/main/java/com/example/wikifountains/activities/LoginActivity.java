@@ -22,8 +22,8 @@ import java.util.concurrent.Executors;
 /**
  * Pantalla de inicio de sesión simple que se autentica mediante el PHP del servidor.
  */
-public class LoginActivity extends AppCompatActivity {
-    private EditText editEmail;
+public class LoginActivity extends BaseActivity {
+    private EditText editName;
     private EditText editPassword;
     private Button buttonLogin;
 
@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        editEmail = findViewById(R.id.editTextEmail);
+        editName = findViewById(R.id.editTextName);
         editPassword = findViewById(R.id.editTextPassword);
         buttonLogin = findViewById(R.id.buttonLoginConfirm);
 
@@ -40,18 +40,18 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void attemptLogin() {
-        String email = editEmail.getText().toString().trim();
+        String name = editName.getText().toString().trim();
         String password = editPassword.getText().toString().trim();
-        if (email.isEmpty() || password.isEmpty()) {
+        if (name.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, R.string.toast_fields, Toast.LENGTH_SHORT).show();
             return;
         }
         Executors.newSingleThreadExecutor().execute(() -> {
             try {
-                JSONObject res = UserApi.login(email, password);
+                JSONObject res = UserApi.login(name, password);
                 if (res.optBoolean("success")) {
-                    String name = res.optString("name", "");
-                    UserManager.saveUser(this, name, email);
+                    String email = res.optString("email", "");
+                    UserManager.saveUser(this, email, name);
                     runOnUiThread(() -> {
                         Toast.makeText(this, R.string.login_success, Toast.LENGTH_SHORT).show();
                         finish();

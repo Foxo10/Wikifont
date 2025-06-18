@@ -4,14 +4,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 /**
- * Helper class to store and retrieve logged user data in SharedPreferences.
+ * Clase auxiliar para almacenar y recuperar datos de usuario registrados en SharedPreferences.
  */
 public class UserManager {
     private static final String PREF_NAME = "user_session";
     private static final String KEY_NAME = "name";
     private static final String KEY_EMAIL = "email";
 
-    public static void saveUser(Context context, String name, String email) {
+    public static void saveUser(Context context, String email, String name) {
         SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         prefs.edit().putString(KEY_NAME, name).putString(KEY_EMAIL, email).apply();
     }

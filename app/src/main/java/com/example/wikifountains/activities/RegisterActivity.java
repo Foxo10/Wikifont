@@ -22,7 +22,7 @@ import java.util.concurrent.Executors;
 /**
  * Pantalla para crear una nueva cuenta de usuario.
  */
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends BaseActivity {
     private EditText editName;
     private EditText editEmail;
     private EditText editPassword;
