@@ -21,6 +21,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.wikifountains.R;
 import com.example.wikifountains.api.UserApi;
 import com.google.android.material.navigation.NavigationView;
@@ -191,6 +192,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                 Glide.with(this)
                         .load(UserApi.BASE_URL + photo)
                         .placeholder(R.drawable.ic_account)
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .into(avatar);
             } else {
                 avatar.setImageResource(R.drawable.ic_account);

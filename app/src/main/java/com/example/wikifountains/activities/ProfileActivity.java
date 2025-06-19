@@ -33,6 +33,7 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.wikifountains.R;
 import com.example.wikifountains.api.UserApi;
 import com.example.wikifountains.data.UserManager;
@@ -120,6 +121,8 @@ public class ProfileActivity extends BaseActivity {
                 Glide.with(this)
                         .load(UserApi.BASE_URL + storedPhoto)
                         .placeholder(R.drawable.ic_account)
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .into(imageView);
 
             }
@@ -176,6 +179,8 @@ public class ProfileActivity extends BaseActivity {
                         Glide.with(this)
                                 .load(UserApi.BASE_URL + photo)
                                 .placeholder(R.drawable.ic_account)
+                                .skipMemoryCache(true)
+                                .diskCacheStrategy(DiskCacheStrategy.NONE)
                                 .into(imageView);
                         updateNavHeader();
                     } else {
