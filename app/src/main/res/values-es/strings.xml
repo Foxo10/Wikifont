@@ -74,4 +74,9 @@
     <string name="accept">ACEPTAR</string>
     <string name="permission_camera_explanation">Para tomar una foto de perfil, necesitamos acceso a tu cámara.</string>
 
+    <!-- Map info strings -->
+    <string name="distance">Distancia</string>
+    <string name="time">Tiempo</string>
+    <string name="total_distance">Total recorrido</string>
+
 </resources>

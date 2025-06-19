@@ -73,4 +73,9 @@
     <string name="accept">ONARTU</string>
     <string name="permission_camera_explanation">Profileko argazkia ateratzeko, zure kamerarako sarbidea behar dugu.</string>
 
+    <!-- Map info strings -->
+    <string name="distance">Distantzia</string>
+    <string name="time">Denbora</string>
+    <string name="total_distance">Guztira bidaiatua</string>
+
 </resources>
