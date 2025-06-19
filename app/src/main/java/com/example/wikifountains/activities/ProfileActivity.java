@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -48,34 +49,55 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Pantalla de perfil de usuario que mustra la información del usuario y permite actualizar la foto de perfil.
  */
 public class ProfileActivity extends BaseActivity {
-    private static final int REQUEST_CAMERA = 2001;
-
+    private static final int REQUEST_PERMISSION_CAMERA = 2001;
+    private static final int REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 2003;
     private CircleImageView imageView;
     private TextView textName;
     private TextView textEmail;
+    private Uri photoURI;
 
     private final ActivityResultLauncher<Intent> cameraLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                    Bundle bundle = result.getData().getExtras();
-                    Bitmap photo = (Bitmap) bundle.get("data");
-                    if (photo != null) {
-                        imageView.setImageBitmap(photo);
-                        uploadPhoto(photo);
+                if (result.getResultCode() == RESULT_OK) {
+                    try {
+                        Bundle bundle = result.getData().getExtras();
+                        Bitmap bitmap = (Bitmap) bundle.get("data");
+                        // Procesar y guardar la imagen
+                        if (bitmap != null) {
+                            uploadPhoto(bitmap);
+                            imageView.setImageBitmap(bitmap);
+                        } else {
+                            Toast.makeText(
+                                    ProfileActivity.this,
+                                    getString(R.string.error_loading_image),
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(
+                                ProfileActivity.this,
+                                getString(R.string.error_loading_image),
+                                Toast.LENGTH_SHORT
+                        ).show();
                     }
                 }
             });
-    private final ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
-            registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
-                    if (uri != null) {
+    private final ActivityResultLauncher<Intent> pickMedia =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    Uri selectedImageUri = result.getData().getData();
                         try {
-                            imageView.setImageURI(uri);
-                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
                             uploadPhoto(bitmap);
+                            imageView.setImageBitmap(bitmap);
                         } catch (IOException e) {
-                            Toast.makeText(this, R.string.network_error, Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
+                            Toast.makeText(this, R.string.error_loading_image, Toast.LENGTH_SHORT).show();
                         }
-                    }
+                }
+
             });
 
     @Override
@@ -103,12 +125,8 @@ public class ProfileActivity extends BaseActivity {
         buttonChange.setOnClickListener(v -> showPhotoDialog());
     }
 
+
     private void takePhoto() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA);
-            return;
-        }
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraLauncher.launch(intent);
     }
@@ -151,9 +169,8 @@ public class ProfileActivity extends BaseActivity {
     }
 
     private void pickFromGallery() {
-        pickMedia.launch(new PickVisualMediaRequest.Builder()
-                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageAndVideo.INSTANCE)
-                .build());
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        pickMedia.launch(intent);
     }
 
     private void showPhotoDialog() {
@@ -162,20 +179,114 @@ public class ProfileActivity extends BaseActivity {
                 .setTitle(R.string.change_photo)
                 .setItems(options, (dialog, which) -> {
                     if (which == 0) {
+                        checkCameraPermissionAndOpen();
                         takePhoto();
                     } else {
+                        checkGalleryPermissionAndOpen();
                         pickFromGallery();
                     }
                 })
                 .show();
     }
 
+    private void checkGalleryPermissionAndOpen() {
+        // Este es el código de verificación de permisos de galería
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // Android 13+: Necesitamos READ_MEDIA_IMAGES
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES)
+                    != PackageManager.PERMISSION_GRANTED) {
 
+                // Verifica si debemos mostrar una explicación
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.READ_MEDIA_IMAGES)) {
+                    // Muestra una explicación al usuario
+                    new AlertDialog.Builder(this)
+                            .setTitle(getString(R.string.permission_needed))
+                            .setMessage(getString(R.string.permission_gallery_explanation))
+                            .setPositiveButton(getString(R.string.accept), (dialog, which) -> {
+                                // Solicita el permiso después de que el usuario vea la explicación
+                                ActivityCompat.requestPermissions(ProfileActivity.this,
+                                        new String[]{Manifest.permission.READ_MEDIA_IMAGES},
+                                        REQUEST_PERMISSION_READ_EXTERNAL_STORAGE);
+                            })
+                            .setNegativeButton(getString(R.string.cancel), null)
+                            .create()
+                            .show();
+                } else {
+                    // No necesita explicación, solicita directamente
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.READ_MEDIA_IMAGES},
+                            REQUEST_PERMISSION_READ_EXTERNAL_STORAGE);
+                }
+            } else {
+                pickFromGallery();
+            }
+        } else {
+            // Android 12 y versiones anteriores: Usamos READ_EXTERNAL_STORAGE
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                // Verifica si debemos mostrar una explicación
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    // Muestra una explicación al usuario
+                    new AlertDialog.Builder(this)
+                            .setTitle(getString(R.string.permission_needed))
+                            .setMessage(getString(R.string.permission_gallery_explanation))
+                            .setPositiveButton(getString(R.string.accept), (dialog, which) -> {
+                                // Solicita el permiso después de que el usuario vea la explicación
+                                ActivityCompat.requestPermissions(ProfileActivity.this,
+                                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                        REQUEST_PERMISSION_READ_EXTERNAL_STORAGE);
+                            })
+                            .setNegativeButton(getString(R.string.cancel), null)
+                            .create()
+                            .show();
+                } else {
+                    // No necesita explicación, solicita directamente
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            REQUEST_PERMISSION_READ_EXTERNAL_STORAGE);
+                }
+            } else {
+                pickFromGallery();
+            }
+        }
+    }
+
+    private void checkCameraPermissionAndOpen() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.CAMERA)) {
+                // Mostrar explicación
+                new AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.permission_needed))
+                        .setMessage(getString(R.string.permission_camera_explanation))
+                        .setPositiveButton(getString(R.string.accept), (dialog, which) -> {
+                            ActivityCompat.requestPermissions(ProfileActivity.this,
+                                    new String[]{Manifest.permission.CAMERA},
+                                    REQUEST_PERMISSION_CAMERA);
+                        })
+                        .setNegativeButton(getString(R.string.cancel), null)
+                        .create()
+                        .show();
+            } else {
+                // Solicitar permiso directamente
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.CAMERA},
+                        REQUEST_PERMISSION_CAMERA);
+            }
+        } else {
+            takePhoto();
+        }
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CAMERA && grantResults.length > 0
+        if (requestCode == REQUEST_PERMISSION_CAMERA && grantResults.length > 0
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             takePhoto();
         }

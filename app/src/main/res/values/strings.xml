@@ -62,8 +62,15 @@
     <string name="register_success">Registration successful</string>
     <string name="register_error">Registration failed</string>
     <string name="network_error">Network error</string>
+
     <string name="change_photo">Change photo</string>
     <string name="take_photo">Take photo</string>
     <string name="choose_gallery">Choose from gallery</string>
+    <string name="error_loading_image">Error loading image</string>
+    <string name="permission_needed">Permission needed</string>
+    <string name="permission_gallery_explanation">To change your profile picture, we need access to your images.</string>
+    <string name="accept">ACCEPT</string>
+    <string name="permission_camera_explanation">To take a profile picture, we need access to your camera.</string>
+
 
 </resources>

@@ -67,5 +67,10 @@
     <string name="change_photo">Cambiar foto</string>
     <string name="take_photo">Tomar foto</string>
     <string name="choose_gallery">Elegir de la galería</string>
+    <string name="error_loading_image">Error cargando imagen</string>
+    <string name="permission_needed">Permiso necesario</string>
+    <string name="permission_gallery_explanation">Para cambiar tu foto de perfil, necesitamos acceso a tus imágenes.</string>
+    <string name="accept">ACEPTAR</string>
+    <string name="permission_camera_explanation">Para tomar una foto de perfil, necesitamos acceso a tu cámara.</string>
 
 </resources>
