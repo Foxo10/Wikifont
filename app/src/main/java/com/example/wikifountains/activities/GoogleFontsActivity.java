@@ -21,7 +21,6 @@ import com.example.wikifountains.R;
 import com.example.wikifountains.data.AppDatabase;
 import com.example.wikifountains.data.Fuente;
 
-import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.bonuspack.routing.OSRMRoadManager;
 import org.osmdroid.bonuspack.routing.Road;

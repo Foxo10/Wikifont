@@ -78,5 +78,13 @@
     <string name="time">Time</string>
     <string name="total_distance">Total travelled</string>
 
+    <!-- Widget strings -->
+    <string name="widget_loading">Updating…</string>
+    <string name="widget_distance_format">%1$.0f m away</string>
+    <string name="no_fountains">No fountains</string>
+
+    <string name="nearby_fountains">There are %1$d fountains within %2$d m</string>
+    <string name="location_channel_name">Location service</string>
+
 
 </resources>

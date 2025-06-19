@@ -212,6 +212,9 @@ public abstract class BaseActivity extends AppCompatActivity {
             case R.id.localizacion:
                 startActivity(new Intent(this, GoogleFontsActivity.class));
                 break;
+            case R.id.widget:
+                startActivity(new Intent(this, WidgetActivity.class));
+                break;
             case R.id.logout:
                 com.example.wikifountains.data.UserManager.clear(this);
                 updateNavHeader();
