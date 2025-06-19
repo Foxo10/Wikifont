@@ -82,6 +82,7 @@
     <string name="widget_loading">Eguneratzen…</string>
     <string name="widget_distance_format">%1$.0f m-tara</string>
     <string name="no_fountains">Iturririk ez</string>
+    <string name="quiz_not_enough">Ez dago nahikoa iturri galderetarako</string>
 
     <string name="nearby_fountains">%1$d iturri %2$d m baino gertu</string>
     <string name="location_channel_name">Kokapen zerbitzua</string>

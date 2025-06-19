@@ -7,18 +7,31 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/textWidgetName"
+        android:id="@+id/textWidgetDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/widget_loading"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:padding="4dp" />
 
     <TextView
-        android:id="@+id/textWidgetDistance"
+        android:id="@+id/textWidgetOption1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textWidgetOption2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textWidgetOption3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textSize="18sp" />
 </LinearLayout>

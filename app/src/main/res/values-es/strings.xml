@@ -83,6 +83,7 @@
     <string name="widget_loading">Actualizando…</string>
     <string name="widget_distance_format">%1$.0f m de distancia</string>
     <string name="no_fountains">Sin fuentes</string>
+    <string name="quiz_not_enough">No hay suficientes fuentes para el cuestionario</string>
 
     <string name="nearby_fountains">Hay %1$d fuentes a menos de %2$d m</string>
     <string name="location_channel_name">Servicio de ubicación</string>
