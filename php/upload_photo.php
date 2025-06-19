@@ -44,9 +44,10 @@ if (file_put_contents($filename, $imageData) === false) {
 
 // ACTUALIZAR LA RUTA EN LA BBDD
 $stmt = $mysqli->prepare('UPDATE users SET photo=? WHERE name=? AND email=?');
-$stmt->bind_param('sss', $filename, $name, $email);
+$publicPath = 'uploads/' . basename($filename);
+$stmt->bind_param('sss', $publicPath, $name, $email);
 if ($stmt->execute()) {
-    $publicPath = 'uploads/' . basename($filename);
+
     respond(true, ['message' => 'Photo uploaded successfully', 'photo_path' => $publicPath]);
 } else {
     respond(false, ['message' => 'Database update failed']);

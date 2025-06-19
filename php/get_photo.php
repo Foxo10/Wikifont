@@ -23,11 +23,7 @@ if (!$name || !$email) respond(false, ['message' => 'Missing parameters']);
 // GENERAR NOMBRE DE ARCHIVO
 $clean_name  = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $name);
 $clean_email = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $email);
-$filepath = realpath(__DIR__ . "/uploads/" . $clean_name . "_" . $clean_email . ".jpg");
-
-if (!$filepath || !file_exists($filepath)) {
-    respond(false, ['message' => 'Photo not found']);
-}
+$filepath    = __DIR__ . "/uploads/" . $clean_name . "_" . $clean_email . ".jpg";
 
 if (file_exists($filepath)) {
     $imageData = base64_encode(file_get_contents($filepath));
