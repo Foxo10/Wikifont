@@ -92,9 +92,10 @@ public class ProfileActivity extends BaseActivity {
         textEmail.setText(UserManager.getEmail(this));
         String storedPhoto = UserManager.getPhoto(this);
         if (!storedPhoto.isEmpty()) {
-            byte[] bytes = Base64.decode(storedPhoto, Base64.DEFAULT);
-            android.graphics.Bitmap bmp = android.graphics.BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-            imageView.setImageBitmap(bmp);
+            Glide.with(this)
+                    .load(UserApi.BASE_URL + storedPhoto)
+                    .placeholder(R.drawable.ic_account)
+                    .into(imageView);
         } else {
             imageView.setImageResource(R.drawable.ic_account);
         }
@@ -138,7 +139,7 @@ public class ProfileActivity extends BaseActivity {
                     UserManager.saveUser(this, UserManager.getName(this),
                             UserManager.getEmail(this), photo);
                     Glide.with(this)
-                            .load(photo)
+                            .load(UserApi.BASE_URL + photo)
                             .placeholder(R.drawable.ic_account)
                             .into(imageView);
                     updateNavHeader();

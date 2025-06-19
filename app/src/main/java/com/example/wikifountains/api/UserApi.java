@@ -16,7 +16,7 @@ import java.util.StringJoiner;
  * Clase de utilidad para solicitudes HTTP.
  */
 public class UserApi {
-    private static final String BASE_URL = "http://ec2-51-44-167-78.eu-west-3.compute.amazonaws.com/odiez016/WEB/";
+    public static final String BASE_URL = "http://ec2-51-44-167-78.eu-west-3.compute.amazonaws.com/odiez016/WEB/";
 
     public static JSONObject login(String name, String password) throws Exception {
         return post("login.php", Map.of("name", name, "password", password));
@@ -26,12 +26,12 @@ public class UserApi {
         return post("register.php", Map.of("name", name, "email", email, "password", password));
     }
 
-    public static JSONObject updatePhoto(String name, String email, String image) throws Exception {
-        return post("update_photo.php", Map.of("name", name, "email", email, "image", image));
+    public static JSONObject uploadPhoto(String name, String email, String image) throws Exception {
+        return post("upload_photo.php", Map.of("name", name, "email", email, "photo", image));
     }
 
-    public static JSONObject getPhoto(String email) throws Exception {
-        return post("get_photo.php", Map.of("email", email));
+    public static JSONObject getPhoto(String name, String email) throws Exception {
+        return post("get_photo.php", Map.of("name", name, "email", email));
     }
 
     private static JSONObject post(String endpoint, Map<String, String> params) throws Exception {

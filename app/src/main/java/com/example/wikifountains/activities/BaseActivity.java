@@ -20,7 +20,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.bumptech.glide.Glide;
 import com.example.wikifountains.R;
+import com.example.wikifountains.api.UserApi;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Locale;
@@ -186,9 +188,10 @@ public abstract class BaseActivity extends AppCompatActivity {
             email.setText(com.example.wikifountains.data.UserManager.getEmail(this));
             String photo = com.example.wikifountains.data.UserManager.getPhoto(this);
             if (!photo.isEmpty()) {
-                byte[] bytes = android.util.Base64.decode(photo, android.util.Base64.DEFAULT);
-                android.graphics.Bitmap bmp = android.graphics.BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                avatar.setImageBitmap(bmp);
+                Glide.with(this)
+                        .load(UserApi.BASE_URL + photo)
+                        .placeholder(R.drawable.ic_account)
+                        .into(avatar);
             } else {
                 avatar.setImageResource(R.drawable.ic_account);
             }
@@ -209,7 +212,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             case R.id.logout:
                 com.example.wikifountains.data.UserManager.clear(this);
                 updateNavHeader();
-                recreate();
+                startActivityForResult(new Intent(this, InicioActivity.class), 1);
                 break;
         }
         drawerLayout.closeDrawers();

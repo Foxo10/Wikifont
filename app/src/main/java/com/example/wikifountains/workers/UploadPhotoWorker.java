@@ -30,16 +30,18 @@ public class UploadPhotoWorker extends Worker {
         String email = getInputData().getString(KEY_EMAIL);
         String photo = getInputData().getString(KEY_PHOTO);
         try {
-            JSONObject res = UserApi.updatePhoto(name, email, photo);
+            JSONObject res = UserApi.uploadPhoto(name, email, photo);
             boolean success = res.optBoolean("success");
-            String encoded = "";
+            String path = "";
             if (success) {
-                JSONObject resPhoto = UserApi.getPhoto(email);
-                encoded = resPhoto.optString("photo", "");
+                path = res.optString("photo_path");
+                if (path == null || path.isEmpty()) {
+                    path = res.optString("photo", "");
+                }
             }
             Data output = new Data.Builder()
                     .putBoolean("success", success)
-                    .putString("photo", encoded)
+                    .putString("photo", path)
                     .build();
             if (success) {
                 return Result.success(output);

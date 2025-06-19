@@ -11,11 +11,6 @@ import com.example.wikifountains.api.UserApi;
 
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 /**
  * Worker que realiza el login de usuarios en segundo plano mediante WorkManager.
@@ -36,6 +31,20 @@ public class LoginWorker extends Worker {
         try {
             JSONObject res = UserApi.login(name, password);
             boolean success = res.optBoolean("success");
+            String fetchedName = "";
+            String email = "";
+            String photo = "";
+            if (success) {
+                JSONObject user = res.optJSONObject("user");
+                if (user != null) {
+                    fetchedName = user.optString("name", "");
+                    email = user.optString("email", "");
+                }
+                if (!fetchedName.isEmpty() && !email.isEmpty()) {
+                    JSONObject resPhoto = UserApi.getPhoto(fetchedName, email);
+                    photo = resPhoto.optString("photo", "");
+                }
+            }
             Data output = new Data.Builder()
                     .putBoolean("success", success)
                     .putString("name", res.optString("name", ""))

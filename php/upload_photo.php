@@ -22,6 +22,9 @@ $imageBase64 = $_POST['photo'] ?? '';
 
 if (!$name || !$email || !$imageBase64) respond(false, ['message' => 'Missing parameters']);
 
+// Tamaño de imagen razonable (<2MB)
+if (strlen($imageBase64) > 2*1024*1024) respond(false, ['message' => 'Image too large']);
+
 // GENERAR NOMBRE DE ARCHIVO
 $clean_name  = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $name);
 $clean_email = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $email);
@@ -34,7 +37,9 @@ $filename = $saveDir . $clean_name . "_" . $clean_email . ".jpg";
 $imageData = base64_decode($imageBase64);
 if ($imageData === false) respond(false, ['message' => 'Invalid image data']);
 
-file_put_contents($filename, $imageData);
+if (file_put_contents($filename, $imageData) === false) {
+    respond(false, ['message' => 'Failed to write image file']);
+}
 
 // ACTUALIZAR LA RUTA EN LA BBDD
 $stmt = $mysqli->prepare('UPDATE users SET photo=? WHERE name=? AND email=?');
