@@ -7,40 +7,41 @@ function respond($success, $extra = []) {
     exit;
 }
 
-$mysqli = new mysqli('localhost', 'Xodiez016', '1pUQN3Vut', 'Xodiez016_usuarios');
+// DATOS DE LA BBDD
+$DB_SERVER   = "localhost";
+$DB_USER     = "Xodiez016";
+$DB_PASS     = "1pUQN3Vut";
+$DB_DATABASE = "Xodiez016_usuarios";
+
+// CONEXIÓN
+$mysqli = new mysqli($DB_SERVER, $DB_USER, $DB_PASS, $DB_DATABASE);
 if ($mysqli->connect_errno) {
-    respond(false, ['message' => 'DB connection error']);
+    respond(false, ['message' => 'Database connection error']);
 }
 
-$name = $_POST['name'] ?? '';
-$password = $_POST['password'] ?? '';
-if (!$name || !$password) {
+// RECOGER DATOS
+$identifier = $_POST['name'] ?? '';
+$password   = $_POST['password'] ?? '';
+if (!$identifier || !$password) {
     respond(false, ['message' => 'Missing parameters']);
 }
 
-$stmt = $mysqli->prepare('SELECT name,email,password,photo FROM users WHERE name=?');
+// CONSULTA: buscar por nombre o email
+$stmt = $mysqli->prepare('SELECT id, name, email, password, photo FROM users WHERE name=? OR email=?');
 if (!$stmt) {
-    respond(false, ['message' => 'Query error']);
+    respond(false, ['message' => 'Database query error']);
 }
-$stmt->bind_param('s', $name);
+$stmt->bind_param('ss', $identifier, $identifier);
 $stmt->execute();
 $result = $stmt->get_result();
-$row = $result->fetch_assoc();
+$user = $result->fetch_assoc();
 
-if ($row && password_verify($password, $row['password'])) {
-    $path = $row['photo'];
-        if ($path && file_exists($path)) {
-            $photo = base64_encode(file_get_contents($path));
-        } else {
-            $photo = '';
-        }
-    respond(true, [
-        'name' => $row['name'],
-        'email' => $row['email'],
-        'photo' => $photo
-    ]);
+if ($user && password_verify($password, $user['password'])) {
+    // Login OK
+    unset($user['password']); // Nunca devuelvas la contraseña
+    respond(true, ['user' => $user]);
 } else {
-    respond(false, ['message' => 'Invalid credentials']);
+    // Login incorrecto
+    respond(false, ['message' => 'Invalid username/email or password']);
 }
-
 ?>

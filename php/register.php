@@ -7,33 +7,51 @@ function respond($success, $extra = []) {
     exit;
 }
 
-$mysqli = new mysqli('localhost', 'Xodiez016', '1pUQN3Vut', 'Xodiez016_usuarios');
+// DATOS DE LA BBDD
+$DB_SERVER   = "localhost";
+$DB_USER     = "Xodiez016";
+$DB_PASS     = "1pUQN3Vut";
+$DB_DATABASE = "Xodiez016_usuarios";
+
+// CONEXIÓN
+$mysqli = new mysqli($DB_SERVER, $DB_USER, $DB_PASS, $DB_DATABASE);
 if ($mysqli->connect_errno) {
-    respond(false, ['message' => 'DB connection error']);
+    respond(false, ['message' => 'Database connection error']);
 }
 
-$name = $_POST['name'] ?? '';
-$email = $_POST['email'] ?? '';
+// RECOGER DATOS
+$name     = $_POST['name']     ?? '';
+$email    = $_POST['email']    ?? '';
 $password = $_POST['password'] ?? '';
+$photo    = $_POST['photo']    ?? 'uploads/default.png';
+
 if (!$name || !$email || !$password) {
     respond(false, ['message' => 'Missing parameters']);
 }
 
-$hashed = password_hash($password, PASSWORD_DEFAULT);
-$photo = 'uploads/default.png';
-$stmt = $mysqli->prepare('INSERT INTO users(name,email,password,photo) VALUES(?,?,?,?)');
-if (!$stmt) {
-    respond(false, ['message' => 'Query error']);
-}
-$stmt->bind_param('ssss', $name, $email, $hashed, $photo);
-if ($stmt->execute()) {
-        $base = 'http://ec2-51-44-167-78.eu-west-3.compute.amazonaws.com/odiez016/WEB/';
-        respond(true, ['photo' => $base . $photo]);
-} else {
-    if ($stmt->errno === 1062) {
-        respond(false, ['message' => 'User already exists']);
-    }
-    respond(false, ['message' => 'Insert failed']);
+// Validar email
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    respond(false, ['message' => 'Invalid email format']);
 }
 
+// ¿Ya existe ese usuario/email?
+$stmt = $mysqli->prepare('SELECT id FROM users WHERE name=? OR email=?');
+$stmt->bind_param('ss', $name, $email);
+$stmt->execute();
+$stmt->store_result();
+if ($stmt->num_rows > 0) {
+    respond(false, ['message' => 'Username or email already exists']);
+}
+
+// Hashear la contraseña
+$hash = password_hash($password, PASSWORD_DEFAULT);
+
+// Insertar usuario
+$stmt = $mysqli->prepare('INSERT INTO users (name, email, password, photo) VALUES (?, ?, ?, ?)');
+$stmt->bind_param('ssss', $name, $email, $hash, $photo);
+if ($stmt->execute()) {
+    respond(true, ['message' => 'User registered successfully']);
+} else {
+    respond(false, ['message' => 'Registration error']);
+}
 ?>
