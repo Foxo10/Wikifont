@@ -7,30 +7,28 @@ function respond($success, $extra = []) {
     exit;
 }
 
-$mysqli = new mysqli('localhost', 'Xodiez016', '1pUQN3Vut', 'Xodiez016_usuarios');
-if ($mysqli->connect_errno) {
-    respond(false, ['message' => 'DB connection error']);
-}
+// CONEXIÓN A LA BBDD
+$DB_SERVER   = "localhost";
+$DB_USER     = "Xodiez016";
+$DB_PASS     = "1pUQN3Vut";
+$DB_DATABASE = "Xodiez016_usuarios";
+$mysqli = new mysqli($DB_SERVER, $DB_USER, $DB_PASS, $DB_DATABASE);
+if ($mysqli->connect_errno) respond(false, ['message' => 'Database connection error']);
 
+// RECIBIR DATOS
+$name  = $_POST['name']  ?? '';
 $email = $_POST['email'] ?? '';
-if (!$email) {
-    respond(false, ['message' => 'Missing parameters']);
-}
+if (!$name || !$email) respond(false, ['message' => 'Missing parameters']);
 
-$stmt = $mysqli->prepare('SELECT photo FROM users WHERE email=?');
-if (!$stmt) {
-    respond(false, ['message' => 'Query error']);
+// GENERAR NOMBRE DE ARCHIVO
+$clean_name  = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $name);
+$clean_email = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $email);
+$filepath    = "uploads/" . $clean_name . "_" . $clean_email . ".jpg";
+
+if (file_exists($filepath)) {
+    $imageData = base64_encode(file_get_contents($filepath));
+    respond(true, ['photo' => $imageData]);
+} else {
+    respond(false, ['message' => 'Photo not found']);
 }
-$stmt->bind_param('s', $email);
-$stmt->execute();
-$result = $stmt->get_result();
-$row = $result->fetch_assoc();
-if ($row) {
-    $path = $row['photo'];
-    if ($path && file_exists($path)) {
-        $photo = base64_encode(file_get_contents($path));
-        respond(true, ['photo' => $photo]);
-    }
-}
-respond(false, ['message' => 'Photo not found']);
 ?>
