@@ -67,6 +67,7 @@
     <string name="take_photo">Argazkia atera</string>
     <string name="choose_gallery">Galeriatik aukeratu</string>
     <string name="error_loading_image">Errorea irudia kargatzen</string>
+    <string name="error_saving_image">Error irudia gordetzen</string>
     <string name="permission_gallery_explanation">Zure profileko argazkia aldatzeko, zure irudietara sarbidea behar dugu.</string>
     <string name="permission_needed">Beharrezko baimena</string>
     <string name="accept">ONARTU</string>

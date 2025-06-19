@@ -25,22 +25,29 @@ if (!$name || !$email || !$imageBase64) respond(false, ['message' => 'Missing pa
 // GENERAR NOMBRE DE ARCHIVO
 $clean_name  = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $name);
 $clean_email = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $email);
-$saveDir     = "uploads/";
+$saveDir     = __DIR__ . "/uploads/";
 if (!is_dir($saveDir)) mkdir($saveDir, 0777, true);
 
 $filename = $saveDir . $clean_name . "_" . $clean_email . ".jpg";
 
-// GUARDAR IMAGEN
+// Decodificar imagen
 $imageData = base64_decode($imageBase64);
-if ($imageData === false) respond(false, ['message' => 'Invalid image data']);
+if ($imageData === false) {
+    respond(false, ['message' => 'Invalid image data']);
+}
 
-file_put_contents($filename, $imageData);
+// Sobrescribir si ya existe (esto es automático con file_put_contents)
+if (file_put_contents($filename, $imageData) === false) {
+    respond(false, ['message' => 'Failed to save image']);
+}
+
 
 // ACTUALIZAR LA RUTA EN LA BBDD
 $stmt = $mysqli->prepare('UPDATE users SET photo=? WHERE name=? AND email=?');
 $stmt->bind_param('sss', $filename, $name, $email);
 if ($stmt->execute()) {
-    respond(true, ['message' => 'Photo uploaded successfully', 'photo_path' => $filename]);
+    $publicPath = 'uploads/' . basename($filename);
+    respond(true, ['message' => 'Photo uploaded successfully', 'photo_path' => $publicPath]);
 } else {
     respond(false, ['message' => 'Database update failed']);
 }

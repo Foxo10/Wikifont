@@ -67,6 +67,7 @@
     <string name="take_photo">Take photo</string>
     <string name="choose_gallery">Choose from gallery</string>
     <string name="error_loading_image">Error loading image</string>
+    <string name="error_saving_image">Error saving image</string>
     <string name="permission_needed">Permission needed</string>
     <string name="permission_gallery_explanation">To change your profile picture, we need access to your images.</string>
     <string name="accept">ACCEPT</string>

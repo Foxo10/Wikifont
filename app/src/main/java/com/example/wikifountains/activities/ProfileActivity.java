@@ -39,6 +39,8 @@ import com.example.wikifountains.data.UserManager;
 import com.example.wikifountains.workers.UploadPhotoWorker;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.util.concurrent.Executors;
@@ -114,15 +116,23 @@ public class ProfileActivity extends BaseActivity {
         textEmail.setText(UserManager.getEmail(this));
         String storedPhoto = UserManager.getPhoto(this);
         if (!storedPhoto.isEmpty()) {
-            Glide.with(this)
-                    .load(UserApi.BASE_URL + storedPhoto)
-                    .placeholder(R.drawable.ic_account)
-                    .into(imageView);
+            try {
+                Glide.with(this)
+                        .load(UserApi.BASE_URL + storedPhoto)
+                        .placeholder(R.drawable.ic_account)
+                        .into(imageView);
+
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                Toast.makeText(this, "Error con el glide", Toast.LENGTH_SHORT).show();
+            }
         } else {
             imageView.setImageResource(R.drawable.ic_account);
         }
 
         buttonChange.setOnClickListener(v -> showPhotoDialog());
+
     }
 
 
@@ -132,40 +142,51 @@ public class ProfileActivity extends BaseActivity {
     }
 
     private void uploadPhoto(Bitmap bitmap) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] fototransformada = stream.toByteArray();
-        String fotoen64 = Base64.encodeToString(fototransformada,Base64.DEFAULT);
-        Data input = new Data.Builder()
-                .putString(UploadPhotoWorker.KEY_NAME, UserManager.getName(this))
-                .putString(UploadPhotoWorker.KEY_EMAIL, UserManager.getEmail(this))
-                .putString(UploadPhotoWorker.KEY_PHOTO, fotoen64)
-                .build();
-        Constraints constraints = new Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .build();
-        OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(UploadPhotoWorker.class)
-                .setInputData(input)
-                .setConstraints(constraints)
-                .build();
-        WorkManager wm = WorkManager.getInstance(this);
-        wm.enqueue(request);
-        wm.getWorkInfoByIdLiveData(request.getId()).observe(this, info -> {
-            if (info != null && info.getState().isFinished()) {
-                if (info.getState() == WorkInfo.State.SUCCEEDED) {
-                    String photo = info.getOutputData().getString("photo");
-                    UserManager.saveUser(this, UserManager.getName(this),
-                            UserManager.getEmail(this), photo);
-                    Glide.with(this)
-                            .load(UserApi.BASE_URL + photo)
-                            .placeholder(R.drawable.ic_account)
-                            .into(imageView);
-                    updateNavHeader();
-                } else {
-                    Toast.makeText(this, R.string.network_error, Toast.LENGTH_SHORT).show();
+        try {
+            File cacheDir = getCacheDir();
+            File imageFile = File.createTempFile("upload_", ".jpg", cacheDir);
+            FileOutputStream out = new FileOutputStream(imageFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+            out.flush();
+            out.close();
+
+            Data input = new Data.Builder()
+                    .putString(UploadPhotoWorker.KEY_NAME, UserManager.getName(this))
+                    .putString(UploadPhotoWorker.KEY_EMAIL, UserManager.getEmail(this))
+                    .putString(UploadPhotoWorker.KEY_PHOTO_PATH, imageFile.getAbsolutePath())
+                    .build();
+
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+
+            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(UploadPhotoWorker.class)
+                    .setInputData(input)
+                    .setConstraints(constraints)
+                    .build();
+
+            WorkManager wm = WorkManager.getInstance(this);
+            wm.enqueue(request);
+            wm.getWorkInfoByIdLiveData(request.getId()).observe(this, info -> {
+                if (info != null && info.getState().isFinished()) {
+                    if (info.getState() == WorkInfo.State.SUCCEEDED) {
+                        String photo = info.getOutputData().getString("photo");
+                        UserManager.saveUser(this, UserManager.getName(this),
+                                UserManager.getEmail(this), photo);
+                        Glide.with(this)
+                                .load(UserApi.BASE_URL + photo)
+                                .placeholder(R.drawable.ic_account)
+                                .into(imageView);
+                        updateNavHeader();
+                    } else {
+                        Toast.makeText(this, R.string.network_error, Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, R.string.error_saving_image, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void pickFromGallery() {
@@ -180,10 +201,8 @@ public class ProfileActivity extends BaseActivity {
                 .setItems(options, (dialog, which) -> {
                     if (which == 0) {
                         checkCameraPermissionAndOpen();
-                        takePhoto();
                     } else {
                         checkGalleryPermissionAndOpen();
-                        pickFromGallery();
                     }
                 })
                 .show();
@@ -291,4 +310,5 @@ public class ProfileActivity extends BaseActivity {
             takePhoto();
         }
     }
+
 }

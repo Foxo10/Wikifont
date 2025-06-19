@@ -31,6 +31,7 @@ public class LoginWorker extends Worker {
         try {
             JSONObject res = UserApi.login(name, password);
             boolean success = res.optBoolean("success");
+
             String fetchedName = "";
             String email = "";
             String photo = "";
@@ -39,17 +40,14 @@ public class LoginWorker extends Worker {
                 if (user != null) {
                     fetchedName = user.optString("name", "");
                     email = user.optString("email", "");
-                }
-                if (!fetchedName.isEmpty() && !email.isEmpty()) {
-                    JSONObject resPhoto = UserApi.getPhoto(fetchedName, email);
-                    photo = resPhoto.optString("photo", "");
+                    photo = user.optString("photo", "");
                 }
             }
             Data output = new Data.Builder()
                     .putBoolean("success", success)
-                    .putString("name", res.optString("name", ""))
-                    .putString("email", res.optString("email", ""))
-                    .putString("photo", res.optString("photo", ""))
+                    .putString("name", fetchedName)
+                    .putString("email", email)
+                    .putString("photo", photo)
                     .build();
             if (success) {
                 return Result.success(output);
