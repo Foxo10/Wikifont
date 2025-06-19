@@ -102,11 +102,11 @@ public class InicioActivity extends BaseActivity {
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
-        // TRIGGER A LOS 10 SEGUNDOS
-        long triggerAt = System.currentTimeMillis() + 10 * 1000L;
+        // TRIGGER A LOS 60 SEGUNDOS
+        long triggerAt = System.currentTimeMillis() + 60 * 1000L;
 
-        // REPETICIÓN CADA 30 SEGUNDOS
-        long repeatInterval = 30 * 1000L;
+        // REPETICIÓN CADA 5 MINUTOS
+        long repeatInterval = 5 * 60 * 1000L;
         //long triggerAt = System.currentTimeMillis() + AlarmManager.INTERVAL_HOUR;
         alarmManager.setInexactRepeating(
                 AlarmManager.RTC_WAKEUP,
