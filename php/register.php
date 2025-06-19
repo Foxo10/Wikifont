@@ -20,13 +20,15 @@ if (!$name || !$email || !$password) {
 }
 
 $hashed = password_hash($password, PASSWORD_DEFAULT);
-$stmt = $mysqli->prepare('INSERT INTO users(name,email,password) VALUES(?,?,?)');
+$photo = 'uploads/default.png';
+$stmt = $mysqli->prepare('INSERT INTO users(name,email,password,photo) VALUES(?,?,?,?)');
 if (!$stmt) {
     respond(false, ['message' => 'Query error']);
 }
-$stmt->bind_param('sss', $name, $email, $hashed);
+$stmt->bind_param('ssss', $name, $email, $hashed, $photo);
 if ($stmt->execute()) {
-    respond(true);
+        $base = 'http://ec2-51-44-167-78.eu-west-3.compute.amazonaws.com/odiez016/WEB/';
+        respond(true, ['photo' => $base . $photo]);
 } else {
     if ($stmt->errno === 1062) {
         respond(false, ['message' => 'User already exists']);

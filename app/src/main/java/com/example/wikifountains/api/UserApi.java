@@ -26,8 +26,12 @@ public class UserApi {
         return post("register.php", Map.of("name", name, "email", email, "password", password));
     }
 
-    public static JSONObject updatePhoto(String email, String image) throws Exception {
-        return post("update_photo.php", Map.of("email", email, "image", image));
+    public static JSONObject updatePhoto(String name, String email, String image) throws Exception {
+        return post("update_photo.php", Map.of("name", name, "email", email, "image", image));
+    }
+
+    public static JSONObject getPhoto(String email) throws Exception {
+        return post("get_photo.php", Map.of("email", email));
     }
 
     private static JSONObject post(String endpoint, Map<String, String> params) throws Exception {

@@ -15,6 +15,7 @@ import org.json.JSONObject;
  * Worker que sube una foto al servidor
  */
 public class UploadPhotoWorker extends Worker {
+    public static final String KEY_NAME = "name";
     public static final String KEY_EMAIL = "email";
     public static final String KEY_PHOTO = "photo";
 
@@ -25,14 +26,20 @@ public class UploadPhotoWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+        String name = getInputData().getString(KEY_NAME);
         String email = getInputData().getString(KEY_EMAIL);
         String photo = getInputData().getString(KEY_PHOTO);
         try {
-            JSONObject res = UserApi.updatePhoto(email, photo);
+            JSONObject res = UserApi.updatePhoto(name, email, photo);
             boolean success = res.optBoolean("success");
+            String encoded = "";
+            if (success) {
+                JSONObject resPhoto = UserApi.getPhoto(email);
+                encoded = resPhoto.optString("photo", "");
+            }
             Data output = new Data.Builder()
                     .putBoolean("success", success)
-                    .putString("photo", res.optString("photo", ""))
+                    .putString("photo", encoded)
                     .build();
             if (success) {
                 return Result.success(output);

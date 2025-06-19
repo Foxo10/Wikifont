@@ -12,35 +12,25 @@ if ($mysqli->connect_errno) {
     respond(false, ['message' => 'DB connection error']);
 }
 
-$name = $_POST['name'] ?? '';
-$password = $_POST['password'] ?? '';
-if (!$name || !$password) {
+$email = $_POST['email'] ?? '';
+if (!$email) {
     respond(false, ['message' => 'Missing parameters']);
 }
 
-$stmt = $mysqli->prepare('SELECT name,email,password,photo FROM users WHERE name=?');
+$stmt = $mysqli->prepare('SELECT photo FROM users WHERE email=?');
 if (!$stmt) {
     respond(false, ['message' => 'Query error']);
 }
-$stmt->bind_param('s', $name);
+$stmt->bind_param('s', $email);
 $stmt->execute();
 $result = $stmt->get_result();
 $row = $result->fetch_assoc();
-
-if ($row && password_verify($password, $row['password'])) {
+if ($row) {
     $path = $row['photo'];
-        if ($path && file_exists($path)) {
-            $photo = base64_encode(file_get_contents($path));
-        } else {
-            $photo = '';
-        }
-    respond(true, [
-        'name' => $row['name'],
-        'email' => $row['email'],
-        'photo' => $photo
-    ]);
-} else {
-    respond(false, ['message' => 'Invalid credentials']);
+    if ($path && file_exists($path)) {
+        $photo = base64_encode(file_get_contents($path));
+        respond(true, ['photo' => $photo]);
+    }
 }
-
+respond(false, ['message' => 'Photo not found']);
 ?>

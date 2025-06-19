@@ -118,6 +118,7 @@ public class ProfileActivity extends BaseActivity {
         byte[] fototransformada = stream.toByteArray();
         String fotoen64 = Base64.encodeToString(fototransformada,Base64.DEFAULT);
         Data input = new Data.Builder()
+                .putString(UploadPhotoWorker.KEY_NAME, UserManager.getName(this))
                 .putString(UploadPhotoWorker.KEY_EMAIL, UserManager.getEmail(this))
                 .putString(UploadPhotoWorker.KEY_PHOTO, fotoen64)
                 .build();

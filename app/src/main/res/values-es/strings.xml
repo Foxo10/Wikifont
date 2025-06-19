@@ -58,6 +58,7 @@
     <string name="email">Correo</string>
     <string name="password">Contraseña</string>
     <string name="name">Nombre</string>
+    <string name="user_hint">Nombre o correo</string>
     <string name="login_success">Inicio de sesión correcto</string>
     <string name="login_error">Credenciales incorrectas</string>
     <string name="register_success">Registro completado</string>
