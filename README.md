@@ -25,7 +25,7 @@ The full project report is available in Spanish at `Documentación/memoria2.tex`
 
 The `php` folder contains simple backend scripts used for authentication and
 profile management. They are designed to run on the provided MySQL server and
-expect to be deployed at `http://ec2-51-44-167-78.eu-west-3.compute.amazonaws.com/odiez016/WEB/`.
+expect to be deployed at `http://ec2-51-44-167-78.eu-west-3.compute.amazonaws.com/`.
 
 My user is `Xxodiez016` and the password is `1pUQN3Vut`.
 
