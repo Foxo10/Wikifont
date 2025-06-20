@@ -6,6 +6,10 @@ WikiFont is an Android application created as part of the **Desarrollo Avanzado 
 - Add, edit or delete fountain information.
 - View locations on a map and save a fountain as a notification.
 - Persist data locally using Room with an initial import from a CSV file.
+- Register and log in using a remote MySQL database accessed via PHP scripts.
+- Explore fountains on an OpenStreetMap-based map with route calculation.
+- Set a profile photo and upload it to the server.
+- Receive periodic random fountain notifications and try the quiz widget.
 
 ## Building
 
@@ -15,7 +19,7 @@ Alternatively, open the project in **Android Studio** and let it import the Grad
 
 ## Documentation
 
-The full project report is available in Spanish at `Documentación/memoria.tex`.
+The full project report is available in Spanish at `Documentación/memoria2.tex`.
 
 ## API
 
