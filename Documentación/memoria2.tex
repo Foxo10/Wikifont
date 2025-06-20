@@ -1,0 +1,380 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[spanish]{babel}
+\selectlanguage{spanish}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{makeidx}
+\usepackage[utf8]{inputenc}
+\usepackage{lipsum}
+\usepackage{graphicx} % figuras
+\usepackage{subfigure} % subfiguras
+\usepackage{cite} 
+\usepackage{indentfirst}
+\usepackage{listings}
+\usepackage{float}
+
+
+\begin{document}
+\begin{titlepage}
+ \vfill
+  \begin{center}
+   {\Huge\textbf{Universidad del País Vasco}} \\[1.5cm]
+   
+   % Contenedor para las imágenes
+   \begin{minipage}[t]{0.5\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{imagenes/upv_logo.jpg}
+   \end{minipage}
+   \\ % Espacio entre imágenes
+   \begin{minipage}[t]{0.5\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{imagenes/wikifont logo.png}
+   \end{minipage}
+   
+   \vfill
+
+   {\huge WikiFont}\\[2.5cm]
+
+   \hspace{.45\textwidth}
+   \begin{minipage}{.5\textwidth}
+   \large Proyecto individual presentado a la disciplina de Desarrollo Avanzado de Software del UPV/EHU.\\[1cm]
+
+Profesor Iker Sobrón Polancos
+
+  \end{minipage}
+  \vfill
+
+\vspace{2cm}
+
+\large \textbf{Oier Díez Gutiérrez}\\
+
+\large \textbf{Junio de 2025}
+\end{center}
+\end{titlepage}
+
+
+\tableofcontents{}
+\newpage
+
+\section{Entrega 1}
+\subsection{Motivación}
+El objetivo de este proyecto es catalogar fuentes de agua potable en diferentes localidades con el objetivo de ayudar a la gente que pasea habitualmente. Para facilitar el escalado de la app, se ha concentrado a la mancomunidad de Uribe Kosta; comarca situada al norte de Bizkaia que incluye los pueblos situados al norte de Leioa y al este de la ría de Bilbao.
+
+
+\subsection{Descripción de la \textit{aplicación}}
+
+\subsubsection{Descripción de las clases}
+
+\begin{itemize}
+    \item \textbf{Activities}: \textit{BaseActivity} gestiona la \textit{toolbar}
+    y el \textit{navigation drawer}. Desde \textit{InicioActivity} se accede a \text
+    it{PueblosActivity}, la cual muestra las localidades disponibles. \textit{Fuente
+    sActivity} presenta las fuentes en un \textit{RecyclerView}; \textit{AddFuenteAc
+    tivity} y \textit{EditFuenteActivity} permiten crear y editar una fuente; \texti
+    t{DetallesFuenteActivity} muestra la información completa y \textit{GoogleFontsA
+    ctivity} abre el mapa. Las preferencias del usuario se configuran en \textit{Opt
+    ionsActivity}.
+    \item \textbf{Adapters}: \textit{FuenteAdapter} y \textit{FuenteViewHolder} vi
+    nculan cada \textit{Fuente} a su tarjeta y gestionan los clics de edición, borra
+    do y notificación.
+    \item \textbf{Clases de datos}: \textit{Fuente} es la entidad de Room. \textit
+    {FuenteDao} define las operaciones CRUD, \textit{AppDatabase} provee la instanci
+    a de la base de datos y \textit{BBDDInitializer} carga los datos iniciales desde
+     un fichero CSV.
+    \item \textbf{Diálogos}: \textit{EliminarFuenteDialog} solicita confirmación a
+    ntes de borrar una fuente del listado.
+\end{itemize}
+
+
+
+\subsubsection{Funcionalidades obligatorias y adicionales}
+
+Funcionalidades principales:
+\begin{itemize}
+  \item Visualización de las fuentes mediante \textit{RecyclerView} y \textit{CardView}.
+  \item Operaciones de base de datos con \textit{Room}: insertar, editar, consultar y eliminar fuentes.
+  \item Diálogos de confirmación para las acciones de borrado.
+  \item Notificaciones locales persistentes con acceso directo a los detalles de la fuente.
+  \item Gestión de la pila de actividades empleando las flags \textit{CLEAR\_TOP} y \textit{SINGLE\_TOP}.
+\end{itemize}
+
+	
+    Funcionalidades extras:\\
+    
+\begin{itemize}
+  \item Cambio de idioma en tiempo real entre castellano, inglés y euskera.
+  \item Carga de municipios desde un fichero de texto para poblar el listado inicial.
+  \item Preferencias para seleccionar tema visual y ordenación de las fuentes.
+  \item Uso de intents implícitos para abrir localizaciones en Google Maps, tanto fuentes de la app como de Google Maps.
+  \item Barra de herramientas con menú y \textit{navigation drawer} para moverse por la aplicación.
+\end{itemize}
+
+
+\subsection{Código}
+
+Todo el código está disponible en el repositorio de Github: \\ \textit{https://github.com/Foxo10/Wikifont/tree/entrega\_1}. \\
+
+\subsection{Manual de usuario}
+
+	La figura [\ref{inicio}] muestra la primera pantalla de la aplicación, donde podemos visualizar la navigation drawer [\ref{nav_drawer}] y la toolbar. \\
+    En la toolbar tenemos los botones, de izquierda a derecha, la casa para ir a \textit{InicioActivity0}, la flecha para volver a la actividad anterior, la lupa para iniciar \textit{PueblosActivity} y el fuente maps para abrir un intent implícito que busca las fuentes cercanas a tu zona. \\
+    En la navigation drawer sólo tenemos como funcionalidad disponible los ajustes de la app.\\
+
+    Las figuras [\ref{opt1}][\ref{opt2}][\ref{opt3}] muestran los modos de visualización de la interfaz con los 3 diferentes idiomas y temas. \\
+    
+    Las figuras [\ref{fuentes}] y [\ref{fuentes_hori}] muestra la pantalla previa a la selección de fuentes, que corresponde a la pantalla [\ref{municipios}]. En esta actividad en vertical tendremos la opción para añadir una fuente dentro de cada municipio mediante un botón [\ref{añadir}]. Además podremos editar las fuentes [\ref{editar}] y crear notificaciones locales con una fuente [\ref{noti}]. Al clickar en la notificación podremos ver más detalles de la fuente guardada [\ref{detalle}]. \\
+    En esta actividad en horizontal, nos aparecerán diferentes datos de cada fuente y tenemos un ImageButton para ver la fuente en Google Maps.\\
+
+    La pantalla [\ref{delete}] corresponde al \textit{dialog} para poder eliminar una fuente.\\
+
+
+\newpage
+
+
+
+\newpage
+\section{Entrega 2}
+\subsection{Características implementadas}
+\subsubsection{Base de datos remota}
+Para el registro e inicio de sesión se ha creado una base de datos MySQL. Android se comunica con los scripts PHP alojados en el servidor. Los datos viajan mediante peticiones POST y las contraseñas se guardan cifradas. Al autenticarse se devuelve la información del usuario en formato JSON.
+
+\subsubsection{Mapas y geolocalización}
+La actividad \textit{GoogleFontsActivity} utiliza la biblioteca OSMDroid y OSMbonuspack para mostrar un mapa de la zona de Uribe Kosta. Se solicitan permisos de localización y se muestran las fuentes guardadas. Al pulsar sobre una fuente se calcula una ruta de senderismo y se actualiza un cuadro con la distancia y el tiempo estimado. Si se mantiene un rato más pulsado se puede ver la información de dicha fuente. Al mantener pulsado durante varios segundos sobre el mapa, se podrá reiniciar el dibujado de ruta.
+
+\subsubsection{Gestión de imágenes}
+La aplicación permite tomar una fotografía con la cámara como imagen de perfil. La captura se codifica en Base64 y se envía al servidor mediante el script \textit{upload\_photo.php}. Posteriormente puede recuperarse con \textit{get\_photo.php} para mostrarse en la interfaz. Las fotos de perfil se almacenan en el directorio 'uploads' con el formato de "name\_email.png".
+
+\subsection{Elementos adicionales}
+\begin{itemize}
+  \item Se implementa una tarea que se dispara por primera vez 60 segundos después de lanzar la aplicación y se repite cada 5 minutos. Para llevar a cabo la tarea se ha implementado un BroadcastReceiver y cada vez que la alarma se dispara, llama al HourlyFuenteReceiver que has registrado como receptor. Este receiver elige aleatoriamente una fuente de la base de datos, elige aleatoriamente una fuente de la base de datos y lanza una notificación como la de la entrega 1.
+  \item Se ha desarrollado un widget (\textit{FuenteQuizWidget}) que plantea preguntas aleatorias sobre las fuentes disponibles y se actualiza mediante alarmas programadas. La pregunta dura 20 segundos y al pasar este periodo de tiempo, se pone en negrita la fuente a la que pertenece esa descripción. El quiz se actualiza al de 40 segundos de enseñar la respuesta.
+\end{itemize}
+
+\newpage
+\subsection{Manual de usuario}
+La figura [\ref{login_register}] muestra la primera pantalla de la aplicación, donde podremos ahora registrarnos [\ref{register}] e iniciar sesión [\ref{login}]. También se puede iniciar sesión si pulsamos en el nav\_header\_main sin estar loggeados.\\
+
+Para acceder a nuetro perfil [\ref{perfil}] tendremos que hacer click en el dentro del navigation drawer [\ref{drawer_perfil}]. Aquí podremos consultar nuestra información y cambiar nuestra foto de perfil por defecto [\ref{pfp}].\\
+
+Podremos visualizar las fuentes de Uribe Kosta en un mapa implementado con OpenStreetMap [\ref{mapa}]. La funcionalidad de cálculo de ruta está implementado, puediendo ver las fuentes cercanas disponibles mientras estemos de paseo [\ref{ruta}]. \\
+
+Como última funcionalidad, tendremos un widget que contiene un quiz para ponernos a prueba sobre nuestros conocimientos de fuentes [\ref{wid1}]. Nos mostrarán durante un tiempo una descripción de una fuente y tres opciones posibles. Al de un tiempo, se nos dará la respuesta [\ref{wid2}]. Podremos jugar a este minijuego fuera de la app, y se irá actualizando cada un período de tiempo [\ref{wid3}].
+
+
+\newpage
+
+\subsection{Figuras Entrega 1}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.15]{imagenes/entrega_1/inicio_activity.png}
+    \caption{Pantalla inicial}
+    \label{inicio}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.15]{imagenes/entrega_1/navitaion_drawer.png}
+    \caption{Navigation Drawer}
+    \label{nav_drawer}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_1/options_activity_1.png}
+    \caption{Idioma Euskera, Tema Fuente}
+    \label{opt1}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_1/options_activity_2.png}
+    \caption{Idioma Español, Tema Oscuro}
+    \label{opt2}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_1/options_activity_3.png}
+    \caption{Idioma Inglés, Tema Claro}
+    \label{opt3}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_1/fuentes_activity.png}
+    \caption{Fuentes Activity}
+    \label{fuentes}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_1/fuentes_horizontal.png}
+    \caption{Fuentes Activity en horizontal}
+    \label{fuentes_hori}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_1/pueblos_activity.png}
+    \caption{Pueblos Activity}
+    \label{municipios}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_1/añadir_fuente.png}
+    \caption{Añadir Fuente}
+    \label{añadir}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_1/editar_fuente.png}
+    \caption{Editar Fuente}
+    \label{editar}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_1/notificacion_fuente.png}
+    \caption{Notificación}
+    \label{noti}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_1/detalles_activity.png}
+    \caption{Detalle Fuente}
+    \label{detalle}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_1/eliminar_dialog.png}
+    \caption{Eliminar Fuente Dialog}
+    \label{delete}
+\end{figure}
+
+\newpage
+\subsection{Figuras Entrega 2}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_2/login_register.png}
+    \caption{Pantalla Inicio}
+    \label{login_register}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_2/register.png}
+    \caption{Registro del usuario}
+    \label{register}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_2/login.png}
+    \caption{Inicio de sesión del usuario}
+    \label{login}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_2/drawer_perfil.png}
+    \caption{Drawer tras iniciar sesión}
+    \label{drawer_perfil}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_2/profile.png}
+    \caption{Actividad del perfil}
+    \label{perfil}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_2/camara_galeria.png}
+    \caption{Opción de cambiar la foto de perfil}
+    \label{pfp}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_2/mapa.png}
+    \caption{Mapa implementado con OpenStreetMap}
+    \label{mapa}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_2/ruta_fuente.png}
+    \caption{Calculo de ruta hacia fuentes implementado}
+    \label{ruta}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_2/widget_1.png}
+    \caption{WidgetQuiz de descripción de fuentes}
+    \label{wid1}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_2/widget_2.png}
+    \caption{Respuesta correcta}
+    \label{wid2}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.2]{imagenes/entrega_2/widget_3.png}
+    \caption{Widget fuera de la app}
+    \label{wid3}
+\end{figure}
+
+\newpage
+\section{Dificultades afrontadas}
+
+    Problemas con la base de datos de Room y la migración de la BBDD. Tambien tuve una fuente mal añadida en el .csv y me costó saber que era el origen del problema.\\
+    Dificultades con las interfaces tras implementar temas y estilos personalizados. Muchos desencuadres generados y he tenido que reajustar muchos textviews y el cardview a mano.\\
+    Dificultades al traducir correctamente todas las cadenas de texto manteniendo la coherencia.\\
+    
+    Muchas horas implementando los php de subida y recogida de fotos sin saber que la carpeta de almacenamiento de las fotos no tenía permisos de escritura. Esto hacía que la obtención de fotos no ocurra porque no se subían las fotos obtenidas por la galería o cámara.\\
+    Problemas con la manera de almacenar las imágenes en la bbdd. El worker no soporta más X bytes de tamaño, y esto implica que hay que generar un archivo temporal y pasarle la dirección de este al worker. \\
+
+\bibliographystyle{abbrv}
+%\bibliographystyle{apa}
+%\bibliography{referencias}
+\begin{thebibliography}{}
+
+	\bibitem{}
+    Pictogrammers.
+	\newblock Material design icons \\
+	\newblock Disponible en \textit{https://pictogrammers.com/library/mdi/}.  
+    
+    \bibitem{}
+    Android: ImageSwitcher.
+	\newblock In/Out animation. \\
+	\newblock Disponible en \textit{https://stackoverflow.com/questions/5950831/android-imageswitcher}.  
+    
+    \bibitem{}
+    Florina Muntenescu.
+	\newblock 7 Pro-tips for Room \\
+	\newblock Disponible en \textit{https://medium.com/androiddevelopers/7-pro-tips-for-room-fbadea4bfbd1}.
+
+    \bibitem{}
+    Codelabs.
+	\newblock Android Room with a View - Java \\
+	\newblock Disponible en \textit{https://developer.android.com/codelabs/android-room-with-a-view?authuser=1\#8}.
+
+    \bibitem{}
+    StackOverflow.
+	\newblock Navigation drawer not showing hamburger icon \\
+	\newblock Disponible en \textit{https://stackoverflow.com/questions/26754940/appcompatv7-v21-navigation-drawer-not-showing-hamburger-icon}.
+
+    \bibitem{}
+    Android Developer.
+	\newblock Cuadro de diálogo \\
+	\newblock Disponible en \textit{https://developer.android.com/develop/ui/compose/components/dialog?hl=es-419\&authuser=1}.
+
+    \bibitem{}
+    GitHub.
+	\newblock OSMdroid \\
+	\newblock Disponible en \textit{https://github.com/osmdroid/osmdroid/wiki/How-to-use-the-osmdroid-library-(Java)}.
+
+    \bibitem{}
+    GitHub.
+	\newblock MKergall OSMbonuspack \\
+	\newblock Disponible en \textit{https://github.com/MKergall/osmbonuspack/wiki/ApplicationsUsingOSMBonusPack}.
+    
+
+\end{thebibliography}
+
+
+\end{document}
